@@ -1,5 +1,5 @@
 import os
 
-print("Hello world.")
+print("Hello world ;,k,snklsnq;nd.")
 
 os.system("pause")
