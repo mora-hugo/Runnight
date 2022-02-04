@@ -1,4 +1,4 @@
-====================================DATA FOLDER====================================
+# DATA FOLDER
 
 
 This folder contains sprites of the multiple assets,
