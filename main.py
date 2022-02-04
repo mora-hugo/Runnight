@@ -1,8 +1,9 @@
-from Menu import Menu
+from View.Menu import Menu
 import os
 
 print("Hello world.")
 
-Menu = Menu()
+menu = Menu()
+
 
 os.system("pause")
