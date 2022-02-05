@@ -1,4 +1,6 @@
 import psycopg2
+
+
 class BDDSCORE():
     def __init__(self):
         self.conn = self.connect()
