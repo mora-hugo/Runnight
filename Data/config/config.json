@@ -1,0 +1,26 @@
+{
+    "Player": {      
+        "hp": 100, 
+        "animations": {
+            "fastrun" : {
+                "path" : "Data/sprites/player/fastrun/",
+                "lenght" : 32
+            },
+            "jump" : {
+                "path" : "Data/sprites/player/jump/",
+                "lenght" : 37
+            },
+            "idle" : {
+                "path" : "Data/sprites/player/idle/",
+                "lenght" : 20
+            }            
+        } 
+    },
+    "Bindings": {
+        "jump": "K_UP",
+        "crouch": "K_DOWN",
+        "right": "K_RIGHT",
+        "left": "K_LEFT",
+        "use": "K_ENTER"
+    }
+}
