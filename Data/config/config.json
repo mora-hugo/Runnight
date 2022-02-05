@@ -1,20 +1,28 @@
 {
     "Player": {      
         "hp": 100, 
-        "animations": {
-            "fastrun" : {
+        "animations": [
+            {
+                "name" : "fastrun",
                 "path" : "Data/sprites/player/fastrun/",
                 "lenght" : 32
             },
-            "jump" : {
+            {
+                "name" : "jump",
                 "path" : "Data/sprites/player/jump/",
                 "lenght" : 37
             },
-            "idle" : {
+            {
+                "name" : "idle",
                 "path" : "Data/sprites/player/idle/",
                 "lenght" : 20
-            }            
-        } 
+            },
+            {
+                "name" : "runtostop",
+                "path" : "Data/sprites/player/runtostop/",
+                "lenght" : 52
+            }   
+        ]
     },
     "Bindings": {
         "jump": "K_UP",
