@@ -20,22 +20,26 @@ class Player(pygame.sprite.Sprite):
         self.currentSprite = 0
         self.animationRate = 0.1
 
-        self.currentAnimation = 'idle'
+        self.animations = {}
+
+        self.loadAnimations()
 
         self.playAnimation('idle',0.1)
 
+        self.runtostop = False
+
+    def loadAnimations(self):
+        for i in self.data['Player']['animations']:
+            animPath = i['path']
+            animLenght = i['lenght']
+            self.animations[i['name']] = []
+            for y in range(animLenght):
+                self.animations[i['name']].append(pygame.image.load(animPath + str(y+1) + '.png'))
+
     def playAnimation(self, animation, rate):
-        self.currentAnimation = animation
+        self.sprites = self.animations[animation]
         self.animationRate = rate
-        jsonAnimElem = self.data['Player']['animations'][animation]
-        animPath = jsonAnimElem['path']
-        animLenght = jsonAnimElem['lenght']
-        self.sprites = []
         self.currentSprite = 0
-        for i in range(animLenght):
-           self.sprites.append(pygame.image.load(animPath + str(i+1) + '.png'))
-
-
         self.image = self.sprites[self.currentSprite]
 
         self.rect = self.image.get_rect()
@@ -45,12 +49,16 @@ class Player(pygame.sprite.Sprite):
         if event.type == pygame.KEYDOWN:
             self.playAnimation('fastrun',0.4)
         if event.type == pygame.KEYUP:
-            self.playAnimation('idle',0.1)
+            self.playAnimation('runtostop',0.4)
+            self.runtostop = True
 
     def update(self):
         self.currentSprite += self.animationRate
 
         if self.currentSprite >= len(self.sprites):
+            if self.runtostop == True:
+                self.playAnimation('idle',0.1)
+                self.runtostop = False
             self.currentSprite = 0
 
         self.image = self.sprites[int(self.currentSprite)]

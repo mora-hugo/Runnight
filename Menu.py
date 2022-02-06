@@ -62,6 +62,7 @@ class Menu:
 
     def quitter(self):
         self.cacher()
+        quit()
     def regles(self):
         print("Voici les regles")
     def commencer(self):
