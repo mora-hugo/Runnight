@@ -27,14 +27,19 @@
                 "name": "runtostop",
                 "path": "Data/sprites/player/runtostop/",
                 "lenght": 52
+            },
+            {
+                "name": "turn",
+                "path": "Data/sprites/player/turn/",
+                "lenght": 61
             }
         ]
     },
     "Bindings": {
         "jump": 1073741906,
         "crouch": 1073742048,
-        "right": 100,
-        "left": 97,
+        "right": 1073741904,
+        "left": 106,
         "use": 13
     },
     "Background_images": {
