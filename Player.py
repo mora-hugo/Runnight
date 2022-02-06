@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.loadAnimations()
 
         self.isRunning = False
+        self.direction = 'left'
 
         self.playAnimation('idle',0.4)
 
@@ -45,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.sprites = self.animations[animation]
         self.animationRate = rate
         self.currentSprite = 0
-        self.image = self.sprites[self.currentSprite]
+        #self.image = self.sprites[self.currentSprite]
 
         self.rect = self.image.get_rect()
         self.rect.topleft = self.coordinates
@@ -55,6 +56,13 @@ class Player(pygame.sprite.Sprite):
             if self.isRunning == False:
                 self.playAnimation('fastrun',0.9)
                 self.isRunning = True
+                self.direction = 'left'
+
+        if self.jeu.key_pressed[self.data['Bindings']['right']] == True:
+            if self.isRunning == False:
+                self.playAnimation('fastrun',0.9)
+                self.isRunning = True
+                self.direction = 'right'
 
         if event.type == pygame.KEYUP:
             self.playAnimation('runtostop',0.9)
@@ -63,6 +71,16 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.currentSprite += self.animationRate
+
+        if self.isRunning == True and self.direction == 'left':
+            y = list(self.coordinates)
+            y[0] -= 1
+            self.coordinates = tuple(y)
+
+        if self.isRunning == True and self.direction == 'right':
+            y = list(self.coordinates)
+            y[0] += 1
+            self.coordinates = tuple(y)
 
         if self.currentSprite >= len(self.sprites):
             if self.runtostop == True:
@@ -74,7 +92,15 @@ class Player(pygame.sprite.Sprite):
                 self.stoptorun = False
             self.currentSprite = 0
 
-        self.image = self.sprites[int(self.currentSprite)]
+        if self.direction == 'right':
+            self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+        if self.direction == 'left':
+            self.image = self.sprites[int(self.currentSprite)]
+
+
+        self.rect.topleft = self.coordinates
+
+
 
     def updateJson(self):
         f = open('Data/config/config.json',"r")

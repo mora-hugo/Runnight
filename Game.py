@@ -76,7 +76,6 @@ class Game(): #Design pattern singleton
         elif self.currentMenu == "gameMenu":
             self.playground.update_background()
     def update(self):
-        print(self.key_pressed)
         if self.isMapping == True:
             self.mapping()
         self.update_backgrounds()
