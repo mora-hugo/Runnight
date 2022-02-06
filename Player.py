@@ -1,5 +1,6 @@
 import pygame
 import json
+import Game as game
 
 
 class Player(pygame.sprite.Sprite):
@@ -28,6 +29,8 @@ class Player(pygame.sprite.Sprite):
 
         self.runtostop = False
 
+        self.jeu = game.Game.get_instance() #Creation instance jeu
+
     def loadAnimations(self):
         for i in self.data['Player']['animations']:
             animPath = i['path']
@@ -45,9 +48,12 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = self.coordinates
 
-    def action(self, event):
-        if event.type == pygame.KEYDOWN:
+    def action(self,event):
+        if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
             self.playAnimation('fastrun',0.4)
+
+        #if event.type == pygame.KEYDOWN:
+            
         if event.type == pygame.KEYUP:
             self.playAnimation('runtostop',0.4)
             self.runtostop = True

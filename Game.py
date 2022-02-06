@@ -32,6 +32,12 @@ class Game(): #Design pattern singleton
             self.data = json.load(f)
             self.isMapping = False
 
+            self.load_keys()
+
+    def load_keys(self):
+        for i in self.data['Bindings']:
+            self.key_pressed[self.data['Bindings'][i]] = False
+
     def update_background(self):
         self.screen.blit(self.background_image,(0,0))
 
