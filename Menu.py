@@ -36,7 +36,7 @@ class Menu:
         self.menuBidingButtons.add(bouton.Bouton(10,offset,"Retour",self.mainMenu))
 
         #Background de bg
-        self.background_image = pygame.image.load("Data/sprites/background.jpg").convert() #Chargement background
+        self.background_image = pygame.image.load(self.data["Background_images"]["mainMenu"]).convert() #Chargement background
 
 
     #Affiche les elements du menu
@@ -53,10 +53,12 @@ class Menu:
         jeu = game.Game.get_instance()
         jeu.all_sprites.remove(group_menu)
         self.update_background()
+
     def mainMenu(self):
         self.cacher(self.currentMenu)
         self.afficher(self.mainMenuButtons)
         self.currentMenu = self.mainMenuButtons
+
     def menuTouches(self):
         self.cacher(self.currentMenu)
         self.afficher(self.menuBidingButtons)
@@ -77,4 +79,10 @@ class Menu:
     def regles(self):
         print("Voici les regles")
     def commencer(self):
-        print("commencer")
+        self.cacher()
+        self.startGame()
+
+    def startGame(self):
+        jeu = game.Game.get_instance()
+        jeu.playground.update_background()
+        jeu.currentMenu = "gameMenu"
