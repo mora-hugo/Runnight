@@ -22,14 +22,12 @@ except ValueError:
 
 
 #player instanciation
-player = Player((400,-100))
-jeu.all_sprites.add(player)
 
 while True:
     #event
     for event in pygame.event.get():
         jeu.get_keys(event)
-        player.action(event)
+        jeu.player.action(event)
         if event.type == pygame.QUIT:
             quit()
     if jeu.isMapping :

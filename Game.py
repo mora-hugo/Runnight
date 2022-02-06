@@ -2,6 +2,7 @@ from html import entities
 import pygame
 import Menu
 import json
+import Player
 
 class Game(): #Design pattern singleton
     instance = None
@@ -34,6 +35,10 @@ class Game(): #Design pattern singleton
 
             self.load_keys()
 
+            #Joueur
+            self.player = Player.Player((400,-100),self)
+            self.all_sprites.add(self.player)
+
     def load_keys(self):
         for i in self.data['Bindings']:
             self.key_pressed[self.data['Bindings'][i]] = False
@@ -58,6 +63,8 @@ class Game(): #Design pattern singleton
                 file = open('Data/config/config.json',"w")
                 self.isMapping = False
                 json.dump(self.menu.data,file,indent=4)
+                file.close()
+                self.player.updateJson()
 
     def update(self):
         print(self.key_pressed)

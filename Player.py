@@ -4,12 +4,11 @@ import Game as game
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, coordinates):
+    def __init__(self, coordinates,game):
         super().__init__()
 
-        f = open('Data/config/config.json')
-        self.data = json.load(f)
 
+        self.updateJson()
 
         self.coordinates = coordinates
         self.hp = self.data['Player']['hp']
@@ -32,7 +31,7 @@ class Player(pygame.sprite.Sprite):
         self.runtostop = False
         self.stoptorun = False
 
-        self.jeu = game.Game.get_instance() #Creation instance jeu
+        self.jeu = game #Creation instance jeu
 
     def loadAnimations(self):
         for i in self.data['Player']['animations']:
@@ -56,7 +55,7 @@ class Player(pygame.sprite.Sprite):
             if self.isRunning == False:
                 self.playAnimation('fastrun',0.4)
                 self.isRunning = True
-            
+
         if event.type == pygame.KEYUP:
             self.playAnimation('runtostop',0.4)
             self.runtostop = True
@@ -75,3 +74,8 @@ class Player(pygame.sprite.Sprite):
             self.currentSprite = 0
 
         self.image = self.sprites[int(self.currentSprite)]
+
+    def updateJson(self):
+        f = open('Data/config/config.json',"r")
+        self.data = json.load(f)
+        f.close()
