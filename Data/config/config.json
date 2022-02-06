@@ -5,6 +5,8 @@
     },
     "Player": {
         "hp": 100,
+        "speed_x": 8,
+        "speed_y": 5,
         "animations": [
             {
                 "name": "fastrun",
@@ -31,12 +33,12 @@
     "Bindings": {
         "jump": 1073741906,
         "crouch": 1073742048,
-        "right": 113,
-        "left": 113,
+        "right": 100,
+        "left": 97,
         "use": 13
     },
-    "Background_images" : {
-      "mainMenu" : "Data/sprites/background.jpg",
-      "gameMenu" : "Data/sprites/game_background.jpg"
+    "Background_images": {
+        "mainMenu": "Data/sprites/background.jpg",
+        "gameMenu": "Data/sprites/game_background.jpg"
     }
 }

@@ -38,7 +38,7 @@ class Game(): #Design pattern singleton
             self.load_keys()
 
             #Joueur
-            self.player = Player.Player((400,-100),self)
+            self.player = Player.Player((400,500),self)
             self.all_sprites.add(self.player)
 
             self.currentMenu = "mainMenu"

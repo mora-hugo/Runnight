@@ -15,10 +15,14 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface([20,20])
         self.rect = self.image.get_rect()
         self.rect.topleft = coordinates
+        self.playerScale = (150,275)
 
         self.sprites = []
         self.currentSprite = 0
         self.animationRate = 0.1
+
+        self.speed_x = self.data['Player']["speed_x"]
+        self.speed_y = self.data['Player']["speed_y"]
 
         self.animations = {}
 
@@ -40,7 +44,9 @@ class Player(pygame.sprite.Sprite):
             animLenght = i['lenght']
             self.animations[i['name']] = []
             for y in range(animLenght):
-                self.animations[i['name']].append(pygame.image.load(animPath + str(y+1) + '.png').convert_alpha())
+                img = pygame.image.load(animPath + str(y+1) + '.png').convert_alpha()
+                img = pygame.transform.scale(img,self.playerScale)
+                self.animations[i['name']].append(img)
 
     def playAnimation(self, animation, rate):
         self.sprites = self.animations[animation]
@@ -56,12 +62,14 @@ class Player(pygame.sprite.Sprite):
             if self.isRunning == False:
                 self.playAnimation('fastrun',0.9)
                 self.isRunning = True
+                self.runtostop = False
                 self.direction = 'left'
 
         if self.jeu.key_pressed[self.data['Bindings']['right']] == True:
             if self.isRunning == False:
                 self.playAnimation('fastrun',0.9)
                 self.isRunning = True
+                self.runtostop = False
                 self.direction = 'right'
 
         if event.type == pygame.KEYUP:
@@ -72,15 +80,18 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.currentSprite += self.animationRate
 
-        if self.isRunning == True and self.direction == 'left':
-            y = list(self.coordinates)
-            y[0] -= 1
-            self.coordinates = tuple(y)
+        if self.isRunning == True:
+            if self.direction == 'left':
+                self.speed_x = self.data['Player']["speed_x"]
+                y = list(self.coordinates)
+                y[0] -= self.speed_x
+                self.coordinates = tuple(y)
 
-        if self.isRunning == True and self.direction == 'right':
-            y = list(self.coordinates)
-            y[0] += 1
-            self.coordinates = tuple(y)
+            if self.direction == 'right':
+                self.speed_x = self.data['Player']["speed_x"]
+                y = list(self.coordinates)
+                y[0] += self.speed_x
+                self.coordinates = tuple(y)
 
         if self.currentSprite >= len(self.sprites):
             if self.runtostop == True:
@@ -97,7 +108,23 @@ class Player(pygame.sprite.Sprite):
         if self.direction == 'left':
             self.image = self.sprites[int(self.currentSprite)]
 
+        if self.runtostop == True:
+            
+            if self.speed_x > 0:
+                self.speed_x -=0.4
+            if self.direction == 'left':
+                y = list(self.coordinates)
+                y[0] -= self.speed_x
+                self.coordinates = tuple(y)
 
+            if self.direction == 'right':
+                y = list(self.coordinates)
+                y[0] += self.speed_x
+                self.coordinates = tuple(y)
+            
+            
+
+        
         self.rect.topleft = self.coordinates
 
 
