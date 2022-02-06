@@ -35,12 +35,12 @@ class Player(pygame.sprite.Sprite):
         for i in range(animLenght):
            self.sprites.append(pygame.image.load(animPath + str(i+1) + '.png'))
 
-        
+
         self.image = self.sprites[self.currentSprite]
 
         self.rect = self.image.get_rect()
         self.rect.topleft = self.coordinates
-    
+
     def action(self, event):
         if event.type == pygame.KEYDOWN:
             self.playAnimation('fastrun',0.4)
@@ -54,8 +54,3 @@ class Player(pygame.sprite.Sprite):
             self.currentSprite = 0
 
         self.image = self.sprites[int(self.currentSprite)]
-
-
-
-
-        

@@ -9,6 +9,11 @@ import pygame
 jeu = game.Game.get_instance() #Creation instance jeu
 jeu.menu.afficher() # Afficher le menu
 
+
+
+
+
+
 #bdd load
 try:
     bddScore = BDDSCORE()
@@ -16,19 +21,17 @@ except ValueError:
     bddScore = False
 
 
-#player instenciation
+#player instanciation
 player = Player((400,-100))
 jeu.all_sprites.add(player)
 
 while True:
     #event
     for event in pygame.event.get():
+        jeu.get_keys(event)
         player.action(event)
         if event.type == pygame.QUIT:
-            quit() 
-
-    jeu.update_background()
-    jeu.all_sprites.draw(jeu.screen)
-    jeu.all_sprites.update()
-    pygame.display.flip()
-
+            quit()
+    if jeu.isMapping :
+        jeu.mapping()
+    jeu.update()

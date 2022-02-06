@@ -24,12 +24,39 @@ class Game(): #Design pattern singleton
             self.background_image = pygame.image.load("Data/sprites/background.jpg").convert() #Chargement background
             self.screen.blit(self.background_image,(0,0))
 
+            #Toutes les touches pressés par le joueur
+            self.key_pressed = {}
+
             #config file load
             f = open('Data/config/config.json')
             self.data = json.load(f)
+            self.isMapping = False
 
     def update_background(self):
         self.screen.blit(self.background_image,(0,0))
 
-    
-        
+    def get_keys(self,event):
+        if event.type == pygame.KEYDOWN:
+            self.key_pressed[event.key] = True
+        elif event.type == pygame.KEYUP:
+            self.key_pressed[event.key] = False
+
+    def mapping(self):
+
+        key_pressed = self.menu.data["Bindings"][self.menu.lastClickedButton.touche]
+        for key in self.key_pressed:
+            if self.key_pressed[key] == True:
+                key_pressed = key
+                self.menu.lastClickedButton.updateKey(self.menu.lastClickedButton.touche,key)
+                self.menu.data["Bindings"][self.menu.lastClickedButton.touche] = key_pressed
+                file = open('Data/config/config.json',"w")
+                self.isMapping = False
+                json.dump(self.menu.data,file,indent=4)
+
+    def update(self):
+        if self.isMapping == True:
+            self.mapping()
+        self.update_background()
+        self.all_sprites.draw(self.screen)
+        self.all_sprites.update()
+        pygame.display.flip()

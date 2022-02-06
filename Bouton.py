@@ -1,7 +1,7 @@
 import pygame
+import Game
 
-
-class Bouton(pygame.sprite.Sprite): 
+class Bouton(pygame.sprite.Sprite):
     def __init__(self,x,y,text,func):
         pygame.sprite.Sprite.__init__(self)
         self.fonts = pygame.font.SysFont('comicsansms', 36)
@@ -24,6 +24,17 @@ class Bouton(pygame.sprite.Sprite):
             return True
         else:
             return False
-    def update(self):
+    def testFunc(self):
         if self.isClicked():
+            Game.Game.get_instance().menu.lastClickedButton = self
             self.func()
+
+    def updateText(self,text):
+        self.image = self.fonts.render(text, True, (170, 170, 170))
+        x = self.rect.x
+        y = self.rect.y
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    def update(self):
+        self.testFunc()
