@@ -25,9 +25,12 @@ class Player(pygame.sprite.Sprite):
 
         self.loadAnimations()
 
+        self.isRunning = False
+
         self.playAnimation('idle',0.1)
 
         self.runtostop = False
+        self.stoptorun = False
 
         self.jeu = game.Game.get_instance() #Creation instance jeu
 
@@ -50,13 +53,14 @@ class Player(pygame.sprite.Sprite):
 
     def action(self,event):
         if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
-            self.playAnimation('fastrun',0.4)
-
-        #if event.type == pygame.KEYDOWN:
+            if self.isRunning == False:
+                self.playAnimation('fastrun',0.4)
+                self.isRunning = True
             
         if event.type == pygame.KEYUP:
             self.playAnimation('runtostop',0.4)
             self.runtostop = True
+            self.isRunning = False
 
     def update(self):
         self.currentSprite += self.animationRate
@@ -65,6 +69,9 @@ class Player(pygame.sprite.Sprite):
             if self.runtostop == True:
                 self.playAnimation('idle',0.1)
                 self.runtostop = False
+            elif self.stoptorun == True:
+                self.playAnimation('fastrun',0.4)
+                self.stoptorun = False
             self.currentSprite = 0
 
         self.image = self.sprites[int(self.currentSprite)]

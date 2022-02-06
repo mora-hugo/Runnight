@@ -60,6 +60,7 @@ class Game(): #Design pattern singleton
                 json.dump(self.menu.data,file,indent=4)
 
     def update(self):
+        print(self.key_pressed)
         if self.isMapping == True:
             self.mapping()
         self.update_background()
