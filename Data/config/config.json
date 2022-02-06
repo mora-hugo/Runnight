@@ -1,4 +1,8 @@
 {
+    "Settings": {
+        "WIDTH": 1024,
+        "HEIGHT": 768
+    },
     "Player": {
         "hp": 100,
         "animations": [
@@ -27,8 +31,12 @@
     "Bindings": {
         "jump": 1073741906,
         "crouch": 1073742048,
-        "right": 106,
-        "left": 106,
+        "right": 113,
+        "left": 113,
         "use": 13
+    },
+    "Background_images" : {
+      "mainMenu" : "Data/sprites/background.jpg",
+      "gameMenu" : "Data/sprites/game_background.jpg"
     }
 }
