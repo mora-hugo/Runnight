@@ -3,6 +3,7 @@ import pygame
 import Menu
 import json
 import Player
+import Playground
 
 class Game(): #Design pattern singleton
     instance = None
@@ -22,6 +23,7 @@ class Game(): #Design pattern singleton
             self.screen = pygame.display.set_mode((1024,768)) # taille + mode , ...
             self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
             self.menu = Menu.Menu() # Creer menu
+            self.playground = Playground.Playground()
 
             self.screen.blit(self.menu.background_image,(0,0))
 
@@ -38,6 +40,8 @@ class Game(): #Design pattern singleton
             #Joueur
             self.player = Player.Player((400,-100),self)
             self.all_sprites.add(self.player)
+
+            self.currentMenu = "mainMenu"
 
     def load_keys(self):
         for i in self.data['Bindings']:
@@ -65,10 +69,17 @@ class Game(): #Design pattern singleton
                 file.close()
                 self.player.updateJson()
 
+
+    def update_backgrounds(self):
+        if self.currentMenu == "mainMenu":
+            self.menu.update_background()
+        elif self.currentMenu == "gameMenu":
+            self.playground.update_background()
     def update(self):
         if self.isMapping == True:
             self.mapping()
-        self.menu.update_background()
+        self.update_backgrounds()
         self.all_sprites.draw(self.screen)
+    
         self.all_sprites.update()
         pygame.display.flip()
