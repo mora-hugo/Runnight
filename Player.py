@@ -67,7 +67,8 @@ class Player(pygame.sprite.Sprite):
 
         if self.currentSprite >= len(self.sprites):
             if self.runtostop == True:
-                self.playAnimation('idle',0.1)
+                if self.isRunning == False:
+                    self.playAnimation('idle',0.1)
                 self.runtostop = False
             elif self.stoptorun == True:
                 self.playAnimation('fastrun',0.4)
