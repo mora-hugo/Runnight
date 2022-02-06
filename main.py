@@ -8,7 +8,7 @@ import pygame
 
 jeu = game.Game.get_instance() #Creation instance jeu
 jeu.menu.afficher() # Afficher le menu
-
+clock = pygame.time.Clock()
 
 
 
@@ -33,3 +33,4 @@ while True:
     if jeu.isMapping :
         jeu.mapping()
     jeu.update()
+    clock.tick(60)
