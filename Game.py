@@ -22,8 +22,8 @@ class Game(): #Design pattern singleton
             self.screen = pygame.display.set_mode((1024,768)) # taille + mode , ...
             self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
             self.menu = Menu.Menu() # Creer menu
-            self.background_image = pygame.image.load("Data/sprites/background.jpg").convert() #Chargement background
-            self.screen.blit(self.background_image,(0,0))
+
+            self.screen.blit(self.menu.background_image,(0,0))
 
             #Toutes les touches pressés par le joueur
             self.key_pressed = {}
@@ -43,8 +43,7 @@ class Game(): #Design pattern singleton
         for i in self.data['Bindings']:
             self.key_pressed[self.data['Bindings'][i]] = False
 
-    def update_background(self):
-        self.screen.blit(self.background_image,(0,0))
+
 
     def get_keys(self,event):
         if event.type == pygame.KEYDOWN:
@@ -70,7 +69,7 @@ class Game(): #Design pattern singleton
         print(self.key_pressed)
         if self.isMapping == True:
             self.mapping()
-        self.update_background()
+        self.menu.update_background()
         self.all_sprites.draw(self.screen)
         self.all_sprites.update()
         pygame.display.flip()

@@ -34,6 +34,11 @@ class Menu:
             self.menuBidingButtons.add(btn) #self.text = fonction associe au bouton
             offset += 100
         self.menuBidingButtons.add(bouton.Bouton(10,offset,"Retour",self.mainMenu))
+
+        #Background de bg
+        self.background_image = pygame.image.load("Data/sprites/background.jpg").convert() #Chargement background
+
+
     #Affiche les elements du menu
     def afficher(self,group_menu = None):
         if group_menu == None: # si pas de menu rentré, alors mettre le menu de base
@@ -47,7 +52,7 @@ class Menu:
             group_menu = self.mainMenuButtons
         jeu = game.Game.get_instance()
         jeu.all_sprites.remove(group_menu)
-        jeu.update_background()
+        self.update_background()
     def mainMenu(self):
         self.cacher(self.currentMenu)
         self.afficher(self.mainMenuButtons)
@@ -63,8 +68,8 @@ class Menu:
             self.lastClickedButton.updateText(self.lastClickedButton.touche + " : ...") #Pour montrer que le changement est en cours
             jeu.isMapping = True
 
-
-
+    def update_background(self):
+        game.Game.get_instance().screen.blit(self.background_image,(0,0))
 
     def quitter(self):
         self.cacher()

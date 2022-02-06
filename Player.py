@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
             animLenght = i['lenght']
             self.animations[i['name']] = []
             for y in range(animLenght):
-                self.animations[i['name']].append(pygame.image.load(animPath + str(y+1) + '.png'))
+                self.animations[i['name']].append(pygame.image.load(animPath + str(y+1) + '.png').convert_alpha())
 
     def playAnimation(self, animation, rate):
         self.sprites = self.animations[animation]
