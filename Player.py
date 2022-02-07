@@ -73,9 +73,11 @@ class Player(pygame.sprite.Sprite):
                 self.direction = 'right'
 
         if event.type == pygame.KEYUP:
-            self.playAnimation('runtostop',0.9)
-            self.runtostop = True
-            self.isRunning = False
+            
+            if event.key == self.data['Bindings']['right'] or event.key == self.data['Bindings']['left']:
+                self.playAnimation('runtostop',0.9)
+                self.runtostop = True
+                self.isRunning = False
 
     def update(self):
         self.currentSprite += self.animationRate
