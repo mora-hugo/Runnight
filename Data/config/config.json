@@ -7,14 +7,14 @@
         "hp": 100,
         "speed_x": 8,
         "speed_y": 0,
-        "gravity": 5,
+        "gravity": 10,
         "width": 80,
         "height": 214,
         "animations": [
             {
                 "name": "fastrun",
                 "path": "Data/sprites/player/fastrun/",
-                "lenght": 32
+                "lenght": 33
             },
             {
                 "name": "jump",
