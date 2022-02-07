@@ -65,6 +65,11 @@
                 "name": "roll",
                 "path": "Data/sprites/player/roll/",
                 "lenght": 85
+            },
+            {
+                "name": "hit_wall",
+                "path": "Data/sprites/player/hit_wall/",
+                "lenght": 38
             }
         ]
     },
