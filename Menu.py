@@ -3,12 +3,13 @@ import Bouton as bouton
 import BoutonTouche as boutonT
 import Game as game
 import json
+import Classement
 
 
 
 
 class Menu:
-    def __init__(self):
+    def __init__(self,jeu):
         # Tableaux contenant tous les boutons du menu
         self.mainMenuButtons = pygame.sprite.Group()
         # Tableaux contenant tous les boutons des binds
@@ -37,8 +38,10 @@ class Menu:
 
         #Background de bg
         self.background_image = pygame.image.load(self.data["Background_images"]["mainMenu"]).convert() #Chargement background
-
-
+        classement = Classement.Classement(jeu)
+        classement.initSprites()
+        self.mainMenuButtons.add(classement.getScores())
+        
     #Affiche les elements du menu
     def afficher(self,group_menu = None):
         if group_menu == None: # si pas de menu rentré, alors mettre le menu de base

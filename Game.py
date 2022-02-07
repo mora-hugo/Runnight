@@ -22,10 +22,10 @@ class Game(): #Design pattern singleton
             pygame.init()
             pygame.display.set_caption("WATIBJEU") # Nom de la fenetre
             self.screen = pygame.display.set_mode((1024,768)) # taille + mode , ...
-            barre = Chargement.Chargement(self.screen,"Chargement menu")
-            self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
             
-            self.menu = Menu.Menu() # Creer menu
+            self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
+            barre = Chargement.Chargement(self.screen,"Chargement menu")
+            self.menu = Menu.Menu(self) # Creer menu
             barre.update(20,"Chargement de l'environnement de jeu")
             self.playground = Playground.Playground(self.screen)
             
@@ -85,6 +85,6 @@ class Game(): #Design pattern singleton
             self.mapping()
         self.update_backgrounds()
         self.all_sprites.draw(self.screen)
-    
+
         self.all_sprites.update()
         pygame.display.flip()

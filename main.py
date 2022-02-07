@@ -16,11 +16,6 @@ clock = pygame.time.Clock()
 
 
 #bdd load
-#try:
-#    bddScore = BDDSCORE()
-#except ValueError:
-#    bddScore = False
-#print("bdd ok")
 
 #player instanciation
 
