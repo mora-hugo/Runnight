@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.stoptorun = False
 
         self.jeu = game #Creation instance jeu
-
+        
     def loadAnimations(self):
         for i in self.data['Player']['animations']:
             animPath = i['path']
@@ -74,15 +74,27 @@ class Player(pygame.sprite.Sprite):
     def isOnGround(self):
         for sprite in game.Game.get_instance().all_sprites:
             if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x , self.rect.y + 1,self.data['Player']['width'],self.data['Player']['height'])):
+                
                 return True
         return False
 
-    def collision(self):
+    def collisionY(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x + self.speed_x, self.rect.y,self.data['Player']['width'],self.data['Player']['height'])):
-                self.speed_x = 0
+            
             if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x , self.rect.y + self.speed_y,self.data['Player']['width'],self.data['Player']['height'])):
                 self.speed_y = 0
+                
+
+    def collisionX(self,direction):
+        for sprite in game.Game.get_instance().all_sprites:
+            if direction == "left":
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left, self.rect.y-10 ,self.data['Player']['width'],self.data['Player']['height'])):
+                    return True
+            else:
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+self.data['Player']['width']/2+5, self.rect.y-10 ,self.data['Player']['width'],self.data['Player']['height'])):
+                    return True
+        return False
+                
 
     def action(self,event):
         if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
@@ -122,18 +134,18 @@ class Player(pygame.sprite.Sprite):
                 nouvPos[1] += self.speed_y
                 self.coordinates = tuple(nouvPos)
             
-            self.collision()
+            
 
             self.currentSprite += self.animationRate
             if self.speed_y == 0 and self.isJumping == False:
                 if self.isRunning == True:
-                    if self.direction == 'left':
+                    if self.direction == 'left' and not self.collisionX("left"):
                         self.speed_x = self.data['Player']["speed_x"]
                         y = list(self.coordinates)
                         y[0] -= self.speed_x
                         self.coordinates = tuple(y)
 
-                    if self.direction == 'right':
+                    if self.direction == 'right' and not self.collisionX("right"):
                         self.speed_x = self.data['Player']["speed_x"]
                         y = list(self.coordinates)
                         y[0] += self.speed_x
@@ -159,12 +171,12 @@ class Player(pygame.sprite.Sprite):
                 if self.runtostop == True: 
                     if self.speed_x > 0:
                         self.speed_x -=0.4
-                    if self.direction == 'left':
+                    if self.direction == 'left' and not self.collisionX("left"):
                         y = list(self.coordinates)
                         y[0] -= self.speed_x
                         self.coordinates = tuple(y)
 
-                    if self.direction == 'right':
+                    if self.direction == 'right' and not self.collisionX("right"):
                         y = list(self.coordinates)
                         y[0] += self.speed_x
                         self.coordinates = tuple(y)
@@ -196,7 +208,7 @@ class Player(pygame.sprite.Sprite):
             
             
             
-            
+            self.collisionY()
             self.rect.topleft = self.coordinates
 
 

@@ -82,7 +82,7 @@
         "crouch": 1073741881,
         "right": 100,
         "left": 113,
-        "use": 101
+        "use": 13
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background/MenuBg.png",

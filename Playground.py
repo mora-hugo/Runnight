@@ -64,7 +64,8 @@ class Playground:
 
     def generateWorld(self,biome,night):
         self.decor.spawnDecor('ground_1',0,600,1024,500)
-
+        self.decor.spawnDecor('ground_1',600,0,100,1000)
+        self.decor.spawnDecor('ground_1',0,0,100,1000)
     def quitter(self):
         self.cacher()
         quit()
