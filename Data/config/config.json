@@ -49,9 +49,14 @@
                 "lenght": 40
             },
             {
-                "name": "turn_run",
+                "name": "pick_up",
                 "path": "Data/sprites/player/pick_up/",
                 "lenght": 73
+            },
+            {
+                "name": "soft_landing",
+                "path": "Data/sprites/player/soft_landing/",
+                "lenght": 65
             }
         ]
     },
