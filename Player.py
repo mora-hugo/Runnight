@@ -139,7 +139,6 @@ class Player(pygame.sprite.Sprite):
                 self.coordinates = tuple(nouvPos)
 
                        
-            #self.collision()
 
             self.currentSprite += self.animationRate
 
@@ -162,9 +161,9 @@ class Player(pygame.sprite.Sprite):
 
                     elif self.speed_x > 0:
                         self.speed_x -= 0.1
-                    if self.direction == 'left':    
+                    if self.direction == 'left' and not self.collisionX('left'):    
                         nouvPos[0] -= self.speed_x
-                    if self.direction == 'right':
+                    if self.direction == 'right' and not self.collisionX('right'):
                         nouvPos[0] += self.speed_x
 
                 elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping:
@@ -190,10 +189,12 @@ class Player(pygame.sprite.Sprite):
                     if self.speed_x > 0:
                         self.speed_x -=0.4
                     if self.direction == 'left':
-                        nouvPos[0] -= self.speed_x
+                        if not self.collisionX('left'):
+                            nouvPos[0] -= self.speed_x
 
                     if self.direction == 'right':
-                        nouvPos[0] += self.speed_x
+                        if not self.collisionX('right'):
+                            nouvPos[0] += self.speed_x
 
                     
 
@@ -231,10 +232,12 @@ class Player(pygame.sprite.Sprite):
 
                 if self.direction == 'right':
                     self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
-                    nouvPos[0] += self.speed_x
+                    if not self.collisionX('right'):
+                        nouvPos[0] += self.speed_x
                 if self.direction == 'left':
                     self.image = self.sprites[int(self.currentSprite)]
-                    nouvPos[0] -= self.speed_x
+                    if not self.collisionX('left'):
+                        nouvPos[0] -= self.speed_x
 
                     
                     
