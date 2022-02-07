@@ -5,7 +5,7 @@ import json
 
 
 class Playground:
-    def __init__(self):
+    def __init__(self, screen):
         # Tableaux contenant tous les boutons du menu
         self.echapMenuButtons = pygame.sprite.Group()
 
@@ -26,8 +26,10 @@ class Playground:
         #Background de bg
         self.background_image = pygame.image.load(self.data["Background_images"]["gameMenu"]).convert() #Chargement background
 
-        #Ajout collider
         self.ground = pygame.Rect(0,550,1024,500)
+        pygame.draw.rect(screen,(255,255,255),self.ground)
+        
+
 
 
     #Affiche les elements du menu

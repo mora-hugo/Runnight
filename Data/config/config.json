@@ -45,6 +45,13 @@
             }
         ]
     },
+    "Decors": {
+        "ground_1": {
+            "height" : 10,
+            "width" : 10,
+            "img" : "Data/sprites/grounds/ground_1.png"
+        }
+    },  
     "Bindings": {
         "jump": 32,
         "crouch": 1073742048,

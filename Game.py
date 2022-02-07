@@ -27,7 +27,7 @@ class Game(): #Design pattern singleton
             
             self.menu = Menu.Menu() # Creer menu
             barre.update(20,"Chargement de l'environnement de jeu")
-            self.playground = Playground.Playground()
+            self.playground = Playground.Playground(self.screen)
             
             self.screen.blit(self.menu.background_image,(0,0))
 
