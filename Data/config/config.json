@@ -7,6 +7,9 @@
         "hp": 100,
         "speed_x": 8,
         "speed_y": 0,
+        "gravity": 5,
+        "width": 80,
+        "height": 214,
         "animations": [
             {
                 "name": "fastrun",
@@ -65,18 +68,20 @@
             }
         ]
     },
-    "Decors": {
-        "ground_1": {
+    "Decors": [
+        {
+            "name": "ground_1",
             "height": 10,
             "width": 10,
-            "img": "Data/sprites/grounds/ground_1.png"
+            "img": "Data/sprites/grounds/ground_1.png",
+            "animation": "None"
         }
-    },
+    ],
     "Bindings": {
         "jump": 32,
         "crouch": 1073742048,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "use": 13
     },
     "Background_images": {

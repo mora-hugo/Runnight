@@ -5,7 +5,10 @@ import json
 
 
 class Playground:
-    def __init__(self, screen):
+    def __init__(self, screen, game):
+        self.game = game
+        self.decor = game.decor
+
         # Tableaux contenant tous les boutons du menu
         self.echapMenuButtons = pygame.sprite.Group()
 
@@ -58,6 +61,9 @@ class Playground:
 
     def update_background(self):
         game.Game.get_instance().screen.blit(self.background_image,(0,0))
+
+    def generateWorld(self,biome,night):
+        self.decor.spawnDecor('ground_1',0,600,1024,500)
 
     def quitter(self):
         self.cacher()

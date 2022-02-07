@@ -10,6 +10,7 @@ class Bouton(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.func = func # Fonction mis en parametre
+        self.collider = False
 
     def isClicked(self): # Si la souris clique sur le bouton
         mouse = pygame.mouse.get_pos()

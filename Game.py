@@ -5,6 +5,7 @@ import json
 import Player
 import Playground
 import Chargement
+import Decor
 
 class Game(): #Design pattern singleton
     instance = None
@@ -27,7 +28,7 @@ class Game(): #Design pattern singleton
             barre = Chargement.Chargement(self.screen,"Chargement menu")
             self.menu = Menu.Menu(self) # Creer menu
             barre.update(20,"Chargement de l'environnement de jeu")
-            self.playground = Playground.Playground(self.screen)
+            
             
             self.screen.blit(self.menu.background_image,(0,0))
 
@@ -43,10 +44,17 @@ class Game(): #Design pattern singleton
 
             #Joueur
             barre.update(60,"Chargement joueur")
-            self.player = Player.Player((400,500),self)
+            self.player = Player.Player((400,200),self)
             self.all_sprites.add(self.player)
-            barre.update(100)
+            
             self.currentMenu = "mainMenu"
+
+            #Decor
+            barre.update(80,"Chargement décors")
+            self.decor = Decor.Decor(self)
+            barre.update(100)
+
+            self.playground = Playground.Playground(self.screen, self)
 
     def load_keys(self):
         for i in self.data['Bindings']:
@@ -73,6 +81,9 @@ class Game(): #Design pattern singleton
                 json.dump(self.menu.data,file,indent=4)
                 file.close()
                 self.player.updateJson()
+
+    def startRun(self, biome, night):
+        self.playground.generateWorld(biome,night)
 
 
     def update_backgrounds(self):
