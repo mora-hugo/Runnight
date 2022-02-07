@@ -9,7 +9,7 @@
         "speed_y": 0.1,
         "gravity": 10,
         "width": 80,
-        "height": 214,
+        "height": 212,
         "animations": [
             {
                 "name": "fastrun",
@@ -81,7 +81,7 @@
         "jump": 32,
         "crouch": 1073741881,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "use": 13
     },
     "Background_images": {

@@ -79,12 +79,12 @@ class Player(pygame.sprite.Sprite):
                 return True
         return False
 
-    def collisionY(self):
+    def collisionY(self,nouvPos):
         for sprite in game.Game.get_instance().all_sprites:
-            #if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x + self.speed_x, self.rect.y,self.data['Player']['width'],self.data['Player']['height'])):
-            #   self.speed_x = 0
             if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x , self.rect.y + self.speed_y,self.data['Player']['width'],self.data['Player']['height'])):
                 self.speed_y = 0
+                nouvPos[1] -= 1
+                self.isFlying = False
                 
 
     def collisionX(self,direction):
@@ -153,11 +153,8 @@ class Player(pygame.sprite.Sprite):
 
                 if self.isRunning == True:
                     if not self.isJumping:
-                        if self.isLanding:
-                            self.speed_x = self.data['Player']["speed_x"]/2
-                        else:
-                            self.setAnimation('fastrun',0.9)
-                            self.speed_x = self.data['Player']["speed_x"]
+                        self.setAnimation('fastrun',0.9)
+                        self.speed_x = self.data['Player']["speed_x"]
 
                     elif self.speed_x > 0:
                         self.speed_x -= 0.1
@@ -223,6 +220,9 @@ class Player(pygame.sprite.Sprite):
                     if not self.currentSprite >= len(self.sprites):
                         self.playAnimation('jumploop',3)
 
+                    if self.collisionX('left') or self.collisionX('right'):
+                        self.speed_y = 0.1
+                        self.isJumping = False
                     
 
                 else:    
@@ -243,13 +243,15 @@ class Player(pygame.sprite.Sprite):
                     
                         
 
-                
-                
+            if self.collisionX('left'):
+                nouvPos[0] += 1
 
+            if self.collisionX('right'):
+                nouvPos[0] -= 1
             
             
             
-            self.collisionY()
+            self.collisionY(nouvPos)
             self.coordinates = tuple(nouvPos)
             self.rect.topleft = self.coordinates
 
