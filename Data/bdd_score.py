@@ -56,8 +56,8 @@ class BDDSCORE():
             self.conn.commit()
 
     def afficherScore(self): #renvoi un dictionnaire des scores
-        BDDSCORE.cursor.execute("select * from SCORE")
-        scores = BDDSCORE.cursor.fetchall()
+        self.cursor.execute("select * from SCORE ORDER BY score DESC")
+        scores = self.cursor.fetchall()
         score_dict = {}
         for score in scores:
             score_dict[score[0]] = score[1]
