@@ -79,13 +79,13 @@
     ],
     "Bindings": {
         "jump": 32,
-        "crouch": 1073742048,
+        "crouch": 1073741881,
         "right": 100,
-        "left": 97,
-        "use": 13
+        "left": 113,
+        "use": 101
     },
     "Background_images": {
-        "mainMenu": "Data/sprites/background.jpg",
+        "mainMenu": "Data/sprites/background/MenuBg.png",
         "gameMenu": "Data/sprites/game_background.jpg"
     },
     "Images": {
