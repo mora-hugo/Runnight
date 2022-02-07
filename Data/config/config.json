@@ -21,7 +21,7 @@
             {
                 "name": "jumploop",
                 "path": "Data/sprites/player/jumploop/",
-                "lenght": 7
+                "lenght": 64
             },
             {
                 "name": "landing",
@@ -62,6 +62,11 @@
                 "name": "roll",
                 "path": "Data/sprites/player/roll/",
                 "lenght": 85
+            },
+            {
+                "name": "fall_loop",
+                "path": "Data/sprites/player/fall_loop/",
+                "lenght": 64
             }
         ]
     },
