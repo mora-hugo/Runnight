@@ -62,10 +62,13 @@ class Playground:
     def update_background(self):
         game.Game.get_instance().screen.blit(self.background_image,(0,0))
 
+
     def generateWorld(self,biome,night):
-        self.decor.spawnDecor('ground_1',0,600,1024,500)
-        self.decor.spawnDecor('ground_1',600,0,100,1000)
-        self.decor.spawnDecor('ground_1',0,0,100,1000)
+        for i in range(0,4):
+            self.decor.spawnDecor('sol_egout1',((i*1024)/4),768-(192/4),1024/4,192/4)
+            self.decor.spawnDecor('ground_1',500,650,100,500)
+            
+   
     def quitter(self):
         self.cacher()
         quit()
