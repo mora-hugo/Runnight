@@ -25,9 +25,9 @@ class Game(): #Design pattern singleton
             self.screen = pygame.display.set_mode((1024,768)) # taille + mode , ...
             
             self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
-            barre = Chargement.Chargement(self.screen,"Chargement menu")
+            self.barre = Chargement.Chargement(self.screen,"Chargement menu")
             self.menu = Menu.Menu(self) # Creer menu
-            barre.update(20,"Chargement de l'environnement de jeu")
+            self.barre.update(20,"Chargement de l'environnement de jeu")
             
             
             self.screen.blit(self.menu.background_image,(0,0))
@@ -43,16 +43,16 @@ class Game(): #Design pattern singleton
             self.load_keys()
 
             #Joueur
-            barre.update(60,"Chargement joueur")
+            self.barre.update(60,"Chargement joueur")
             self.player = Player.Player((400,200),self)
             self.all_sprites.add(self.player)
             
             self.currentMenu = "mainMenu"
 
             #Decor
-            barre.update(80,"Chargement décors")
+            self.barre.update(80,"Chargement décors")
             self.decor = Decor.Decor(self)
-            barre.update(100)
+            self.barre.update(100)
 
             self.playground = Playground.Playground(self.screen, self)
 

@@ -38,6 +38,7 @@ class Menu:
 
         #Background de bg
         self.background_image = pygame.image.load(self.data["Background_images"]["mainMenu"]).convert() #Chargement background
+        jeu.barre.update(10,"Connexion...")
         classement = Classement.Classement(jeu)
         classement.initSprites()
         self.mainMenuButtons.add(classement.getScores())

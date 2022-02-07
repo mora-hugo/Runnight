@@ -6,7 +6,7 @@
     "Player": {
         "hp": 100,
         "speed_x": 8,
-        "speed_y": 0,
+        "speed_y": 0.1,
         "gravity": 10,
         "width": 80,
         "height": 214,
@@ -14,7 +14,7 @@
             {
                 "name": "fastrun",
                 "path": "Data/sprites/player/fastrun/",
-                "lenght": 33
+                "lenght": 32
             },
             {
                 "name": "jump",
@@ -82,7 +82,7 @@
         "crouch": 1073741881,
         "right": 100,
         "left": 113,
-        "use": 101
+        "use": 13
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background/MenuBg.png",
