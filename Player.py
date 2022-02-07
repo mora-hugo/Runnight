@@ -244,10 +244,13 @@ class Player(pygame.sprite.Sprite):
                         
 
             if self.collisionX('left'):
-                nouvPos[0] += 1
+                self.isJumping = False
+                self.isFlying = False
+
 
             if self.collisionX('right'):
-                nouvPos[0] -= 1
+                self.isJumping = False
+                self.isFlying = False
             
             
             
