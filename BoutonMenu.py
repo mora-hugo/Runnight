@@ -2,14 +2,29 @@ import pygame
 import Game
 import json
 
-class Bouton(pygame.sprite.Sprite):
-    def __init__(self,x,y,text,func):
+class BoutonMenu(pygame.sprite.Sprite):
+    def __init__(self,x,y,text,func,rotation=0):
         pygame.sprite.Sprite.__init__(self)
         file = open('Data/config/config.json',"r")
         self.data = json.load(file)
         file.close()
-        self.fonts = pygame.font.SysFont("", 36)
-        self.image = self.fonts.render(text, True, (170, 170, 170))
+        if text == "Commencer":
+            self.image = pygame.image.load(self.data["Items"]["panneau_menu_commencer"]["img"]).convert_alpha()
+            self.image = pygame.transform.scale(self.image,(self.data["Items"]["panneau_menu_commencer"]["WIDTH"]/2.5,self.data["Items"]["panneau_menu_commencer"]["HEIGHT"]/2.5))
+        elif text == "Touches":
+            self.image = pygame.image.load(self.data["Items"]["panneau_menu_touches"]["img"]).convert_alpha()
+            self.image = pygame.transform.scale(self.image,(self.data["Items"]["panneau_menu_touches"]["WIDTH"]/2.5,self.data["Items"]["panneau_menu_touches"]["HEIGHT"]/2.5))
+
+        elif text == "Regles":
+            self.image = pygame.image.load(self.data["Items"]["panneau_menu_regles"]["img"]).convert_alpha()
+            self.image = pygame.transform.scale(self.image,(self.data["Items"]["panneau_menu_regles"]["WIDTH"]/2.5,self.data["Items"]["panneau_menu_regles"]["HEIGHT"]/2.5))
+
+        else:
+            self.image = pygame.image.load(self.data["Items"]["panneau_menu_quitter"]["img"]).convert_alpha()
+            self.image = pygame.transform.scale(self.image,(self.data["Items"]["panneau_menu_quitter"]["WIDTH"]/2.5,self.data["Items"]["panneau_menu_quitter"]["HEIGHT"]/2.5))
+
+
+        self.image = pygame.transform.rotate(self.image,rotation)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

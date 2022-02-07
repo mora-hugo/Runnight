@@ -9,5 +9,5 @@ class Parchemin(pygame.sprite.Sprite):
         self.game = game
         self.rect.x = game.data["Settings"]["WIDTH"]/2 - game.data["Items"]["papier"]["WIDTH"]/2*1.8
         self.rect.y = game.data["Settings"]["HEIGHT"]/2 - game.data["Items"]["papier"]["HEIGHT"]/2*1.8
-
+        self.collider = False
 

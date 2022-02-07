@@ -1,5 +1,6 @@
 import pygame
-import Bouton as bouton
+import Bouton as boutonN
+import BoutonMenu as bouton
 import BoutonTouche as boutonT
 import Game as game
 import json
@@ -18,10 +19,10 @@ class Menu:
 
 
         #Ajout des boutons pour le menu principal
-        self.mainMenuButtons.add(bouton.Bouton(10,10,"Commencer",self.commencer)) #self.text = fonction associe au bouton
-        self.mainMenuButtons.add(bouton.Bouton(10,100,"Regle",self.regles))
-        self.mainMenuButtons.add(bouton.Bouton(10,200,"Touches",self.menuTouches))
-        self.mainMenuButtons.add(bouton.Bouton(10,300,"Quitter",self.quitter))
+        self.mainMenuButtons.add(bouton.BoutonMenu(720,430 ,"Commencer",self.commencer,-5)) #self.text = fonction associe au bouton
+        self.mainMenuButtons.add(bouton.BoutonMenu(250,480,"Regles",self.regles,-5))
+        self.mainMenuButtons.add(bouton.BoutonMenu(465,410,"Touches",self.menuTouches,5))
+        self.mainMenuButtons.add(bouton.BoutonMenu(10,440,"Quitter",self.quitter,-5))
 
         self.lastClickedButton = None
         self.currentMenu = self.mainMenuButtons
@@ -31,12 +32,12 @@ class Menu:
         file.close()
         #Ajout des boutons pour les bindings
         self.menuBidingButtons.add(Parchemin.Parchemin(self))
-        offset = 100
+        offset = 70
         for nom in self.data["Bindings"]:
             btn = boutonT.BoutonTouche(350,offset,nom,self.data["Bindings"][nom],self.changerTouches)
             self.menuBidingButtons.add(btn) #self.text = fonction associe au bouton
-            offset += 100
-        self.menuBidingButtons.add(bouton.Bouton(10,offset,"Retour",self.mainMenu))
+            offset += 70
+        self.menuBidingButtons.add(boutonN.Bouton(350,offset,"Retour",self.mainMenu,(0,0,0)))
 
         #Background de bg
         self.background_image = pygame.image.load(self.data["Background_images"]["mainMenu"]).convert() #Chargement background
