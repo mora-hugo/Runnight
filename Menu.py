@@ -1,9 +1,11 @@
 import pygame
-import Bouton as bouton
+import Bouton as boutonN
+import BoutonMenu as bouton
 import BoutonTouche as boutonT
 import Game as game
 import json
 import Classement
+import Parchemin
 
 
 
@@ -17,10 +19,10 @@ class Menu:
 
 
         #Ajout des boutons pour le menu principal
-        self.mainMenuButtons.add(bouton.Bouton(10,10,"Commencer",self.commencer)) #self.text = fonction associe au bouton
-        self.mainMenuButtons.add(bouton.Bouton(10,100,"Règle",self.regles))
-        self.mainMenuButtons.add(bouton.Bouton(10,200,"Touches",self.menuTouches))
-        self.mainMenuButtons.add(bouton.Bouton(10,300,"Quitter",self.quitter))
+        self.mainMenuButtons.add(bouton.BoutonMenu(720,430 ,"Commencer",self.commencer,-5)) #self.text = fonction associe au bouton
+        self.mainMenuButtons.add(bouton.BoutonMenu(250,480,"Regles",self.regles,-5))
+        self.mainMenuButtons.add(bouton.BoutonMenu(465,410,"Touches",self.menuTouches,5))
+        self.mainMenuButtons.add(bouton.BoutonMenu(10,440,"Quitter",self.quitter,-5))
 
         self.lastClickedButton = None
         self.currentMenu = self.mainMenuButtons
@@ -29,12 +31,13 @@ class Menu:
         self.data = json.load(file)
         file.close()
         #Ajout des boutons pour les bindings
-        offset = 10
+        self.menuBidingButtons.add(Parchemin.Parchemin(self))
+        offset = 70
         for nom in self.data["Bindings"]:
-            btn = boutonT.BoutonTouche(300,offset,nom,self.data["Bindings"][nom],self.changerTouches)
+            btn = boutonT.BoutonTouche(350,offset,nom,self.data["Bindings"][nom],self.changerTouches)
             self.menuBidingButtons.add(btn) #self.text = fonction associe au bouton
-            offset += 100
-        self.menuBidingButtons.add(bouton.Bouton(10,offset,"Retour",self.mainMenu))
+            offset += 70
+        self.menuBidingButtons.add(boutonN.Bouton(350,offset,"Retour",self.mainMenu,(0,0,0)))
 
         #Background de bg
         self.background_image = pygame.image.load(self.data["Background_images"]["mainMenu"]).convert() #Chargement background
@@ -43,6 +46,11 @@ class Menu:
         classement.initSprites()
         self.mainMenuButtons.add(classement.getScores())
         
+        #Load le parchemin
+        self.papier = pygame.image.load(self.data["Items"]["papier"]['img']).convert_alpha()
+
+        self.papier = pygame.transform.scale(self.papier,(self.data["Items"]["papier"]["WIDTH"]*1.8,self.data["Items"]["papier"]["HEIGHT"]*1.8))
+
     #Affiche les elements du menu
     def afficher(self,group_menu = None):
         if group_menu == None: # si pas de menu rentré, alors mettre le menu de base
@@ -60,13 +68,18 @@ class Menu:
 
     def mainMenu(self):
         self.cacher(self.currentMenu)
+        
         self.afficher(self.mainMenuButtons)
         self.currentMenu = self.mainMenuButtons
+        self.update_background()
 
     def menuTouches(self):
+        
         self.cacher(self.currentMenu)
+        game.Game.get_instance().screen.blit(self.papier,(self.data["Settings"]["WIDTH"]/2 - self.data["Items"]["papier"]["WIDTH"]/2*1.8 ,self.data["Settings"]["HEIGHT"]/2 -self.data["Items"]["papier"]["HEIGHT"]/2*1.8))
         self.afficher(self.menuBidingButtons)
         self.currentMenu = self.menuBidingButtons
+        
 
     def changerTouches(self):
         jeu = game.Game.get_instance()

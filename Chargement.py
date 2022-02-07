@@ -14,7 +14,7 @@ class Chargement():
         self.image = pygame.transform.scale(self.image,(400,400))
         self.fonts = pygame.font.SysFont('comicsansms', 36)
         self.barre = pygame.Rect(self.data["Settings"]["WIDTH"]/2-self.tailleX/2,3*(self.data["Settings"]["HEIGHT"])/4,self.tailleX,self.tailleY)
-        self.barreCharge = pygame.Rect(self.data["Settings"]["WIDTH"]/2-self.tailleX/2+5,3*(self.data["Settings"]["HEIGHT"])/4+5,self.tailleX,self.tailleY-10)
+        self.barreCharge = pygame.Rect(self.data["Settings"]["WIDTH"]/2-self.tailleX/2+10,3*(self.data["Settings"]["HEIGHT"])/4+10,self.tailleX,self.tailleY-20)
         pygame.draw.rect(self.screen,(0,255,0),self.barre,10)
         self.update(0,text)
         

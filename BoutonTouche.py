@@ -5,7 +5,8 @@ import Game
 
 class BoutonTouche(btn.Bouton):
     def __init__(self,x,y,touche,key,func):
-        btn.Bouton.__init__(self,x,y,touche + " : " + pygame.key.name(key),func)
+        color = (0,0,0)
+        btn.Bouton.__init__(self,x,y,touche + " : " + pygame.key.name(key),func,color)
         self.key = key
         self.touche = touche
 
