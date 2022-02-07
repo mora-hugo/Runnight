@@ -62,11 +62,6 @@
                 "name": "roll",
                 "path": "Data/sprites/player/roll/",
                 "lenght": 85
-            },
-            {
-                "name": "fall_loop",
-                "path": "Data/sprites/player/fall_loop/",
-                "lenght": 64
             }
         ]
     },
