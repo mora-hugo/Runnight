@@ -6,7 +6,7 @@
     "Player": {
         "hp": 100,
         "speed_x": 8,
-        "speed_y": 5,
+        "speed_y": 0,
         "animations": [
             {
                 "name": "fastrun",
@@ -16,7 +16,17 @@
             {
                 "name": "jump",
                 "path": "Data/sprites/player/jump/",
-                "lenght": 37
+                "lenght": 18
+            },
+            {
+                "name": "jumploop",
+                "path": "Data/sprites/player/jumploop/",
+                "lenght": 7
+            },
+            {
+                "name": "landing",
+                "path": "Data/sprites/player/landing/",
+                "lenght": 12
             },
             {
                 "name": "idle",
@@ -36,7 +46,7 @@
         ]
     },
     "Bindings": {
-        "jump": 1073741906,
+        "jump": 32,
         "crouch": 1073742048,
         "right": 100,
         "left": 113,

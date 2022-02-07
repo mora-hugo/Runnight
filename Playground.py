@@ -26,6 +26,9 @@ class Playground:
         #Background de bg
         self.background_image = pygame.image.load(self.data["Background_images"]["gameMenu"]).convert() #Chargement background
 
+        #Ajout collider
+        self.ground = pygame.Rect(0,550,1024,500)
+
 
     #Affiche les elements du menu
     def afficher(self,group_menu = None):
