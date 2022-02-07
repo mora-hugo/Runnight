@@ -42,16 +42,36 @@
                 "name": "turn",
                 "path": "Data/sprites/player/turn/",
                 "lenght": 61
+            },
+            {
+                "name": "turn_run",
+                "path": "Data/sprites/player/turn_run/",
+                "lenght": 40
+            },
+            {
+                "name": "pick_up",
+                "path": "Data/sprites/player/pick_up/",
+                "lenght": 73
+            },
+            {
+                "name": "hard_landing",
+                "path": "Data/sprites/player/hard_landing/",
+                "lenght": 21
+            },
+            {
+                "name": "roll",
+                "path": "Data/sprites/player/roll/",
+                "lenght": 85
             }
         ]
     },
     "Decors": {
         "ground_1": {
-            "height" : 10,
-            "width" : 10,
-            "img" : "Data/sprites/grounds/ground_1.png"
+            "height": 10,
+            "width": 10,
+            "img": "Data/sprites/grounds/ground_1.png"
         }
-    },  
+    },
     "Bindings": {
         "jump": 32,
         "crouch": 1073742048,
