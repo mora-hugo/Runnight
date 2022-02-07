@@ -38,12 +38,15 @@
     "Bindings": {
         "jump": 1073741906,
         "crouch": 1073742048,
-        "right": 1073741904,
-        "left": 106,
+        "right": 100,
+        "left": 113,
         "use": 13
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background.jpg",
         "gameMenu": "Data/sprites/game_background.jpg"
+    },
+    "Images": {
+        "logo": "Data/sprites/logoWC.png"
     }
 }

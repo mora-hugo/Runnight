@@ -4,6 +4,7 @@ import Menu
 import json
 import Player
 import Playground
+import Chargement
 
 class Game(): #Design pattern singleton
     instance = None
@@ -21,10 +22,13 @@ class Game(): #Design pattern singleton
             pygame.init()
             pygame.display.set_caption("WATIBJEU") # Nom de la fenetre
             self.screen = pygame.display.set_mode((1024,768)) # taille + mode , ...
+            barre = Chargement.Chargement(self.screen,"Chargement menu")
             self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
+            
             self.menu = Menu.Menu() # Creer menu
+            barre.update(20,"Chargement de l'environnement de jeu")
             self.playground = Playground.Playground()
-
+            
             self.screen.blit(self.menu.background_image,(0,0))
 
             #Toutes les touches pressés par le joueur
@@ -38,9 +42,10 @@ class Game(): #Design pattern singleton
             self.load_keys()
 
             #Joueur
+            barre.update(60,"Chargement joueur")
             self.player = Player.Player((400,500),self)
             self.all_sprites.add(self.player)
-
+            barre.update(100)
             self.currentMenu = "mainMenu"
 
     def load_keys(self):

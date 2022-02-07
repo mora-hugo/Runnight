@@ -5,8 +5,9 @@ from Player import Player
 import pygame
 
 
-
+print("instanciation jeu")
 jeu = game.Game.get_instance() #Creation instance jeu
+print("jeu ok")
 jeu.menu.afficher() # Afficher le menu
 clock = pygame.time.Clock()
 
@@ -15,11 +16,11 @@ clock = pygame.time.Clock()
 
 
 #bdd load
-try:
-    bddScore = BDDSCORE()
-except ValueError:
-    bddScore = False
-
+#try:
+#    bddScore = BDDSCORE()
+#except ValueError:
+#    bddScore = False
+#print("bdd ok")
 
 #player instanciation
 
