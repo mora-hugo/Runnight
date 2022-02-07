@@ -139,7 +139,7 @@ class Player(pygame.sprite.Sprite):
                 self.coordinates = tuple(nouvPos)
 
                        
-            self.collision()
+            #self.collision()
 
             self.currentSprite += self.animationRate
 
