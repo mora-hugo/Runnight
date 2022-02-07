@@ -86,7 +86,15 @@
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background/MenuBg.png",
-        "gameMenu": "Data/sprites/game_background.jpg"
+        "gameMenu": "Data/sprites/game_background.jpg",
+        "sunset": "Data/sprites/background/sunset.png",
+        "moon": "Data/sprites/background/moon.png",
+        "villeNuitTop": "Data/sprites/background/ville_nuit_top.png",
+        "villeNuitBot": "Data/sprites/background/ville_nuit_bot.png",
+        "villeJourTop": "Data/sprites/background/ville_jour_top.png",
+        "villeJourBot": "Data/sprites/background/ville_jour_bot.png",
+        "egoutTop": "Data/sprites/background/egout_top.png",
+        "egoutBot": "Data/sprites/background/egout_bot.png"
     },
     "Images": {
         "logo": "Data/sprites/logoWC.png"
