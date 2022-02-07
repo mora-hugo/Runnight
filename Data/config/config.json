@@ -1,4 +1,7 @@
 {
+    "Font": {
+        "base": "Data/police/apocalypse.otf"
+    },
     "Settings": {
         "WIDTH": 1024,
         "HEIGHT": 768
@@ -91,9 +94,9 @@
     ],
     "Bindings": {
         "jump": 32,
-        "crouch": 1073741881,
+        "crouch": 121,
         "right": 100,
-        "left": 97,
+        "left": 113,
         "use": 13
     },
     "Background_images": {
@@ -110,5 +113,12 @@
     },
     "Images": {
         "logo": "Data/sprites/logoWC.png"
+    },
+    "Items": {
+        "papier": {
+            "img": "Data/sprites/items/paper.png",
+            "HEIGHT": 392,
+            "WIDTH": 270
+        }
     }
 }
