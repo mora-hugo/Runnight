@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, coordinates,game):
         super().__init__()
 
+        self.game = game
 
         self.updateJson()
 
@@ -26,6 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.speed_x = self.data['Player']["speed_x"]
         self.speed_y = self.data['Player']["speed_y"]
         self.gravity = self.data['Player']["gravity"]
+        self.jumpForce = self.data['Player']["jumpForce"]
 
         self.animations = {}
 
@@ -36,6 +38,10 @@ class Player(pygame.sprite.Sprite):
 
         self.isJumping = False
         self.isFlying = False
+        self.isTurning = False
+        self.isTurningRun = False
+
+        self.isFallingHard = False
 
         self.isLanding = False
 
@@ -74,41 +80,51 @@ class Player(pygame.sprite.Sprite):
 
     def isOnGround(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x , self.rect.y + 1,self.data['Player']['width'],self.data['Player']['height'])):
+            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+39 , self.rect.y+self.data['Player']['height']-10,self.data['Player']['width']-10,20)):
                 
                 return True
         return False
 
-    def collisionY(self,nouvPos):
+    def collisionY(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x , self.rect.y + self.speed_y,self.data['Player']['width'],self.data['Player']['height'])):
+            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+39 , self.rect.y+self.data['Player']['height']-10,self.data['Player']['width']-10,20)):
                 self.speed_y = 0
-                nouvPos[1] -= 1
-                self.isFlying = False
                 
 
     def collisionX(self,direction):
         for sprite in game.Game.get_instance().all_sprites:
             if direction == "left":
-                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left, self.rect.y-10 ,self.data['Player']['width'],self.data['Player']['height'])):
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left+30, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height'])):
                     return True
             else:
-                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+self.data['Player']['width']/2+5, self.rect.y-10 ,self.data['Player']['width'],self.data['Player']['height'])):
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height'])):
                     return True
         return False
                 
 
     def action(self,event):
         if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
-            if self.isRunning == False:
-                #self.playAnimation('fastrun',0.9)
+            if not self.collisionX('left') and not self.isTurning:
+                if self.direction == 'right' and self.speed_y == 0:
+                    #if self.isRunning == False:
+                        self.playAnimation('turn',5)
+                        self.isTurning = True
+                    #else:              
+                    #    self.playAnimation('turn_run',0.8)  
+                    #    self.isTurningRun = True       
                 self.isRunning = True
                 self.runtostop = False
                 self.direction = 'left'
 
         if self.jeu.key_pressed[self.data['Bindings']['right']] == True:
-            if self.isRunning == False:
-                #self.playAnimation('fastrun',0.9)
+            if not self.collisionX('right') and not self.isTurning:
+                if self.direction == 'left' and self.speed_y == 0:
+                    #if self.isRunning == False:
+                        self.playAnimation('turn',5)
+                        self.isTurning = True
+                    #else:             
+                    #    self.playAnimation('turn_run',0.8)  
+                    #    self.isTurningRun = True    
                 self.isRunning = True
                 self.runtostop = False
                 self.direction = 'right'
@@ -123,21 +139,15 @@ class Player(pygame.sprite.Sprite):
         if event.type == pygame.KEYUP:
             
             if event.key == self.data['Bindings']['right'] or event.key == self.data['Bindings']['left']:
-                if not self.isLanding and self.isJumping == False and self.speed_y == 0:
+                if not self.isLanding and self.isJumping == False and self.speed_y == 0 and self.isRunning and not self.isTurning and not self.isTurningRun and self.isRunning:
                     self.playAnimation('runtostop',0.9)
                     self.runtostop = True
                 self.isRunning = False
 
     def update(self):
         if self.jeu.currentMenu == "gameMenu":
-            #graviter
+            
             nouvPos = list(self.coordinates)
-
-            if not self.isOnGround() and not self.isJumping:   
-                self.isFlying = True      
-                nouvPos[1] += self.speed_y
-                self.coordinates = tuple(nouvPos)
-
                        
 
             self.currentSprite += self.animationRate
@@ -145,16 +155,23 @@ class Player(pygame.sprite.Sprite):
             if self.speed_y == 0:
 
                 if self.isFlying == True:
-                    self.isLanding = True
-                    self.playAnimation('runtostop',0.9)
+                    if not self.isFallingHard:
+                        self.isLanding = True
+                        self.playAnimation('runtostop',0.9)
+                    else:
+                        self.playAnimation('hard_landing',0.5)
+                    self.runtostop = False            
                     self.isFlying = False
 
                 
 
-                if self.isRunning == True:
+                if self.isRunning == True and not self.isTurningRun and not self.isFallingHard:
                     if not self.isJumping:
-                        self.setAnimation('fastrun',0.9)
+                        if not  self.isTurning:
+                            self.setAnimation('fastrun',0.9)
                         self.speed_x = self.data['Player']["speed_x"]
+                        if self.isLanding == True:
+                            self.isLanding = False
 
                     elif self.speed_x > 0:
                         self.speed_x -= 0.1
@@ -163,7 +180,7 @@ class Player(pygame.sprite.Sprite):
                     if self.direction == 'right' and not self.collisionX('right'):
                         nouvPos[0] += self.speed_x
 
-                elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping:
+                elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping and not self.isTurning and not self.isTurningRun and not self.isFallingHard:
                     self.setAnimation('idle',0.4)
 
                 if self.currentSprite >= len(self.sprites):
@@ -177,11 +194,19 @@ class Player(pygame.sprite.Sprite):
                     if self.isLanding == True:
                         self.playAnimation('idle',0.4)
                         self.isLanding = False
+                    if self.isTurning == True:
+                        self.playAnimation('idle',0.4)
+                        self.isTurning = False
+                    if self.isTurningRun == True:
+                        self.isTurningRun = False
+                    if self.isFallingHard == True:
+                        self.playAnimation('idle',0.4)
+                        self.isFallingHard = False
                     self.currentSprite = 0
                     
                 
 
-                if self.runtostop == True: 
+                if self.runtostop == True or self.isLanding == True: 
                     
                     if self.speed_x > 0:
                         self.speed_x -=0.4
@@ -196,12 +221,30 @@ class Player(pygame.sprite.Sprite):
                     
 
                 if self.direction == 'right':
-                    self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                    if self.isTurning == False or self.isTurningRun == False:
+                        self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                    elif self.isTurningRun:
+                        newScale = list(self.playerScale)
+                        newScale[0] = newScale[0]*3.5
+                        newScale[1] = newScale[1]*1.5
+                        self.image = pygame.transform.scale(self.image,tuple(newScale))
+                        self.image = self.sprites[int(self.currentSprite)]
+                    else:
+                        self.image = self.sprites[int(self.currentSprite)]
                 if self.direction == 'left':
-                    self.image = self.sprites[int(self.currentSprite)]
+                    if self.isTurning == False or self.isTurningRun == False:
+                        self.image = self.sprites[int(self.currentSprite)]
+                    elif self.isTurningRun:
+                        newScale = list(self.playerScale)
+                        newScale[0] = newScale[0]*3.5
+                        newScale[1] = newScale[1]*1.5
+                        self.image = pygame.transform.scale(self.image,tuple(newScale))
+                        self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                    else:
+                        self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
 
                 if self.isJumping == True:
-                    self.speed_y = 10
+                    self.speed_y = self.jumpForce
                     nouvPos[1] -= self.speed_y
                     
 
@@ -220,15 +263,15 @@ class Player(pygame.sprite.Sprite):
                     if not self.currentSprite >= len(self.sprites):
                         self.playAnimation('jumploop',3)
 
-                    if self.collisionX('left') or self.collisionX('right'):
-                        self.speed_y = 0.1
-                        self.isJumping = False
                     
 
                 else:    
                     self.setAnimation('jumploop',3)
                     self.speed_y +=0.2
                     nouvPos[1] += self.speed_y
+
+                    if self.speed_y >= 10:
+                        self.isFallingHard = True
 
                 if self.direction == 'right':
                     self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
@@ -241,20 +284,27 @@ class Player(pygame.sprite.Sprite):
 
                     
                     
-                        
+            if self.collisionX('left') and self.direction == 'left':
+                self.isRunning = False
 
-            if self.collisionX('left'):
-                nouvPos[0] += 1
+            if self.collisionX('right') and self.direction == 'right':
+                self.isRunning = False
 
-            if self.collisionX('right'):
-                nouvPos[0] -= 1
+
+            if not self.isOnGround() and not self.isJumping and not self.isFlying:   
+                self.isFlying = True      
+                self.speed_y = 0.1
             
             
             
-            self.collisionY(nouvPos)
+            self.collisionY()
             self.coordinates = tuple(nouvPos)
             self.rect.topleft = self.coordinates
 
+            #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+30, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
+            #pygame.draw.rect(self.game.screen,(255,255,255),(self.rect.x+39 , self.rect.y+self.data['Player']['height'],self.data['Player']['width']-10,20))
+            #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
+            
 
 
     def updateJson(self):

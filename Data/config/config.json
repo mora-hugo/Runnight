@@ -8,6 +8,7 @@
         "speed_x": 8,
         "speed_y": 0.1,
         "gravity": 10,
+        "jumpForce": 8,
         "width": 80,
         "height": 212,
         "animations": [
@@ -44,7 +45,7 @@
             {
                 "name": "turn",
                 "path": "Data/sprites/player/turn/",
-                "lenght": 61
+                "lenght": 45
             },
             {
                 "name": "turn_run",
