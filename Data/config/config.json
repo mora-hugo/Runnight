@@ -54,9 +54,14 @@
                 "lenght": 73
             },
             {
-                "name": "soft_landing",
-                "path": "Data/sprites/player/soft_landing/",
-                "lenght": 65
+                "name": "hard_landing",
+                "path": "Data/sprites/player/hard_landing/",
+                "lenght": 21
+            },
+            {
+                "name": "roll",
+                "path": "Data/sprites/player/roll/",
+                "lenght": 85
             }
         ]
     },
