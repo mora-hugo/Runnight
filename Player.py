@@ -64,9 +64,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = self.coordinates
 
     def setAnimation(self, animation, rate):
+        self.sprites = self.animations[animation]
         if self.currentSprite >= len(self.sprites):
             self.currentSprite = 0
-        self.sprites = self.animations[animation]
         self.animationRate = rate
         self.rect = self.image.get_rect()
         self.rect.topleft = self.coordinates
@@ -156,8 +156,7 @@ class Player(pygame.sprite.Sprite):
 
                 
 
-                if self.runtostop == True:
-                    
+                if self.runtostop == True: 
                     if self.speed_x > 0:
                         self.speed_x -=0.4
                     if self.direction == 'left':
@@ -169,6 +168,11 @@ class Player(pygame.sprite.Sprite):
                         y = list(self.coordinates)
                         y[0] += self.speed_x
                         self.coordinates = tuple(y)
+
+                if self.direction == 'right':
+                    self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                if self.direction == 'left':
+                    self.image = self.sprites[int(self.currentSprite)]
 
             elif self.isJumping == True:
 
@@ -183,18 +187,15 @@ class Player(pygame.sprite.Sprite):
 
             elif self.speed_y != 0:
 
-                self.setAnimation('jumploop',0.8)
-            
-
-                
-                
-
-            
-            
-            if self.direction == 'right':
-                self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
-            if self.direction == 'left':
+                self.setAnimation('jumploop',1.5)
                 self.image = self.sprites[int(self.currentSprite)]
+
+                
+                
+
+            
+            
+            
             
             self.rect.topleft = self.coordinates
 
