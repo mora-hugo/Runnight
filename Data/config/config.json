@@ -110,7 +110,10 @@
         "villeJourTop": "Data/sprites/background/ville_jour_top.png",
         "villeJourBot": "Data/sprites/background/ville_jour_bot.png",
         "egoutTop": "Data/sprites/background/egout_top.png",
-        "egoutBot": "Data/sprites/background/egout_bot.png"
+        "egoutBot": "Data/sprites/background/egout_bot.png",
+        "planque": "Data/sprites/background/house.png",
+        "jungle_jour": "Data/sprites/background/jungle_jour.png",
+        "jungle_nuit": "Data/sprites/background/jungle_nuit.png"
     },
     "Images": {
         "logo": "Data/sprites/logoWC.png"
@@ -147,5 +150,28 @@
         "run": "Data/sounds/Pas_sur_beton.mp3",
         "jump": "Data/sounds/jump.mp3",
         "fall": "Data/sounds/tomber.mp3"
+    },
+    "Planque_boutons": {
+        "cuisine": {
+            "img": "Data/sprites/items/cuisine.png",
+            "x": 312,
+            "y": 208,
+            "height": 166,
+            "width": 198
+        },
+        "douche": {
+            "img": "Data/sprites/items/douche.png",
+            "x": 474,
+            "y": 27,
+            "height": 164,
+            "width": 181
+        },
+        "lit": {
+            "img": "Data/sprites/items/lit.png",
+            "x": 465,
+            "y": 485,
+            "height": 68,
+            "width": 142
+        }
     }
 }

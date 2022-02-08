@@ -5,28 +5,23 @@ from Player import Player
 import pygame
 
 
-print("instanciation jeu")
-jeu = game.Game.get_instance() #Creation instance jeu
-print("jeu ok")
-jeu.menu.afficher() # Afficher le menu
+jeu = game.Game.get_instance()  # Creation instance jeu
+jeu.menu.afficher()  # Afficher le menu
 clock = pygame.time.Clock()
 
 
+# bdd load
 
-
-
-#bdd load
-
-#player instanciation
+# player instanciation
 
 while True:
-    #event
+    # event
     for event in pygame.event.get():
         jeu.get_keys(event)
         jeu.player.action(event)
         if event.type == pygame.QUIT:
             quit()
-    if jeu.isMapping :
+    if jeu.isMapping:
         jeu.mapping()
     jeu.update()
     clock.tick(60)
