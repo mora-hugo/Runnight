@@ -79,6 +79,11 @@
                 "name": "jump_ride",
                 "path": "Data/sprites/player/jump_ride/",
                 "lenght": 71
+            },
+            {
+                "name": "slide",
+                "path": "Data/sprites/player/slide/",
+                "lenght": 75
             }
         ]
     },
