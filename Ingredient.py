@@ -1,5 +1,6 @@
 import pygame
 import DecorElement
+import Player
 
 
 class Ingredient(pygame.sprite.Sprite):
@@ -25,7 +26,14 @@ class Ingredient(pygame.sprite.Sprite):
                 return True
         return False
 
+    def collisionPlayer(self):
+        pygame.draw.rect(self.game.screen, (250, 0, 0),
+                         (self.pos_x, self.pos_y+25, 50, 50))
+        if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, 50, 50)):
+            print("TOUCHE BG")
+
     def update(self):
+        self.collisionPlayer()
         if not self.isOnGround():
             self.pos_y += 5
         if self.direction == 'x':

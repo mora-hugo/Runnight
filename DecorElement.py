@@ -1,6 +1,7 @@
 import pygame
 import json
 import Game as game
+import Player
 
 
 class DecorElement(pygame.sprite.Sprite):
@@ -8,7 +9,7 @@ class DecorElement(pygame.sprite.Sprite):
         super().__init__()
         self.width = width
         self.height = height
-        self.direction = direction #x ou y : x pour horizontal et y pour vertical
+        self.direction = direction  # x ou y : x pour horizontal et y pour vertical
         self.pos_x = x
         self.pos_y = y
         self.game = game
@@ -19,11 +20,11 @@ class DecorElement(pygame.sprite.Sprite):
         self.speed = speed
         self.name = element['name']
 
-
     def collisionPlayer(self):
         for sprite in game.Game.get_instance().all_sprites:
-            pygame.draw.rect(self.game.screen,(255,0,0),(self.pos_x, self.pos_y ,self.width ,self.height))
-            if type(sprite) is not DecorElement and sprite.collider and sprite.rect.colliderect((self.pos_x, self.pos_y ,self.width ,self.height)):
+            pygame.draw.rect(self.game.screen, (255, 0, 0),
+                             (self.pos_x, self.pos_y, self.width, self.height))
+            if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, self.width, self.height)):
                 return True
         return False
 
@@ -35,18 +36,13 @@ class DecorElement(pygame.sprite.Sprite):
         else:
             self.pos_y -= self.speed
             if (self.pos_y < -1200 and self.speed > 0) or (self.pos_y > 1200 and self.speed < 0):
-                self.kill()        
+                self.kill()
 
-        if self.name == 'house' and  self.collisionPlayer():
+        if self.name == 'house' and self.collisionPlayer():
             self.game.planque.afficher()
             self.game.isInRun = False
 
-        self.rect.topleft = (self.pos_x,self.pos_y)
+        self.rect.topleft = (self.pos_x, self.pos_y)
 
         if not self.game.isInRun:
             self.kill()
-
-   
-            
-    
-        
