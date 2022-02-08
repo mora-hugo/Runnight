@@ -15,6 +15,10 @@ class Sound():
             self.sound[i] = pygame.mixer.Sound(self.data["Sounds"][i])
         self.canal_1 = pygame.mixer.Channel(0)
 
+        self.music = {}
+        for i in self.data["Music"]:
+            self.music[i] = self.data["Music"][i]
+           
 
 
     def playSound(self,name,volume):
@@ -23,3 +27,19 @@ class Sound():
         
     def StopSound(self):
         self.canal_1.stop()
+
+    def playMusic(self,biome,night,volume):
+        pygame.mixer.music.set_volume(volume)
+        if (biome == "forest"):
+            if(not night):
+                pygame.mixer.music.load( self.music['jungleNight'] )
+            else:
+                pygame.mixer.music.load( self.music['jungleNight'] )
+        else:
+            if(not night):
+                pygame.mixer.music.load( self.music['jungleNight'] )
+            else:
+                pygame.mixer.music.load( self.music['jungleNight'] )
+
+        pygame.mixer.music.play()
+        pygame.mixer.music.rewind()
