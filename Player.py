@@ -142,10 +142,12 @@ class Player(pygame.sprite.Sprite):
                 self.direction = 'right'
 
         if self.jeu.key_pressed[self.data['Bindings']['jump']] == True:
-            if (time.time() >= self.lastUpdatedFrame + 0.8): 
+            self.sound.StopSound()
+            
+            if (time.time() >= self.lastUpdatedFrame): 
                 self.lastUpdatedFrame = time.time()
-                self.sound.playSound("jump",0.1) 
-
+                self.sound.playSound("jump",0.1)
+                
             if self.isJumping == False and self.speed_y == 0:
                 self.playAnimation('jump',1)
                 self.isJumping = True
@@ -282,6 +284,10 @@ class Player(pygame.sprite.Sprite):
                     
 
                 else:    
+                    if (time.time() >= self.lastUpdatedFrame+0.3): 
+                        self.lastUpdatedFrame = time.time()
+                        self.sound.playSound("fall",0.01)
+                    
                     self.setAnimation('jumploop',3)
                     self.speed_y +=0.2
                     nouvPos[1] += self.speed_y
