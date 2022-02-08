@@ -1,23 +1,33 @@
 import pygame
-import json
-import Game as game
+import DecorElement
 
 
-class DecorElement(pygame.sprite.Sprite):
-    def __init__(self, element, game, x, y, width, height, speed, direction, isColliding):
-        super().__init__()
+class Ingredient(pygame.sprite.Sprite):
 
+    def __init__(self, name, element, game, x, y, speed, direction, isColliding):
+        pygame.sprite.Sprite.__init__(self)
         self.direction = direction  # x ou y : x pour horizontal et y pour vertical
         self.pos_x = x
         self.pos_y = y
         self.game = game
-        self.image = pygame.transform.scale(element['img'], (width, height))
+        self.name = name
+        self.image = element["img"]
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         self.collider = isColliding
         self.speed = speed
+        self.game = game
+        self.element = element
+
+    def isOnGround(self):
+        for sprite in self.game.all_sprites:
+            if type(sprite) is DecorElement.DecorElement and sprite.collider and sprite.rect.colliderect((self.rect.x, self.rect.y+self.element["height"]/2, self.element['width']-10, 20)):
+                return True
+        return False
 
     def update(self):
+        if not self.isOnGround():
+            self.pos_y += 5
         if self.direction == 'x':
             self.pos_x -= self.speed
             if (self.pos_x < -1200 and self.speed > 0) or (self.pos_x > 1200 and self.speed < 0):
