@@ -1,3 +1,4 @@
+from random import randint
 import pygame
 import Bouton as bouton
 import Game as game
@@ -63,11 +64,50 @@ class Playground:
         game.Game.get_instance().screen.blit(self.background_image,(0,0))
 
 
-    def generateWorld(self,biome,night):
-        self.decor.spawnDecor('ground_1',0,600,1024,500)
-        self.decor.spawnDecor('ground_1',600,0,100,1000)
-        self.decor.spawnDecor('ground_1',0,0,100,1000)
+    def generateWorld(self,biome,night,nbRun):
+        speed = nbRun + 1
+        runLenght = nbRun*1.5+20
+        x = 0
+        treesx = 0
+        #fond
+        for i in range(0,int(runLenght)):
+            if biome == 'foret':
+                if not night:
+                        self.decor.spawnDecor('foret_jour',x,-200,1200,1000,speed/5,'x',False)             
+                else:
+                        self.decor.spawnDecor('foret_nuit',x,-200,1200,1000,speed/5,'x',False)
+            x += 1199
+            for y in range(1,5):
+                    self.decor.spawnDecor('tree1',treesx,randint(300,400),randint(150,300),randint(500,600),speed/2,'x',False)
+                    treesx += randint(50,150)
+
+        #ground
+        self.decor.spawnDecor('ground_1',0,600,1024,500,0,'x',True)
+
+
+        x = 1024      
+        #obstacles
+        for i in range(0,int(runLenght)):
+            randy = randint(500,600)
+            randwidth = randint(50,1000)
+            self.decor.spawnDecor('ground_1',x,randy,randwidth,1000,speed,'x',True)
+
+            if randint(0,5) == 0:
+                self.decor.spawnDecor('souche',x+randwidth/2,randy-100,100,150,speed,'x',True)
+
+            if randy >= 500:
+                self.decor.spawnDecor('ground_1',x+randwidth,randint(650,750),randint(50,300),1000,speed,'x',True)
+
             
+
+            x += randint(10,1024)
+
+            
+    
+            
+
+    
+        
    
     def quitter(self):
         self.cacher()

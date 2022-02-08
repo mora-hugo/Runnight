@@ -28,8 +28,8 @@ class Decor(pygame.sprite.Sprite):
             self.decors[i['name']]['img'] = pygame.image.load(self.decors[i['name']]['img']).convert_alpha()
             self.decors[i['name']]['img'] = pygame.transform.scale(self.decors[i['name']]['img'],(self.decors[i['name']]['width'],self.decors[i['name']]['height']))
             
-    def spawnDecor(self,nomElement,x,y,width,height):
+    def spawnDecor(self,nomElement,x,y,width,height,speed,direction,isColliding):
         decor = self.decors[nomElement]
-        element = DecorElement.DecorElement(decor,self.game,x,y,width,height)
+        element = DecorElement.DecorElement(decor,self.game,x,y,width,height,speed,direction,isColliding)
         self.game.all_sprites.add(element)
        
