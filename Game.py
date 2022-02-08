@@ -26,19 +26,23 @@ class Game():  # Design pattern singleton
                 "Utiliser la méthode get_instance() pour obtenir une instance de l'objet")
         else:
             pygame.init()
-            pygame.display.set_caption("WATIBJEU")  # Nom de la fenetre
-            # taille + mode , ...
-            self.screen = pygame.display.set_mode((1024, 768))
+            pygame.display.set_caption("WATIBJEU") # Nom de la fenetre
+            self.screen = pygame.display.set_mode((1024,768)) # taille + mode , ...
+            
+            self.nbRun = 1
 
-            # Variables ou tous les sprites seront stockés
-            self.all_sprites = pygame.sprite.Group()
-            self.barre = Chargement.Chargement(self.screen, "Chargement menu")
-            self.menu = Menu.Menu(self)  # Creer menu
-            self.barre.update(20, "Chargement de l'environnement de jeu")
+            self.isInRun = False
 
-            self.screen.blit(self.menu.background_image, (0, 0))
+            self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
+            self.characters = pygame.sprite.Group()
+            self.barre = Chargement.Chargement(self.screen,"Chargement menu")
+            self.menu = Menu.Menu(self) # Creer menu
+            self.barre.update(20,"Chargement de l'environnement de jeu")
+            
+            
+            self.screen.blit(self.menu.background_image,(0,0))
 
-            # Toutes les touches pressés par le joueur
+            #Toutes les touches pressés par le joueur
             self.key_pressed = {}
 
             # config file load
@@ -48,11 +52,11 @@ class Game():  # Design pattern singleton
 
             self.load_keys()
 
-            # Joueur
-            self.barre.update(60, "Chargement joueur")
-            self.player = Player.Player((400, 200), self)
-            self.all_sprites.add(self.player)
-
+            #Joueur
+            self.barre.update(60,"Chargement joueur")
+            self.player = Player.Player((400,200),self)
+            self.characters.add(self.player)
+            
             self.currentMenu = "mainMenu"
 
             # Sons
@@ -95,7 +99,9 @@ class Game():  # Design pattern singleton
                 self.player.updateJson()
 
     def startRun(self, biome, night):
-        self.playground.generateWorld(biome, night)
+        self.isInRun = True
+        self.playground.generateWorld(biome,night,self.nbRun)
+
 
     def update_backgrounds(self):
         if self.currentMenu == "mainMenu":
@@ -108,6 +114,7 @@ class Game():  # Design pattern singleton
             self.mapping()
         self.update_backgrounds()
         self.all_sprites.draw(self.screen)
-
+        self.characters.draw(self.screen)
         self.all_sprites.update()
+        self.characters.update()
         pygame.display.flip()

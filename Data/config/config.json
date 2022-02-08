@@ -96,13 +96,49 @@
             "width": 1024,
             "img": "Data/sprites/background/egout_bot2.png",
             "animation": "None"
+        },
+        {
+            "name": "foret_jour",
+            "height": 1200,
+            "width": 1200,
+            "img": "Data/sprites/background/jungle_jour.png",
+            "animation": "None"
+        },
+        {
+            "name": "foret_nuit",
+            "height": 1200,
+            "width": 1200,
+            "img": "Data/sprites/background/jungle_nuit.png",
+            "animation": "None"
+        },
+        {
+            "name": "souche",
+            "height": 910,
+            "width": 764,
+            "img": "Data/sprites/obstacles/souche.png",
+            "animation": "None"
+        },
+        {
+            "name": "pneu",
+            "height": 2116,
+            "width": 1625,
+            "img": "Data/sprites/obstacles/pneu.png",
+            "animation": "None"
+        }
+        ,
+        {
+            "name": "tree1",
+            "height": 449,
+            "width": 854,
+            "img": "Data/sprites/decors/tree1.png",
+            "animation": "None"
         }
     ],
     "Bindings": {
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "use": 13
     },
     "Background_images": {
