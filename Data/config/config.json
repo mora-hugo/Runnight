@@ -141,5 +141,10 @@
             "HEIGHT": 575,
             "WIDTH": 464
         }
+    },
+    "Sounds": {
+        "paper": "Data/sounds/paperSound.mp3",
+        "run": "Data/sounds/Pas_sur_beton.mp3",
+        "jump": "Data/sounds/jump.mp3"
     }
 }

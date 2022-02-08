@@ -1,14 +1,15 @@
 import pygame
-import json
+import json 
+import Sound
 import Game as game
-
+import time
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, coordinates,game):
         super().__init__()
-
+        self.sound = Sound.Sound()
         self.game = game
-
+        self.lastUpdatedFrame = time.time()
         self.updateJson()
 
         self.coordinates = coordinates
@@ -104,6 +105,10 @@ class Player(pygame.sprite.Sprite):
 
     def action(self,event):
         if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
+            if (time.time() >= self.lastUpdatedFrame + 0.6): 
+                self.lastUpdatedFrame = time.time()
+                self.sound.playSound("run",0.03) 
+
             if not self.collisionX('left') and not self.isTurning:
                 if self.direction == 'right' and self.speed_y == 0:
                     #if self.isRunning == False:
@@ -116,10 +121,17 @@ class Player(pygame.sprite.Sprite):
                 self.runtostop = False
                 self.direction = 'left'
 
-        if self.jeu.key_pressed[self.data['Bindings']['right']] == True:
+        if self.jeu.key_pressed[self.data['Bindings']['right']] == True:  
+     
+            if (time.time() >= self.lastUpdatedFrame + 0.6): 
+                self.lastUpdatedFrame = time.time()
+                self.sound.playSound("run",0.03)       
+
+            
             if not self.collisionX('right') and not self.isTurning:
                 if self.direction == 'left' and self.speed_y == 0:
                     #if self.isRunning == False:
+                        
                         self.playAnimation('turn',5)
                         self.isTurning = True
                     #else:             
@@ -130,6 +142,10 @@ class Player(pygame.sprite.Sprite):
                 self.direction = 'right'
 
         if self.jeu.key_pressed[self.data['Bindings']['jump']] == True:
+            if (time.time() >= self.lastUpdatedFrame + 0.8): 
+                self.lastUpdatedFrame = time.time()
+                self.sound.playSound("jump",0.1) 
+
             if self.isJumping == False and self.speed_y == 0:
                 self.playAnimation('jump',1)
                 self.isJumping = True

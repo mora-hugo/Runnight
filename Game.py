@@ -6,6 +6,7 @@ import Player
 import Playground
 import Chargement
 import Decor
+import Sound
 
 class Game(): #Design pattern singleton
     instance = None
@@ -49,6 +50,10 @@ class Game(): #Design pattern singleton
             
             self.currentMenu = "mainMenu"
 
+            #Sons
+
+            self.barre.update(65,"Chargement Sons")
+            self.sons = Sound.Sound()
             #Decor
             self.barre.update(80,"Chargement décors")
             self.decor = Decor.Decor(self)
