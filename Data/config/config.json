@@ -74,6 +74,11 @@
                 "name": "hit_wall",
                 "path": "Data/sprites/player/hit_wall/",
                 "lenght": 26
+            },
+            {
+                "name": "jump_ride",
+                "path": "Data/sprites/player/jump_ride/",
+                "lenght": 71
             }
         ]
     },
