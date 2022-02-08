@@ -115,7 +115,7 @@ class Playground:
 
             x += randint(10,1024)
 
-        self.decor.spawnDecor('house',x+100,200,600,400,speed,'x',False)
+        self.decor.spawnDecor('house',x+100,200,1000,400,speed,'x',False)
 
 
     def quitter(self):

@@ -101,6 +101,7 @@ class Game():  # Design pattern singleton
     def startRun(self, biome, night):
         self.nbRun += 1
         self.isInRun = True
+        self.player.tpRun = True
         self.playground.generateWorld(biome,night,self.nbRun)
 
 
