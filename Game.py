@@ -99,6 +99,7 @@ class Game():  # Design pattern singleton
                 self.player.updateJson()
 
     def startRun(self, biome, night):
+        self.nbRun += 1
         self.isInRun = True
         self.playground.generateWorld(biome,night,self.nbRun)
 

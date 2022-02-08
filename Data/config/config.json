@@ -136,13 +136,26 @@
             "width": 854,
             "img": "Data/sprites/decors/tree1.png",
             "animation": "None"
-        }
-        ,
+        },
         {
             "name": "house",
             "height": 1080,
             "width": 767,
             "img": "Data/sprites/background/house.png",
+            "animation": "None"
+        },
+        {
+            "name": "day",
+            "height": 1295,
+            "width": 500,
+            "img": "Data/sprites/background/sunset.png",
+            "animation": "None"
+        },
+        {
+            "name": "night",
+            "height": 5000,
+            "width": 4567,
+            "img": "Data/sprites/background/moon.png",
             "animation": "None"
         }
     ],
@@ -150,7 +163,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "use": 13
     },
     "Background_images": {

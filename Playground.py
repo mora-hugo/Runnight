@@ -75,6 +75,10 @@ class Playground:
         x = 0
         treesx = 0
         # fond
+        if not night:
+            self.decor.spawnDecor('day', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
+        else:
+            self.decor.spawnDecor('night', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
         for i in range(0, int(runLenght)):
             if biome == 'foret':
                 if not night:
@@ -110,7 +114,7 @@ class Playground:
             
 
             x += randint(10,1024)
-            
+
         self.decor.spawnDecor('house',x+100,200,600,400,speed,'x',False)
 
 

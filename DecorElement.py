@@ -21,11 +21,9 @@ class DecorElement(pygame.sprite.Sprite):
         self.name = element['name']
 
     def collisionPlayer(self):
-        for sprite in game.Game.get_instance().all_sprites:
-            pygame.draw.rect(self.game.screen, (255, 0, 0),
-                             (self.pos_x, self.pos_y, self.width, self.height))
-            if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, self.width, self.height)):
-                return True
+        if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, self.width, self.height)):
+            self.game.player.tpPlanque = True
+            return True
         return False
 
     def update(self):

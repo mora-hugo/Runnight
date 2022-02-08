@@ -45,6 +45,8 @@ class Player(pygame.sprite.Sprite):
         self.isRiding = False
         self.isFallingSlow = False
 
+        self.tpPlanque = False
+
         self.isFallingHard = False
 
         self.isLanding = False
@@ -106,10 +108,10 @@ class Player(pygame.sprite.Sprite):
     def collisionXup(self,direction):
         for sprite in game.Game.get_instance().all_sprites:
             if direction == "left":
-                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left, self.rect.y+30 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5)):
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5)):
                     return True
             else:
-                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left+120, self.rect.y+30 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5)):
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left+120, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5)):
                     return True
         return False
 
@@ -125,259 +127,335 @@ class Player(pygame.sprite.Sprite):
                 
 
     def action(self,event):
-        if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
-            if (time.time() >= self.lastUpdatedFrame + 0.6): 
-                self.lastUpdatedFrame = time.time()
-                self.sound.playSound("run",0.03) 
 
-            if not self.collisionX('left'):
-                if self.direction == 'right' and self.speed_y == 0:
-                    if self.isRunning == False:
-                        self.playAnimation('turn',5)
-                        self.isTurning = True
-                    else:              
-                        self.playAnimation('turn_run',1.2)  
-                        self.isTurningRun = True   
-                self.direction = 'left'  
-                self.isRunning = True
-                self.runtostop = False
+        if self.jeu.currentMenu == "gameMenu":
+
+            if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
+                if (time.time() >= self.lastUpdatedFrame + 0.6): 
+                    self.lastUpdatedFrame = time.time()
+                    self.sound.playSound("run",0.03) 
+
+                if not self.collisionX('left'):
+                    if self.direction == 'right' and self.speed_y == 0:
+                        if self.isRunning == False:
+                            self.playAnimation('turn',5)
+                            self.isTurning = True
+                        else:              
+                            self.playAnimation('turn_run',1.2)  
+                            self.isTurningRun = True   
+                    self.direction = 'left'  
+                    self.isRunning = True
+                    self.runtostop = False
+                    
+
+            if self.jeu.key_pressed[self.data['Bindings']['right']] == True:  
+        
+                if (time.time() >= self.lastUpdatedFrame + 0.6): 
+                    self.lastUpdatedFrame = time.time()
+                    self.sound.playSound("run",0.03)       
+
                 
+                if not self.collisionX('right'):
+                    if self.direction == 'left' and self.speed_y == 0:
+                        if self.isRunning == False:            
+                            self.playAnimation('turn',5)
+                            self.isTurning = True
+                        else:             
+                            self.playAnimation('turn_run',1.2)  
+                            self.isTurningRun = True 
+                    self.direction = 'right'   
+                    self.isRunning = True
+                    self.runtostop = False
 
-        if self.jeu.key_pressed[self.data['Bindings']['right']] == True:  
-     
-            if (time.time() >= self.lastUpdatedFrame + 0.6): 
-                self.lastUpdatedFrame = time.time()
-                self.sound.playSound("run",0.03)       
-
-            
-            if not self.collisionX('right'):
-                if self.direction == 'left' and self.speed_y == 0:
-                    if self.isRunning == False:            
-                        self.playAnimation('turn',5)
-                        self.isTurning = True
-                    else:             
-                        self.playAnimation('turn_run',1.2)  
-                        self.isTurningRun = True 
-                self.direction = 'right'   
-                self.isRunning = True
-                self.runtostop = False
-
-        if self.jeu.key_pressed[self.data['Bindings']['jump']] == True and not self.isRiding:
-            self.sound.StopSound()
-            
-            if (time.time() >= self.lastUpdatedFrame): 
-                self.lastUpdatedFrame = time.time()
-                if (randint(1,40) == 5):
-                    self.sound.playSound("jumpProot",0.1)
+            if self.jeu.key_pressed[self.data['Bindings']['jump']] == True and not self.isRiding and self.game.isInRun:
+                self.sound.StopSound()
+                
+                if not self.isJumping or not self.isFlying:
+                    if (time.time() >= self.lastUpdatedFrame): 
+                        self.lastUpdatedFrame = time.time()
+                        if (randint(1,40) == 5):
+                            self.sound.playSound("jumpProot",0.1)
+                        else:
+                            self.sound.playSound("jump",0.1)
+                
+                if self.direction == 'left':
+                    if not self.collisionXup('left') and self.collisionX('left'):
+                        self.runtostop = False
+                        self.playAnimation('jump_ride',1.5)
+                        self.isRiding = True
+                        
+                    elif self.isJumping == False and self.speed_y == 0:
+                        self.playAnimation('jump',1)
+                        self.isJumping = True
+                        self.runtostop = False
                 else:
-                    self.sound.playSound("jump",0.1)
-            
-            if self.direction == 'left':
-                if not self.collisionXup('left') and self.collisionX('left'):
-                    self.playAnimation('jump_ride',1.5)
-                    self.isRiding = True
-                    self.runtostop = False
-                elif self.isJumping == False and self.speed_y == 0:
-                    self.playAnimation('jump',1)
-                    self.isJumping = True
-                    self.isRunning = False
-                    self.runtostop = False
-            else:
-                if not self.collisionXup('right') and self.collisionX('right'):
-                    self.playAnimation('jump_ride',1.5)
-                    self.isRiding = True
-                    self.runtostop = False
-                elif self.isJumping == False and self.speed_y == 0:
-                    self.playAnimation('jump',1)
-                    self.isJumping = True
-                    self.isRunning = False
-                    self.runtostop = False
+                    if not self.collisionXup('right') and self.collisionX('right'):
+                        self.runtostop = False
+                        self.playAnimation('jump_ride',1.5)
+                        self.isRiding = True
+                        self.runtostop = False
+                    elif self.isJumping == False and self.speed_y == 0:
+                        self.playAnimation('jump',1)
+                        self.isJumping = True
+                        self.runtostop = False
             
 
             
 
-        if event.type == pygame.KEYUP:
-            
-            if (event.key == self.data['Bindings']['right'] and not self.jeu.key_pressed[self.data['Bindings']['left']]) or (event.key == self.data['Bindings']['left'] and not self.jeu.key_pressed[self.data['Bindings']['right']]):
-                if not self.isLanding and self.isJumping == False and self.speed_y == 0 and self.isRunning and not self.isTurning and not self.isTurningRun and self.isRunning:
-                    self.playAnimation('runtostop',0.9)
-                    if not self.isRiding:
-                        self.runtostop = True
-                self.isRunning = False
+            if event.type == pygame.KEYUP:
+                
+                if (event.key == self.data['Bindings']['right'] and not self.jeu.key_pressed[self.data['Bindings']['left']]) or (event.key == self.data['Bindings']['left'] and not self.jeu.key_pressed[self.data['Bindings']['right']]):
+                    if not self.isLanding and self.isJumping == False and self.speed_y == 0 and self.isRunning and not self.isTurning and not self.isTurningRun:
+                        self.playAnimation('runtostop',0.9)
+                        if not self.isRiding:
+                            self.runtostop = True
+                    self.isRunning = False
 
     def update(self):
         if self.jeu.currentMenu == "gameMenu":
-            
-            nouvPos = list(self.coordinates)
-                       
 
             self.currentSprite += self.animationRate
 
-            if self.speed_y == 0:
+            nouvPos = list(self.coordinates)
 
-                if self.isFlying == True:
-                    if not self.isFallingHard:
-                        self.isLanding = True
-                        self.playAnimation('runtostop',0.9)
-                    elif not self.isFallingSlow:
-                        pass
-                    else:
-                        self.sound.playSound("crash",0.15)
-                        self.playAnimation('hard_landing',1)
-                    self.runtostop = False            
-                    self.isFlying = False
+            if self.jeu.isInRun:
+            
+                ############################## EN RUN ######################################
 
-                
+                if self.speed_y == 0:
 
-                if self.isRunning == True and not self.isTurningRun and not self.isFallingHard and not self.isRiding and not ((self.collisionX('left') and self.direction == 'left') or (self.collisionX('right') and self.direction == 'right')):
-                    if not self.isJumping:
-                        if not  self.isTurning:
-                            self.setAnimation('fastrun',0.9)
-                        self.speed_x = self.data['Player']["speed_x"]
+                    if self.isFlying == True:
+                        if not self.isFallingHard:
+                            self.isLanding = True
+                            self.playAnimation('runtostop',0.9)
+                        elif not self.isFallingSlow:
+                            pass
+                        else:
+                            self.sound.playSound("crash",0.15)
+                            self.playAnimation('hard_landing',1)
+                        self.runtostop = False            
+                        self.isFlying = False
+
+                    
+
+                    if self.isRunning == True and not self.isTurningRun and not self.isFallingHard and not self.isRiding and not ((self.collisionX('left') and self.direction == 'left') or (self.collisionX('right') and self.direction == 'right')):
+                        if not self.isJumping:
+                            if not  self.isTurning:
+                                self.setAnimation('fastrun',0.9)
+                            self.speed_x = self.data['Player']["speed_x"]
+                            if self.isLanding == True:
+                                self.isLanding = False
+
+                        elif self.speed_x > 0:
+                            self.speed_x -= 0.1
+                        if self.direction == 'left' and not self.collisionX('left'):    
+                            nouvPos[0] -= self.speed_x
+                        if self.direction == 'right' and not self.collisionX('right'):
+                            nouvPos[0] += self.speed_x
+
+                    elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping and not self.isTurning and not self.isTurningRun and not self.isFallingHard and not self.isRiding:
+                        self.setAnimation('idle',0.4)
+
+                    if self.currentSprite >= len(self.sprites):
+                        if self.runtostop == True:
+                            if self.isRunning == False:
+                                self.playAnimation('idle',0.4)
+                            self.runtostop = False
+                        if self.stoptorun == True:
+                            self.playAnimation('fastrun',0.9)
+                            self.stoptorun = False
                         if self.isLanding == True:
-                            self.isLanding = False
-
-                    elif self.speed_x > 0:
-                        self.speed_x -= 0.1
-                    if self.direction == 'left' and not self.collisionX('left'):    
-                        nouvPos[0] -= self.speed_x
-                    if self.direction == 'right' and not self.collisionX('right'):
-                        nouvPos[0] += self.speed_x
-
-                elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping and not self.isTurning and not self.isTurningRun and not self.isFallingHard and not self.isRiding:
-                    self.setAnimation('idle',0.4)
-
-                if self.currentSprite >= len(self.sprites):
-                    if self.runtostop == True:
-                        if self.isRunning == False:
                             self.playAnimation('idle',0.4)
-                        self.runtostop = False
-                    if self.stoptorun == True:
-                        self.playAnimation('fastrun',0.9)
-                        self.stoptorun = False
-                    if self.isLanding == True:
-                        self.playAnimation('idle',0.4)
-                        self.isLanding = False
-                    if self.isTurning == True:
-                        self.playAnimation('idle',0.4)
-                        self.isTurning = False
-                    if self.isTurningRun == True:                       
-                        self.isTurningRun = False
+                            self.isLanding = False
+                        if self.isTurning == True:
+                            self.playAnimation('idle',0.4)
+                            self.isTurning = False
+                        if self.isTurningRun == True:                       
+                            self.isTurningRun = False
 
-                    if self.isFallingHard == True:
-                        self.playAnimation('idle',0.4)
-                        self.isFallingHard = False
-                    if self.isRiding == True:
-                        self.playAnimation('idle',0.4)
-                        self.isRiding = False
-                    self.currentSprite = 0
+                        if self.isFallingHard == True:
+                            self.playAnimation('idle',0.4)
+                            self.isFallingHard = False
+                        if self.isRiding == True:
+                            self.playAnimation('idle',0.4)
+                            self.isRiding = False
+                        self.currentSprite = 0
+                        
                     
-                
 
-                if self.runtostop == True or self.isLanding == True: 
+                    if self.runtostop == True or self.isLanding == True: 
+                        
+                        if self.speed_x > 0:
+                            self.speed_x -=0.4
+                        if self.direction == 'left':
+                            if not self.collisionX('left'):
+                                nouvPos[0] -= self.speed_x
+
+                        if self.direction == 'right':
+                            if not self.collisionX('right'):
+                                nouvPos[0] += self.speed_x
+
+                    if self.isRiding:
+                        if self.direction == 'left':
+                            
+                            nouvPos[0] -= 2
+
+                        if self.direction == 'right':
+                            
+                            nouvPos[0] += 2
                     
-                    if self.speed_x > 0:
-                        self.speed_x -=0.4
+
+                        
+
+                    if self.direction == 'right':
+                        if self.isTurningRun == False and self.isTurning == False:
+                            self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                        else:
+                            self.image = self.sprites[int(self.currentSprite)]
+                        
                     if self.direction == 'left':
+                        if self.isTurningRun == False and self.isTurning == False:               
+                            self.image = self.sprites[int(self.currentSprite)]
+                        else:
+                            self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                        
+
+                    if self.isJumping == True:
+                        self.speed_y = self.jumpForce
+                        nouvPos[1] -= self.speed_y
+                        
+
+                elif self.speed_y != 0:
+                    self.isTurning = False
+                    self.isTurningRun = False
+                    if self.isJumping == True:
+                        
+                        nouvPos[1]-= self.speed_y #(-0.001*(y[0]*y[0]))
+                        if self.speed_y > 0.5:
+                            self.speed_y -= 0.5
+                            
+                        else:
+                            self.speed_y = 0.1
+                            self.isJumping = False
+                            
+                        
+                        if not self.currentSprite >= len(self.sprites):
+                            self.playAnimation('jumploop',3)
+
+                        
+
+                    else:    
+                        if (time.time() >= self.lastUpdatedFrame+0.3): 
+                            self.lastUpdatedFrame = time.time()
+                            self.sound.playSound("fall",0.01)
+                        
+                        self.setAnimation('jumploop',3)
+                        self.speed_y +=0.2
+                        nouvPos[1] += self.speed_y
+
+                        if self.speed_y >= 10:
+                            self.isFallingHard = True
+                        if self.speed_y <= 1.5:
+                            self.isFallingSlow = True
+
+                    if self.direction == 'right':
+                        self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                        if not self.collisionX('right'):
+                            nouvPos[0] += self.speed_x
+                    if self.direction == 'left':
+                        self.image = self.sprites[int(self.currentSprite)]
                         if not self.collisionX('left'):
                             nouvPos[0] -= self.speed_x
 
-                    if self.direction == 'right':
-                        if not self.collisionX('right'):
-                            nouvPos[0] += self.speed_x
 
-                if self.isRiding:
-                    if self.direction == 'left':
-                        
-                        nouvPos[0] -= 2
 
-                    if self.direction == 'right':
-                        
-                        nouvPos[0] += 2
+                if not self.isOnGround() and not self.isJumping and not self.isFlying:   
+                    self.isFlying = True      
+                    self.speed_y = 0.1
                 
+                
+                self.collisionYdeep(nouvPos)
+                self.collisionY()
+                nouvPos[0] -= self.game.nbRun + 1
 
-                    
+                #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left, self.rect.y+50 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
+                #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+120, self.rect.y+50 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
+                #pygame.draw.rect(self.game.screen,(255,255,255),(self.rect.x+39 , self.rect.y+self.data['Player']['height'],self.data['Player']['width']-10,20))
+                #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
+
+            else:
+
+                ############################## A LA PLANQUE ######################################
+
+                if self.tpPlanque == True:
+                    nouvPos[0] = 500
+                    self.tpPlanque = False
+                
+                self.speed_y == 0
+                self.isFlying = False
+                self.isJumping = False
+                self.isLanding = False
+                self.isRiding = False
+                self.isFallingHard = False
+                self.isFallingSlow = False
+
+                if self.isRunning == True and not self.isTurningRun :
+                    if not  self.isTurning:
+                        self.setAnimation('fastrun',0.9)
+                        self.speed_x = self.data['Player']["speed_x"]
+                    elif self.speed_x > 0:
+                        self.speed_x -= 0.1
+                    if self.direction == 'left' and nouvPos[0] >=10 :    
+                        nouvPos[0] -= self.speed_x
+                    if self.direction == 'right':
+                        nouvPos[0] += self.speed_x
+                elif not self.runtostop and not self.isTurning and not self.isTurningRun:
+                    self.setAnimation('idle',0.4)
+
+                if self.runtostop == True: 
+                        
+                        if self.speed_x > 0:
+                            self.speed_x -=0.4
+                        if self.direction == 'left':
+                            if not self.collisionX('left'):
+                                nouvPos[0] -= self.speed_x
+
+                        if self.direction == 'right':
+                            if not self.collisionX('right'):
+                                nouvPos[0] += self.speed_x
+
+                if self.currentSprite >= len(self.sprites):
+                        if self.runtostop == True:
+                            if self.isRunning == False:
+                                self.playAnimation('idle',0.4)
+                            self.runtostop = False
+                        if self.isTurning == True:
+                            self.playAnimation('idle',0.4)
+                            self.isTurning = False
+                        if self.isTurningRun == True:                       
+                            self.isTurningRun = False
+
+                        self.currentSprite = 0
 
                 if self.direction == 'right':
-                    if self.isTurningRun == False and self.isTurning == False:
-                        self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
-                    else:
-                        self.image = self.sprites[int(self.currentSprite)]
-                    
+                        if self.isTurningRun == False and self.isTurning == False:
+                            self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                        else:
+                            self.image = self.sprites[int(self.currentSprite)]
+                        
                 if self.direction == 'left':
                     if self.isTurningRun == False and self.isTurning == False:               
                         self.image = self.sprites[int(self.currentSprite)]
                     else:
                         self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
-                    
 
-                if self.isJumping == True:
-                    self.speed_y = self.jumpForce
-                    nouvPos[1] -= self.speed_y
-                    
+                if nouvPos[0] >= 1000:
+                    self.game.startRun('foret', False) #lancement du prochain run!
 
-            elif self.speed_y != 0:
-                self.isTurning = False
-                self.isTurningRun = False
-                if self.isJumping == True:
-                    
-                    nouvPos[1]-= self.speed_y #(-0.001*(y[0]*y[0]))
-                    if self.speed_y > 0.5:
-                        self.speed_y -= 0.5
-                        
-                    else:
-                        self.speed_y = 0.1
-                        self.isJumping = False
-                        
-                    
-                    if not self.currentSprite >= len(self.sprites):
-                        self.playAnimation('jumploop',3)
-
-                    
-
-                else:    
-                    if (time.time() >= self.lastUpdatedFrame+0.3): 
-                        self.lastUpdatedFrame = time.time()
-                        self.sound.playSound("fall",0.01)
-                    
-                    self.setAnimation('jumploop',3)
-                    self.speed_y +=0.2
-                    nouvPos[1] += self.speed_y
-
-                    if self.speed_y >= 10:
-                        self.isFallingHard = True
-                    if self.speed_y <= 1.5:
-                        self.isFallingSlow = True
-
-                if self.direction == 'right':
-                    self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
-                    if not self.collisionX('right'):
-                        nouvPos[0] += self.speed_x
-                if self.direction == 'left':
-                    self.image = self.sprites[int(self.currentSprite)]
-                    if not self.collisionX('left'):
-                        nouvPos[0] -= self.speed_x
-
-
-
-            if not self.isOnGround() and not self.isJumping and not self.isFlying:   
-                self.isFlying = True      
-                self.speed_y = 0.1
-            
-            
-            self.collisionYdeep(nouvPos)
-            self.collisionY()
-            nouvPos[0] -= self.game.nbRun + 1
+                
+                nouvPos[1] = 450
             self.coordinates = tuple(nouvPos)
-            self.rect.topleft = self.coordinates
-
-            #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left, self.rect.y+50 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
-            #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+120, self.rect.y+50 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
-            #pygame.draw.rect(self.game.screen,(255,255,255),(self.rect.x+39 , self.rect.y+self.data['Player']['height'],self.data['Player']['width']-10,20))
-            #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
-
-            print(self.direction)
-            
+            self.rect.topleft = self.coordinates            
 
 
     def updateJson(self):
