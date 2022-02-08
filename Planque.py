@@ -1,7 +1,7 @@
 from re import X
 import pygame
 import json
-import time
+import armoire
 
 
 class Planque(pygame.sprite.Sprite):
@@ -36,12 +36,15 @@ class Planque(pygame.sprite.Sprite):
                 self.data["Planque_boutons"][boutonN]["img"]).convert_alpha()
             # Afficher de base
             self.boutonsGroup.add(PlanqueButton(
-                self.boutonsImg[boutonN], self.data["Planque_boutons"][boutonN]["x"], self.data["Planque_boutons"][boutonN]["y"], self.data["Planque_boutons"][boutonN]["width"], self.data["Planque_boutons"][boutonN]["height"], self))
+                boutonN,self.boutonsImg[boutonN], self.data["Planque_boutons"][boutonN]["x"], self.data["Planque_boutons"][boutonN]["y"], self.data["Planque_boutons"][boutonN]["width"], self.data["Planque_boutons"][boutonN]["height"], self))
         self.image = self.image
         self.rect = self.image.get_rect()
         self.game = game
         self.collider = False
         self.isVisible = False
+
+        #chargement armoire
+        self.armoire = armoire.armoire(game)
 
     def afficher(self):
         self.game.all_sprites.add(self)
@@ -55,8 +58,9 @@ class Planque(pygame.sprite.Sprite):
 
 
 class PlanqueButton(pygame.sprite.Sprite):
-    def __init__(self, img, x, y, width, height, planque):
+    def __init__(self, nom, img, x, y, width, height, planque):
         pygame.sprite.Sprite.__init__(self)
+        self.nom = nom
         self.image = img
         self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect()
@@ -92,4 +96,6 @@ class PlanqueButton(pygame.sprite.Sprite):
             self.cacher()
 
         if self.isClicked():
+            if self.nom == 'armoire':
+                self.planque.armoire.afficher()
             print("cliquer")

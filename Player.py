@@ -47,6 +47,7 @@ class Player(pygame.sprite.Sprite):
         self.isFallingSlow = False
 
         self.tpPlanque = False
+        self.tpRun = False
 
         self.isFallingHard = False
 
@@ -190,6 +191,7 @@ class Player(pygame.sprite.Sprite):
                 if self.direction == 'left':
                     if not self.collisionXup('left') and self.collisionX('left'):
                         self.runtostop = False
+                        self.isLanding = False
                         self.playAnimation('jump_ride',1.5)
                         self.isRiding = True
                         
@@ -200,9 +202,10 @@ class Player(pygame.sprite.Sprite):
                 else:
                     if not self.collisionXup('right') and self.collisionX('right'):
                         self.runtostop = False
+                        self.isLanding = False
                         self.playAnimation('jump_ride',1.5)
                         self.isRiding = True
-                        self.runtostop = False
+
                     elif self.isJumping == False and self.speed_y == 0:
                         self.playAnimation('jump',1)
                         self.isJumping = True
@@ -230,6 +233,11 @@ class Player(pygame.sprite.Sprite):
             if self.jeu.isInRun:
             
                 ############################## EN RUN ######################################
+
+                if self.tpRun == True:
+                    nouvPos[0] = 100
+                    nouvPos[1] = 350
+                    self.tpRun = False
 
                 if self.speed_y == 0:
 
@@ -462,7 +470,7 @@ class Player(pygame.sprite.Sprite):
                     self.game.startRun('foret', False) #lancement du prochain run!
 
                 
-                nouvPos[1] = 450
+                nouvPos[1] = 530
             self.coordinates = tuple(nouvPos)
             self.rect.topleft = self.coordinates            
 

@@ -179,7 +179,8 @@
         "egoutBot": "Data/sprites/background/egout_bot.png",
         "planque": "Data/sprites/background/house.png",
         "jungle_jour": "Data/sprites/background/jungle_jour.png",
-        "jungle_nuit": "Data/sprites/background/jungle_nuit.png"
+        "jungle_nuit": "Data/sprites/background/jungle_nuit.png",
+        "armoire": "Data/sprites/planque/armoireProche.png"
     },
     "Images": {
         "logo": "Data/sprites/logoWC.png"
@@ -214,6 +215,26 @@
             "img": "Data/sprites/items/crafting_table.png",
             "HEIGHT": 200,
             "WIDTH": 612
+        },
+        "panneau_menu_commencer_hover": {
+            "img": "Data/sprites/items/pancarte_menu_commencer_hover.png",
+            "HEIGHT": 540,
+            "WIDTH": 482
+        },
+        "panneau_menu_touches_hover": {
+            "img": "Data/sprites/items/pancarte_menu_touches_hover.png",
+            "HEIGHT": 575,
+            "WIDTH": 464
+        },
+        "panneau_menu_regles_hover": {
+            "img": "Data/sprites/items/pancarte_menu_regles_hover.png",
+            "HEIGHT": 540,
+            "WIDTH": 482
+        },
+        "panneau_menu_quitter_hover": {
+            "img": "Data/sprites/items/pancarte_menu_quitter_hover.png",
+            "HEIGHT": 575,
+            "WIDTH": 464
         }
     },
     "Sounds": {
@@ -230,25 +251,46 @@
     },
     "Planque_boutons": {
         "cuisine": {
-            "img": "Data/sprites/items/cuisine.png",
+            "img": "Data/sprites/planque/cuisine.png",
             "x": 312,
             "y": 208,
             "height": 166,
             "width": 198
         },
         "douche": {
-            "img": "Data/sprites/items/douche.png",
+            "img": "Data/sprites/planque/douche.png",
             "x": 474,
             "y": 27,
             "height": 164,
             "width": 181
         },
         "lit": {
-            "img": "Data/sprites/items/lit.png",
+            "img": "Data/sprites/planque/lit.png",
             "x": 465,
             "y": 485,
             "height": 68,
             "width": 142
+        },
+        "armoire": {
+            "img": "Data/sprites/planque/armoire.png",
+            "x": 660,
+            "y": 410,
+            "height": 145,
+            "width": 81
+        },
+        "canape": {
+            "img": "Data/sprites/planque/canape.png",
+            "x": 437,
+            "y": 653,
+            "height": 85,
+            "width": 165
+        },
+        "biblioteque": {
+            "img": "Data/sprites/planque/biblioteque.png",
+            "x": 320,
+            "y": 615,
+            "height": 125,
+            "width": 70
         }
     },
     "Ingredients": {
