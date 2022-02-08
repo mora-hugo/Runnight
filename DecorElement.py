@@ -5,7 +5,7 @@ import Player
 
 
 class DecorElement(pygame.sprite.Sprite):
-    def __init__(self, element, game, x, y, width, height, speed, direction, isColliding):
+    def __init__(self, element, game, x, y, width, height, speed, direction, isColliding, hitBoxX=None, hitBoxY=None):
         super().__init__()
         self.width = width
         self.height = height
@@ -19,9 +19,19 @@ class DecorElement(pygame.sprite.Sprite):
         self.collider = isColliding
         self.speed = speed
         self.name = element['name']
+        self.hitBoxX = hitBoxX
+        self.hitBoxY = hitBoxY
 
     def collisionPlayer(self):
-        if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, self.width, self.height)):
+        if self.hitBoxX is not None:
+            width = self.hitBoxX
+        else:
+            width = self.width
+        if self.hitBoxY is not None:
+            height = self.hitBoxY
+        else:
+            height = self.height
+        if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, width, height)):
             self.game.player.tpPlanque = True
             return True
         return False

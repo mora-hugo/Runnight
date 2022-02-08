@@ -45,6 +45,9 @@ class Game():  # Design pattern singleton
             #Toutes les touches pressés par le joueur
             self.key_pressed = {}
 
+            #Souris touche par le joueur
+            self.mouse_pressed = -1 # -1 = rien, 0 mouse down, 1 mouse up  
+
             # config file load
             f = open('Data/config/config.json')
             self.data = json.load(f)
@@ -73,6 +76,8 @@ class Game():  # Design pattern singleton
             self.barre.update(90, "Chargmement de la planque")
             self.planque = Planque.Planque(self)
 
+            #
+
     def load_keys(self):
         for i in self.data['Bindings']:
             self.key_pressed[self.data['Bindings'][i]] = False
@@ -82,6 +87,12 @@ class Game():  # Design pattern singleton
             self.key_pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             self.key_pressed[event.key] = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            self.mouse_pressed = 0
+        elif event.type == pygame.MOUSEBUTTONUP:
+            self.mouse_pressed = 1
+        else:
+            self.mouse_pressed = -1
 
     def mapping(self):
 

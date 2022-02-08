@@ -58,7 +58,14 @@ class Player(pygame.sprite.Sprite):
         self.stoptorun = False
 
         self.jeu = game  # Creation instance jeu
-        self.inventory = {}
+        self.inventory = {
+            "Ingredients" : {
+                
+            },
+            "Plats" : {
+
+            }
+        }
 
     def loadAnimations(self):
         for i in self.data['Player']['animations']:

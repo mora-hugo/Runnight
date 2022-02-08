@@ -4,6 +4,7 @@ import Bouton as bouton
 import Game as game
 import json
 import Sound
+import CraftingTable
 
 class Playground:
     def __init__(self, screen, game):
@@ -37,9 +38,11 @@ class Playground:
         pygame.draw.rect(screen, (255, 255, 255), self.ground)
         # Creation images ingrédients
         self.imgIngredients = {}
+        self.crafting_table = CraftingTable.CraftingTable(game,self.decor)
+        
 
     # Affiche les elements du menu
-
+        
     def afficher(self, group_menu=None):
         if group_menu == None:  # si pas de menu rentré, alors mettre le menu de base
             group_menu = self.echapMenuButtons
@@ -67,18 +70,13 @@ class Playground:
     def update_background(self):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
 
-
-    def generateWorld(self,biome,night,nbRun):
-        self.music.playMusic(biome,night,0.09)
+    def generateWorld(self, biome, night, nbRun):
+        self.music.playMusic(biome, night, 0.09)
         speed = nbRun + 1
         runLenght = nbRun*1.5+20
         x = 0
         treesx = 0
         # fond
-        if not night:
-            self.decor.spawnDecor('day', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
-        else:
-            self.decor.spawnDecor('night', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
         for i in range(0, int(runLenght)):
             if biome == 'foret':
                 if not night:
@@ -93,30 +91,30 @@ class Playground:
                     150, 300), randint(500, 600), speed/2, 'x', False)
                 treesx += randint(50, 150)
 
-        #ground
-        self.decor.spawnDecor('ground_1',0,600,1024,500,0,'x',True)
+        # ground
+        self.decor.spawnDecor('ground_1', 0, 600, 1024, 500, 0, 'x', True)
         self.decor.spawnIngredient(
             "Salade", 600, 300, 50, 50, speed, "x", False)
 
-        x = 1024      
-        #obstacles
-        for i in range(0,int(runLenght)):
-            randy = randint(500,600)
-            randwidth = randint(50,1000)
-            self.decor.spawnDecor('ground_1',x,randy,randwidth,1000,speed,'x',True)
+        x = 1024
+        # obstacles
+        for i in range(0, int(runLenght)):
+            randy = randint(500, 600)
+            randwidth = randint(50, 1000)
+            self.decor.spawnDecor('ground_1', x, randy,
+                                  randwidth, 1000, speed, 'x', True)
 
-            if randint(0,5) == 0:
-                self.decor.spawnDecor('souche',x+randwidth/2,randy-100,100,150,speed,'x',True)
+            if randint(0, 5) == 0:
+                self.decor.spawnDecor(
+                    'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True)
 
             if randy >= 500:
-                self.decor.spawnDecor('ground_1',x+randwidth,randint(650,750),randint(50,300),1000,speed,'x',True)
+                self.decor.spawnDecor(
+                    'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, speed, 'x', True)
 
-            
+            x += randint(10, 1024)
 
-            x += randint(10,1024)
-
-        self.decor.spawnDecor('house',x+100,200,600,400,speed,'x',False)
-
+        self.decor.spawnDecor('house', x+100, 200, 600, 400, speed, 'x', False)
 
     def quitter(self):
         self.cacher()

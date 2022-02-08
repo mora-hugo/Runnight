@@ -163,7 +163,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 97,
+        "left": 113,
         "use": 13
     },
     "Background_images": {
@@ -209,6 +209,11 @@
             "img": "Data/sprites/items/pancarte_menu_quitter.png",
             "HEIGHT": 575,
             "WIDTH": 464
+        },
+        "crafting_table": {
+            "img": "Data/sprites/items/crafting_table.png",
+            "HEIGHT": 200,
+            "WIDTH": 612
         }
     },
     "Sounds": {
@@ -345,6 +350,7 @@
             "width": 50,
             "height": 50
         }
+
     },
     "Recettes": {
         "Burger": {

@@ -34,7 +34,7 @@ class Decor(pygame.sprite.Sprite):
     def spawnDecor(self, nomElement, x, y, width, height, speed, direction, isColliding):
         decor = self.decors[nomElement]
         element = DecorElement.DecorElement(
-            decor, self.game, x, y, width, height, speed, direction, isColliding)
+            decor, self.game, x, y, width, height, speed, direction, isColliding, width/2)
         self.game.all_sprites.add(element)
 
     def loadIngredients(self):

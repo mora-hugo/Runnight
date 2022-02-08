@@ -5,7 +5,7 @@ import Game
 
 
 class Recette():
-
+    @classmethod
     def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None):
         f = open('Data/config/config.json', 'r')
         data = json.load(f)
@@ -36,7 +36,7 @@ class Recette():
                     else:
                         joueur.inventory[data['Recettes'][recette]] = 1
             recetteT.clear()
-
+    @classmethod
     def canCraft(ingredient1, ingredient2, ingredient3=None):
         f = open('Data/config/config.json', 'r')
         data = json.load(f)
