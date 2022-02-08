@@ -179,7 +179,8 @@
         "egoutBot": "Data/sprites/background/egout_bot.png",
         "planque": "Data/sprites/background/house.png",
         "jungle_jour": "Data/sprites/background/jungle_jour.png",
-        "jungle_nuit": "Data/sprites/background/jungle_nuit.png"
+        "jungle_nuit": "Data/sprites/background/jungle_nuit.png",
+        "armoire": "Data/sprites/planque/armoireProche.png"
     },
     "Images": {
         "logo": "Data/sprites/logoWC.png"
@@ -245,32 +246,46 @@
     },
     "Planque_boutons": {
         "cuisine": {
-            "img": "Data/sprites/items/cuisine.png",
+            "img": "Data/sprites/planque/cuisine.png",
             "x": 312,
             "y": 208,
             "height": 166,
             "width": 198
         },
         "douche": {
-            "img": "Data/sprites/items/douche.png",
+            "img": "Data/sprites/planque/douche.png",
             "x": 474,
             "y": 27,
             "height": 164,
             "width": 181
         },
         "lit": {
-            "img": "Data/sprites/items/lit.png",
+            "img": "Data/sprites/planque/lit.png",
             "x": 465,
             "y": 485,
             "height": 68,
             "width": 142
         },
+        "armoire": {
+            "img": "Data/sprites/planque/armoire.png",
+            "x": 660,
+            "y": 410,
+            "height": 145,
+            "width": 81
+        },
         "canape": {
-            "img": "Data/sprites/items/canape.png",
-            "x": 440,
-            "y": 650,
+            "img": "Data/sprites/planque/canape.png",
+            "x": 437,
+            "y": 653,
             "height": 85,
             "width": 165
+        },
+        "biblioteque": {
+            "img": "Data/sprites/planque/biblioteque.png",
+            "x": 320,
+            "y": 615,
+            "height": 125,
+            "width": 70
         }
     },
     "Ingredients": {

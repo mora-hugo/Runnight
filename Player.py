@@ -59,7 +59,14 @@ class Player(pygame.sprite.Sprite):
         self.stoptorun = False
 
         self.jeu = game  # Creation instance jeu
-        self.inventory = {}
+        self.inventory = {
+            "Ingredients" : {
+                
+            },
+            "Plats" : {
+
+            }
+        }
 
     def loadAnimations(self):
         for i in self.data['Player']['animations']:
@@ -463,7 +470,7 @@ class Player(pygame.sprite.Sprite):
                     self.game.startRun('foret', False) #lancement du prochain run!
 
                 
-                nouvPos[1] = 510
+                nouvPos[1] = 530
             self.coordinates = tuple(nouvPos)
             self.rect.topleft = self.coordinates            
 

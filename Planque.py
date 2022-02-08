@@ -1,7 +1,7 @@
 from re import X
 import pygame
 import json
-import time
+import armoire
 
 
 class Planque(pygame.sprite.Sprite):
@@ -42,6 +42,9 @@ class Planque(pygame.sprite.Sprite):
         self.game = game
         self.collider = False
         self.isVisible = False
+
+        #chargement armoire
+        self.armoire = armoire.armoire(game)
 
     def afficher(self):
         self.game.all_sprites.add(self)
@@ -94,5 +97,5 @@ class PlanqueButton(pygame.sprite.Sprite):
 
         if self.isClicked():
             if self.nom == 'armoire':
-                print ("armoire")
+                self.planque.armoire.afficher()
             print("cliquer")
