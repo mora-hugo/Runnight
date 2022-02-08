@@ -474,7 +474,6 @@ class Player(pygame.sprite.Sprite):
             self.coordinates = tuple(nouvPos)
             self.rect.topleft = self.coordinates            
 
-
     def updateJson(self):
         f = open('Data/config/config.json', "r")
         self.data = json.load(f)

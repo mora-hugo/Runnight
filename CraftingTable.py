@@ -13,14 +13,12 @@ class CraftingTable(pygame.sprite.Sprite):
         self.rect.y = 10
         #self.rect.y = game.data["Settings"]["HEIGHT"]/2 - game.data["Items"]["crafting_table"]["HEIGHT"]/2*1.5
         self.collider = False
-        self.game.player.inventory["Ingredients"]["Tomate"] = 2
-        self.game.player.inventory["Ingredients"]["Patate"] = 2
-        self.game.player.inventory["Ingredients"]["Salade"] = 3
         self.sprites = pygame.sprite.Group()
         self.isCaseClicked = False
         self.caseClicked = -1
         self.decor = decor
         self.createCollisionBox()
+        self.cacher()
         
         
 
