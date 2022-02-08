@@ -136,8 +136,7 @@
             "width": 854,
             "img": "Data/sprites/decors/tree1.png",
             "animation": "None"
-        }
-        ,
+        },
         {
             "name": "house",
             "height": 1080,
@@ -335,31 +334,33 @@
     },
     "Recettes": {
         "Burger": {
-            "Pain": 1,
-            "Salade": 1,
-            "Viande": 1
+            "1": "Pain",
+            "2": "Salade",
+            "3": "Viande"
         },
         "Salade Compose": {
-            "Salade": 1,
-            "Tomate": 1,
-            "Comcombre": 1
+            "1": "Salade",
+            "2": "Tomate",
+            "3": "Comcombre"
         },
         "Champignon hallucinogene": {
-            "Champignon": 3
+            "1": "Champignon",
+            "2": "Champignon",
+            "3": "Champignon"
         },
         "Tacos": {
-            "Pain": 1,
-            "Tomate": 1,
-            "Viande": 1
+            "1": "Pain",
+            "2": "Tomate",
+            "3": "Viande"
         },
         "Pizza": {
-            "Pain": 1,
-            "Tomate": 1,
-            "Champignon": 1
+            "1": "Pain",
+            "2": "Tomate",
+            "3": "Champignon"
         },
         "Hachis parmentier": {
-            "Patate": 2,
-            "Viande": 1
+            "1": "Patate",
+            "2": "Viande"
         }
     }
 }

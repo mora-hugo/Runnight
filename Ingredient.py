@@ -30,7 +30,13 @@ class Ingredient(pygame.sprite.Sprite):
         pygame.draw.rect(self.game.screen, (250, 0, 0),
                          (self.pos_x, self.pos_y+25, 50, 50))
         if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, 50, 50)):
-            print("TOUCHE BG")
+            if self.name in self.game.player.inventory.keys():
+                self.game.player.inventory[self.name] += 1
+            else:
+                self.game.player.inventory[self.name] = 1
+            print(self.game.player.inventory)
+
+            self.kill()
 
     def update(self):
         self.collisionPlayer()
