@@ -2,6 +2,7 @@ from re import X
 import pygame
 import json
 import armoire
+import CraftingTable
 
 
 class Planque(pygame.sprite.Sprite):
@@ -45,6 +46,9 @@ class Planque(pygame.sprite.Sprite):
 
         #chargement armoire
         self.armoire = armoire.armoire(game)
+
+        #chargement crafting
+        self.crafting_table = CraftingTable.CraftingTable(game,self.game.decor)
 
     def afficher(self):
         self.game.all_sprites.add(self)
@@ -98,4 +102,6 @@ class PlanqueButton(pygame.sprite.Sprite):
         if self.isClicked():
             if self.nom == 'armoire':
                 self.planque.armoire.afficher()
+            if self.nom == 'cuisine':
+                self.planque.crafting_table.afficher()
             print("cliquer")

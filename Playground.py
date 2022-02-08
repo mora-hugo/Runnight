@@ -38,7 +38,6 @@ class Playground:
         pygame.draw.rect(screen, (255, 255, 255), self.ground)
         # Creation images ingrédients
         self.imgIngredients = {}
-        self.crafting_table = CraftingTable.CraftingTable(game,self.decor)
         
 
     # Affiche les elements du menu
