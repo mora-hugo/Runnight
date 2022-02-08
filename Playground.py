@@ -3,13 +3,13 @@ import pygame
 import Bouton as bouton
 import Game as game
 import json
-
+import Sound
 
 class Playground:
     def __init__(self, screen, game):
         self.game = game
         self.decor = game.decor
-
+        self.music = Sound.Sound()
         # Tableaux contenant tous les boutons du menu
         self.echapMenuButtons = pygame.sprite.Group()
 
@@ -65,6 +65,7 @@ class Playground:
 
 
     def generateWorld(self,biome,night,nbRun):
+        self.music.playMusic(biome,night,0.09)
         speed = nbRun + 1
         runLenght = nbRun*1.5+20
         x = 0

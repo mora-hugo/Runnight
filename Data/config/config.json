@@ -124,8 +124,7 @@
             "width": 1625,
             "img": "Data/sprites/obstacles/pneu.png",
             "animation": "None"
-        }
-        ,
+        },
         {
             "name": "tree1",
             "height": 449,
@@ -138,8 +137,8 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 97,
-        "use": 13
+        "left": 113,
+        "use": 101
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background/MenuBg.png",
@@ -189,8 +188,14 @@
     "Sounds": {
         "paper": "Data/sounds/paperSound.mp3",
         "run": "Data/sounds/Pas_sur_beton.mp3",
-        "jumpProot": "Data/sounds/jump.mp3",
-        "fall": "Data/sounds/tomber.mp3"
+        "jumpProot": "Data/sounds/jumpProot.mp3",
+        "jump": "Data/sounds/jump.mp3",
+        "fall": "Data/sounds/tomber.mp3",
+        "walf": "Data/sounds/wolf.mp3",
+        "crash": "Data/sounds/crash.mp3"
+    },
+    "Music": {
+        "jungleNight": "Data/music/jungleNight.mp3"
     },
     "Planque_boutons": {
         "cuisine": {

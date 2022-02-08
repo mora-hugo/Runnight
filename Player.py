@@ -154,7 +154,7 @@ class Player(pygame.sprite.Sprite):
             
             if (time.time() >= self.lastUpdatedFrame): 
                 self.lastUpdatedFrame = time.time()
-                if (randint(1,20) == 5):
+                if (randint(1,40) == 5):
                     self.sound.playSound("jumpProot",0.1)
                 else:
                     self.sound.playSound("jump",0.1)
@@ -188,6 +188,7 @@ class Player(pygame.sprite.Sprite):
                         self.isLanding = True
                         self.playAnimation('runtostop',0.9)
                     else:
+                        self.sound.playSound("crash",0.15)
                         self.playAnimation('hard_landing',0.5)
                     self.runtostop = False            
                     self.isFlying = False
@@ -345,3 +346,4 @@ class Player(pygame.sprite.Sprite):
         f = open('Data/config/config.json',"r")
         self.data = json.load(f)
         f.close()
+    
