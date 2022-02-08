@@ -1,12 +1,13 @@
 from random import randint
 import pygame
-import json 
+import json
 import Sound
 import Game as game
 import time
 
+
 class Player(pygame.sprite.Sprite):
-    def __init__(self, coordinates,game):
+    def __init__(self, coordinates, game):
         super().__init__()
         self.sound = Sound.Sound()
         self.game = game
@@ -15,10 +16,10 @@ class Player(pygame.sprite.Sprite):
 
         self.coordinates = coordinates
         self.hp = self.data['Player']['hp']
-        self.image = pygame.Surface([1,1])
+        self.image = pygame.Surface([1, 1])
         self.rect = self.image.get_rect()
         self.rect.topleft = coordinates
-        self.playerScale = (150,275)
+        self.playerScale = (150, 275)
 
         self.collider = True
 
@@ -51,21 +52,23 @@ class Player(pygame.sprite.Sprite):
 
         self.isLanding = False
 
-        self.playAnimation('idle',0.4)
+        self.playAnimation('idle', 0.4)
 
         self.runtostop = False
         self.stoptorun = False
 
-        self.jeu = game #Creation instance jeu
-        
+        self.jeu = game  # Creation instance jeu
+        self.inventory = {}
+
     def loadAnimations(self):
         for i in self.data['Player']['animations']:
             animPath = i['path']
             animLenght = i['lenght']
             self.animations[i['name']] = []
             for y in range(animLenght):
-                img = pygame.image.load(animPath + str(y+1) + '.png').convert_alpha()
-                img = pygame.transform.scale(img,self.playerScale)
+                img = pygame.image.load(
+                    animPath + str(y+1) + '.png').convert_alpha()
+                img = pygame.transform.scale(img, self.playerScale)
                 self.animations[i['name']].append(img)
 
     def playAnimation(self, animation, rate):
@@ -86,26 +89,26 @@ class Player(pygame.sprite.Sprite):
 
     def isOnGround(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+39 , self.rect.y+self.data['Player']['height']-10,self.data['Player']['width']-10,20)):
-                
+            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+self.data['Player']['height']-10, self.data['Player']['width']-10, 20)):
+
                 return True
         return False
 
     def collisionY(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+39 , self.rect.y+self.data['Player']['height']-10,self.data['Player']['width']-10,20)):
+            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+self.data['Player']['height']-10, self.data['Player']['width']-10, 20)):
                 self.speed_y = 0
-    
-    def collisionYdeep(self,nouvPos):
+
+    def collisionYdeep(self, nouvPos):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+37 , self.rect.y+self.data['Player']['height']-20,self.data['Player']['width']-8,20)):
+            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+37, self.rect.y+self.data['Player']['height']-20, self.data['Player']['width']-8, 20)):
                 self.speed_y = 0
                 if self.isRiding:
                     nouvPos[1] -= 5
                 else:
                     nouvPos[1] -= 1
-                
-    def collisionXup(self,direction):
+
+    def collisionXup(self, direction):
         for sprite in game.Game.get_instance().all_sprites:
             if direction == "left":
                 if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5)):
@@ -115,16 +118,15 @@ class Player(pygame.sprite.Sprite):
                     return True
         return False
 
-    def collisionX(self,direction):
+    def collisionX(self, direction):
         for sprite in game.Game.get_instance().all_sprites:
             if direction == "left":
-                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left+30, self.rect.y-20 ,self.data['Player']['width']/2,self.data['Player']['height'])):
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.left+30, self.rect.y-20, self.data['Player']['width']/2, self.data['Player']['height'])):
                     return True
             else:
-                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+80, self.rect.y-20 ,self.data['Player']['width']/2,self.data['Player']['height'])):
+                if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x+80, self.rect.y-20, self.data['Player']['width']/2, self.data['Player']['height'])):
                     return True
         return False
-                
 
     def action(self,event):
 
@@ -459,7 +461,6 @@ class Player(pygame.sprite.Sprite):
 
 
     def updateJson(self):
-        f = open('Data/config/config.json',"r")
+        f = open('Data/config/config.json', "r")
         self.data = json.load(f)
         f.close()
-    
