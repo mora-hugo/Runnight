@@ -79,6 +79,11 @@
                 "name": "jump_ride",
                 "path": "Data/sprites/player/jump_ride/",
                 "lenght": 71
+            },
+            {
+                "name": "slide",
+                "path": "Data/sprites/player/slide/",
+                "lenght": 75
             }
         ]
     },
@@ -124,8 +129,7 @@
             "width": 1625,
             "img": "Data/sprites/obstacles/pneu.png",
             "animation": "None"
-        }
-        ,
+        },
         {
             "name": "tree1",
             "height": 449,
