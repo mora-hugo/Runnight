@@ -63,17 +63,17 @@
             {
                 "name": "hard_landing",
                 "path": "Data/sprites/player/hard_landing/",
-                "lenght": 21
+                "lenght": 100
             },
             {
                 "name": "roll",
                 "path": "Data/sprites/player/roll/",
-                "lenght": 85
+                "lenght": 88
             },
             {
                 "name": "hit_wall",
                 "path": "Data/sprites/player/hit_wall/",
-                "lenght": 38
+                "lenght": 26
             }
         ]
     },
