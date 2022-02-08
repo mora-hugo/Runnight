@@ -163,7 +163,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 97,
+        "left": 113,
         "use": 13
     },
     "Background_images": {
@@ -209,6 +209,26 @@
             "img": "Data/sprites/items/pancarte_menu_quitter.png",
             "HEIGHT": 575,
             "WIDTH": 464
+        },
+        "panneau_menu_commencer_hover": {
+            "img": "Data/sprites/items/pancarte_menu_commencer_hover.png",
+            "HEIGHT": 540,
+            "WIDTH": 482
+        },
+        "panneau_menu_touches_hover": {
+            "img": "Data/sprites/items/pancarte_menu_touches_hover.png",
+            "HEIGHT": 575,
+            "WIDTH": 464
+        },
+        "panneau_menu_regles_hover": {
+            "img": "Data/sprites/items/pancarte_menu_regles_hover.png",
+            "HEIGHT": 540,
+            "WIDTH": 482
+        },
+        "panneau_menu_quitter_hover": {
+            "img": "Data/sprites/items/pancarte_menu_quitter_hover.png",
+            "HEIGHT": 575,
+            "WIDTH": 464
         }
     },
     "Sounds": {
@@ -244,6 +264,13 @@
             "y": 485,
             "height": 68,
             "width": 142
+        },
+        "canape": {
+            "img": "Data/sprites/items/canape.png",
+            "x": 440,
+            "y": 650,
+            "height": 85,
+            "width": 165
         }
     },
     "Ingredients": {
