@@ -150,6 +150,7 @@
     "Sounds": {
         "paper": "Data/sounds/paperSound.mp3",
         "run": "Data/sounds/Pas_sur_beton.mp3",
-        "jump": "Data/sounds/jump.mp3"
+        "jump": "Data/sounds/jump.mp3",
+        "fall": "Data/sounds/tomber.mp3"
     }
 }

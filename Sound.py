@@ -13,13 +13,13 @@ class Sound():
         self.sound = {}
         for i in self.data["Sounds"]:
             self.sound[i] = pygame.mixer.Sound(self.data["Sounds"][i])
-        
+        self.canal_1 = pygame.mixer.Channel(0)
 
 
 
     def playSound(self,name,volume):
-
-        canal_1 = pygame.mixer.Channel(0)
-        canal_1.set_volume(volume)
-        canal_1.play(self.sound[name])
+        self.canal_1.set_volume(volume)
+        self.canal_1.play(self.sound[name])
         
+    def StopSound(self):
+        self.canal_1.stop()
