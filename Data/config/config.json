@@ -132,6 +132,14 @@
             "img": "Data/sprites/decors/tree1.png",
             "animation": "None"
         }
+        ,
+        {
+            "name": "house",
+            "height": 1080,
+            "width": 767,
+            "img": "Data/sprites/background/house.png",
+            "animation": "None"
+        }
     ],
     "Bindings": {
         "jump": 32,

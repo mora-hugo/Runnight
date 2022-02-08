@@ -89,27 +89,30 @@ class Playground:
                     150, 300), randint(500, 600), speed/2, 'x', False)
                 treesx += randint(50, 150)
 
-        # ground
-        self.decor.spawnDecor('ground_1', 0, 600, 1024, 500, 0, 'x', True)
+        #ground
+        self.decor.spawnDecor('ground_1',0,600,1024,500,0,'x',True)
         self.decor.spawnIngredient(
             "Salade", 600, 300, 50, 50, speed, "x", False)
-        x = 1024
-        # obstacles
-        for i in range(0, int(runLenght)):
-            randy = randint(500, 600)
-            randwidth = randint(50, 1000)
-            self.decor.spawnDecor('ground_1', x, randy,
-                                  randwidth, 1000, speed, 'x', True)
 
-            if randint(0, 5) == 0:
-                self.decor.spawnDecor(
-                    'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True)
+        x = 1024      
+        #obstacles
+        for i in range(0,int(runLenght)):
+            randy = randint(500,600)
+            randwidth = randint(50,1000)
+            self.decor.spawnDecor('ground_1',x,randy,randwidth,1000,speed,'x',True)
+
+            if randint(0,5) == 0:
+                self.decor.spawnDecor('souche',x+randwidth/2,randy-100,100,150,speed,'x',True)
 
             if randy >= 500:
-                self.decor.spawnDecor(
-                    'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, speed, 'x', True)
+                self.decor.spawnDecor('ground_1',x+randwidth,randint(650,750),randint(50,300),1000,speed,'x',True)
 
-            x += randint(10, 1024)
+            
+
+            x += randint(10,1024)
+            
+        self.decor.spawnDecor('house',x+100,200,600,400,speed,'x',False)
+
 
     def quitter(self):
         self.cacher()

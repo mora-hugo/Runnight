@@ -43,6 +43,7 @@ class Player(pygame.sprite.Sprite):
         self.isTurning = False
         self.isTurningRun = False
         self.isRiding = False
+        self.isFallingSlow = False
 
         self.isFallingHard = False
 
@@ -200,7 +201,8 @@ class Player(pygame.sprite.Sprite):
             if (event.key == self.data['Bindings']['right'] and not self.jeu.key_pressed[self.data['Bindings']['left']]) or (event.key == self.data['Bindings']['left'] and not self.jeu.key_pressed[self.data['Bindings']['right']]):
                 if not self.isLanding and self.isJumping == False and self.speed_y == 0 and self.isRunning and not self.isTurning and not self.isTurningRun and self.isRunning:
                     self.playAnimation('runtostop',0.9)
-                    self.runtostop = True
+                    if not self.isRiding:
+                        self.runtostop = True
                 self.isRunning = False
 
     def update(self):
@@ -217,6 +219,8 @@ class Player(pygame.sprite.Sprite):
                     if not self.isFallingHard:
                         self.isLanding = True
                         self.playAnimation('runtostop',0.9)
+                    elif not self.isFallingSlow:
+                        pass
                     else:
                         self.sound.playSound("crash",0.15)
                         self.playAnimation('hard_landing',1)
@@ -257,8 +261,7 @@ class Player(pygame.sprite.Sprite):
                     if self.isTurning == True:
                         self.playAnimation('idle',0.4)
                         self.isTurning = False
-                    if self.isTurningRun == True:
-                        #self.setAnimation('fastrun',0.9)                        
+                    if self.isTurningRun == True:                       
                         self.isTurningRun = False
 
                     if self.isFallingHard == True:
@@ -314,8 +317,10 @@ class Player(pygame.sprite.Sprite):
                     
 
             elif self.speed_y != 0:
-
+                self.isTurning = False
+                self.isTurningRun = False
                 if self.isJumping == True:
+                    
                     nouvPos[1]-= self.speed_y #(-0.001*(y[0]*y[0]))
                     if self.speed_y > 0.5:
                         self.speed_y -= 0.5
@@ -341,6 +346,8 @@ class Player(pygame.sprite.Sprite):
 
                     if self.speed_y >= 10:
                         self.isFallingHard = True
+                    if self.speed_y <= 1.5:
+                        self.isFallingSlow = True
 
                 if self.direction == 'right':
                     self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
@@ -369,7 +376,7 @@ class Player(pygame.sprite.Sprite):
             #pygame.draw.rect(self.game.screen,(255,255,255),(self.rect.x+39 , self.rect.y+self.data['Player']['height'],self.data['Player']['width']-10,20))
             #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
 
-            print(self.isRunning)
+            print(self.direction)
             
 
 
