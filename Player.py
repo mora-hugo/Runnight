@@ -1,3 +1,4 @@
+from random import randint
 import pygame
 import json 
 import Sound
@@ -146,8 +147,11 @@ class Player(pygame.sprite.Sprite):
             
             if (time.time() >= self.lastUpdatedFrame): 
                 self.lastUpdatedFrame = time.time()
-                self.sound.playSound("jump",0.1)
-                
+                if (randint(1,20) == 5):
+                    self.sound.playSound("jumpProot",0.1)
+                else:
+                    self.sound.playSound("jump",0.1)
+
             if self.isJumping == False and self.speed_y == 0:
                 self.playAnimation('jump',1)
                 self.isJumping = True
