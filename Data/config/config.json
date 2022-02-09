@@ -238,7 +238,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "use": 13
     },
     "Background_images": {
