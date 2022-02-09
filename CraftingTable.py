@@ -2,6 +2,8 @@ import pygame
 import Game
 import ItemShowcase
 import json
+import InventoryItem
+import random
 class CraftingTable(pygame.sprite.Sprite):
     def __init__(self,game,decor,planque):
         pygame.sprite.Sprite.__init__(self)
@@ -198,10 +200,19 @@ def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None):
                 recetteT.append(i)
         if "1" in recetteT and "2" in recetteT and "3" in recetteT:
                 if recette in joueur.inventory["Plats"].keys():
-                    joueur.inventory["Plats"][recette] += 1
-                else:
-                    joueur.inventory["Plats"][recette] = 1
+                    temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
+                    temp = random.uniform(0.6,1.4)*temp
+                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur))
+                    
+                    
+                    #else:
 
+                else:
+                    temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
+                    temp = random.uniform(0.6,1.4)*temp
+                    joueur.inventory["Plats"][recette] = []
+                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur))
+                print(joueur.inventory["Plats"])
         """if ingredient3 is None:
             if "1" in recetteT and "2" in recetteT:
                 if data['Recettes'][recette] in joueur.inventory.keys():

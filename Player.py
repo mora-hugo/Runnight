@@ -4,7 +4,7 @@ import json
 import Sound
 import Game as game
 import time
-
+import InventoryItem
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, coordinates, game):
@@ -68,6 +68,12 @@ class Player(pygame.sprite.Sprite):
 
             }
         }
+        self.inventory["Ingredients"]["Pain"] = 3
+
+
+        self.inventory["Ingredients"]["Viande"]= 3
+
+        self.inventory["Ingredients"]["Tomate"] = 3
 
     def loadAnimations(self):
         for i in self.data['Player']['animations']:
