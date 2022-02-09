@@ -58,7 +58,7 @@ class Game():  # Design pattern singleton
             self.load_keys()
 
             #Joueur
-            self.barre.update(60,"Chargement joueur")
+            self.barre.update(40,"Chargement joueur")
             self.player = Player.Player((400,200),self)
             self.characters.add(self.player)
             
@@ -66,19 +66,22 @@ class Game():  # Design pattern singleton
 
             # Sons
 
-            self.barre.update(65, "Chargement Sons")
+            self.barre.update(60, "Chargement Sons")
             self.sons = Sound.Sound()
             # Decor
-            self.barre.update(80, "Chargement décors")
+            self.barre.update(70, "Chargement décors")
             self.decor = Decor.Decor(self)
 
             self.playground = Playground.Playground(self.screen, self)
 
             # Planque
-            self.barre.update(90, "Chargmement de la planque")
+            self.barre.update(80, "Chargmement de la planque")
             self.planque = Planque.Planque(self)
 
-            #
+            # Monstre
+            self.barre.update(80, "Chargmement de la planque")
+            self.monster = Playground.Monster((0,200),self)
+            self.characters.add(self.monster)
 
     def load_keys(self):
         for i in self.data['Bindings']:
@@ -118,6 +121,7 @@ class Game():  # Design pattern singleton
         self.planque.cacher()
         if self.nbRun % 3 == 0:
             self.night = True
+            self.monster.afficher()
         else:
             self.night = False
         self.playground.generateWorld(self.nbRun,self.night)

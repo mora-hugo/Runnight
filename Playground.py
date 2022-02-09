@@ -146,7 +146,7 @@ class Playground:
                 self.decor.spawnDecor(
                     'ground_1',x+randwidth/5,  randy-100, randint(50, 300), 1000, speed, 'x', True)
                 self.decor.spawnDecor(
-                    'bus', x+randwidth/2, randy-200, 500, 250, speed, 'x', True, 50,0)
+                    'bus', x+randwidth/2, randy-200, 500, 250, speed, 'x', True, 20,0)
 
             if randint(0, 1) == 0:
                 self.decor.spawnDecor(
@@ -205,7 +205,7 @@ class Monster(pygame.sprite.Sprite):
         self.image = pygame.Surface([1, 1])
         self.rect = self.image.get_rect()
         self.rect.topleft = coordinates
-        self.playerScale = (150, 275)
+        self.playerScale = (300, 500)
 
         self.collider = True
 
@@ -232,6 +232,13 @@ class Monster(pygame.sprite.Sprite):
 
         self.jeu = game  # Creation instance jeu
 
+        self.cacher()
+
+    def afficher(self):
+        self.image.set_alpha(255)
+
+    def cacher(self):
+        self.image.set_alpha(0)
 
     def loadAnimations(self):
         for i in self.data['Monster']['animations']:
@@ -262,33 +269,27 @@ class Monster(pygame.sprite.Sprite):
 
     def isOnGround(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+self.data['Monster']['height']-10, self.data['Player']['width']-10, 20)):
+            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+360, 150, 20)):
 
                 return True
         return False
 
     def collisionY(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+self.data['Monster']['height']-10, self.data['Player']['width']-10, 20)):
+            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+360, 150, 20)):
                 self.speed_y = 0
 
     def collisionYdeep(self, nouvPos):
         for sprite in game.Game.get_instance().all_sprites:
-            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+37, self.rect.y+self.data['Monster']['height']-20, self.data['Player']['width']-8, 20)):
+            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+350, 150, 20)):
                 self.speed_y = 0
-                if self.isRiding:
-                    nouvPos[1] -= 5
-                else:
-                    nouvPos[1] -= 1
+                nouvPos[1] -= 5
 
 
-    def collisionX(self, direction):
+
+    def collisionX(self):
         for sprite in game.Game.get_instance().all_sprites:
-            if direction == "left":
-                if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.left+30, self.rect.y-20, self.data['Player']['width']/2, self.data['Player']['height'])):
-                    return True
-            else:
-                if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+80, self.rect.y-20, self.data['Player']['width']/2, self.data['Player']['height'])):
+                if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+130, self.rect.y+180, 50, 150)):
                     return True
         return False
 
@@ -302,24 +303,24 @@ class Monster(pygame.sprite.Sprite):
 
             nouvPos = list(self.coordinates)
 
-            if self.jeu.isInRun:
+            if self.jeu.isInRun and self.jeu.night:
             
                 ############################## EN RUN ######################################
 
+                if self.collisionX():
+                    self.isJumping = True
 
                 if self.speed_y == 0:
                     
+                    self.isFlying = False
                                         
                     if not self.isJumping:
-                        self.setAnimation('fastrun',0.9)
-
-                    if self.currentSprite >= len(self.sprites):
-                        self.currentSprite = 0               
+                        self.setAnimation('run',0.9)              
 
                     if self.isJumping == True:
                         self.speed_y = self.jumpForce
                         nouvPos[1] -= self.speed_y
-                        
+                        self.playAnimation('jumploop',3)
                         
 
                 elif self.speed_y != 0:
@@ -332,16 +333,9 @@ class Monster(pygame.sprite.Sprite):
                             
                         else:
                             self.speed_y = 0.1
-                            self.isJumping = False
-                            
-                        
-                        if not self.currentSprite >= len(self.sprites):
-                            self.playAnimation('jumploop',3)
+                            self.isJumping = False             
 
-                    else:    
-                        if (time.time() >= self.lastUpdatedFrame+0.3): 
-                            self.lastUpdatedFrame = time.time()
-                            self.sound.playSound("fall",0.01)
+                    else:
                         
                         self.setAnimation('jumploop',3)
                         self.speed_y +=0.2
@@ -353,7 +347,8 @@ class Monster(pygame.sprite.Sprite):
                             self.isFallingSlow = True
 
 
-
+                if self.currentSprite >= len(self.sprites):
+                        self.currentSprite = 0 
 
                 if not self.isOnGround() and not self.isJumping and not self.isFlying:   
                     self.isFlying = True      
@@ -363,14 +358,13 @@ class Monster(pygame.sprite.Sprite):
                 self.collisionYdeep(nouvPos)
                 self.collisionY()
 
-                #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
-                #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+120, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
-                #pygame.draw.rect(self.game.screen,(255,255,255),(self.rect.x+39 , self.rect.y+self.data['Player']['height'],self.data['Player']['width']-10,20))
                 #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
 
-            nouvPos[0] = 500
-            self.coordinates = tuple(nouvPos)
-            self.rect.topleft = self.coordinates     
+                nouvPos[0] = -40
+                self.coordinates = tuple(nouvPos)
+                self.rect.topleft = self.coordinates     
+            else:
+                self.cacher()
    
 
     def updateJson(self):

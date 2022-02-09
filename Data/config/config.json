@@ -92,7 +92,7 @@
         "speed_x": 8,
         "speed_y": 0.1,
         "gravity": 10,
-        "jumpForce": 8,
+        "jumpForce": 10,
         "width": 80,
         "height": 212,
         "animations": [

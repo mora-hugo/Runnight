@@ -143,7 +143,7 @@ class Player(pygame.sprite.Sprite):
 
         if self.jeu.currentMenu == "gameMenu":
 
-            if self.jeu.key_pressed[self.data['Bindings']['left']] == True:
+            if self.jeu.key_pressed[self.data['Bindings']['left']] == True and not self.isFallingHard:
                 if (time.time() >= self.lastUpdatedFrame + 0.6): 
                     self.lastUpdatedFrame = time.time()
                     self.sound.playSound("run",0.03) 
@@ -161,7 +161,7 @@ class Player(pygame.sprite.Sprite):
                     self.runtostop = False
                     
 
-            if self.jeu.key_pressed[self.data['Bindings']['right']] == True:  
+            if self.jeu.key_pressed[self.data['Bindings']['right']] == True and not self.isFallingHard:  
         
                 if (time.time() >= self.lastUpdatedFrame + 0.6): 
                     self.lastUpdatedFrame = time.time()
@@ -217,7 +217,7 @@ class Player(pygame.sprite.Sprite):
 
             
 
-            if event.type == pygame.KEYUP:
+            if event.type == pygame.KEYUP and not self.isFallingHard:
                 
                 if (event.key == self.data['Bindings']['right'] and not self.jeu.key_pressed[self.data['Bindings']['left']]) or (event.key == self.data['Bindings']['left'] and not self.jeu.key_pressed[self.data['Bindings']['right']]):
                     if not self.isLanding and self.isJumping == False and self.speed_y == 0 and self.isRunning and not self.isTurning and not self.isTurningRun:
