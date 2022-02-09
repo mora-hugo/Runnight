@@ -184,6 +184,15 @@ class Playground:
             if randint(0,35) == 0: #Viande
                 self.decor.spawnIngredient(
                 "Viande", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,50) == 0: #Sucre
+                self.decor.spawnIngredient(
+                "Sucre", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,50) == 0: #Saumon
+                self.decor.spawnIngredient(
+                "Saumon", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,100) == 0: #Caviar
+                self.decor.spawnIngredient(
+                "Caviar", x+randint(-100,100), 300, 50, 50, speed, "x", False)
                 
 
         self.decor.spawnDecor('house', x+100, 200, 600, 400, speed, 'x', False)
@@ -372,6 +381,9 @@ class Monster(pygame.sprite.Sprite):
                 self.collisionY()
 
                 #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
+
+                if self.isStarting:
+                     nouvPos[1] = 500
 
                 nouvPos[0] = -40
                 self.coordinates = tuple(nouvPos)
