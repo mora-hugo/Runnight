@@ -43,7 +43,7 @@ class Playground:
         pygame.draw.rect(screen, (255, 255, 255), self.ground)
         # Creation images ingrédients
         self.imgIngredients = {}
-        
+        self.nbJour = 1
 
     # Affiche les elements du menu
         
@@ -75,7 +75,8 @@ class Playground:
     def update_background(self):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
 
-    def generateWorld(self, night, nbRun):
+    def generateWorld(self, nbRun):
+        
         biome = 'ville'
         if (randint(0,1) == 1):
             biome = 'foret'
@@ -86,16 +87,16 @@ class Playground:
         x = 0
         treesx = 0
         # fond
-        if not night:
-            self.music.playMusic(biome,night, 0.09)
+        if (nbRun % 3) != 0:
+            self.music.playMusic(biome,"day", 0.09)
             self.decor.spawnDecor('sunset', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
         else:
-            self.music.playMusic(biome,night, 0.09)
+            self.music.playMusic(biome,"night", 0.09)
             self.decor.spawnDecor('moon', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
 
         for i in range(0, int(runLenght)):
             if biome == 'foret':
-                if not night:
+                if (nbRun % 3) != 0:
                    
                     self.decor.spawnDecor(
                         'foret_jour', x, -200, 1200, 1000, speed/5, 'x', False)
@@ -103,21 +104,20 @@ class Playground:
                     
                     self.decor.spawnDecor(
                         'foret_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
+                   
             else :
-                if not night:
+                if (nbRun % 3) != 0:
                     self.decor.spawnDecor(
                         'ville_jour', x, -400, 1200, 1000, speed/5, 'x', False)
                 else:
                     
                     self.decor.spawnDecor(
                         'ville_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
-
             x += 1199
             for y in range(1, 5):
                 self.decor.spawnDecor('tree1', treesx, randint(300, 400), randint(
                     150, 300), randint(500, 600), speed/2, 'x', False)
                 treesx += randint(50, 150)
-
         # ground
         self.decor.spawnDecor('ground_1', 0, 600, 1024, 500, 0, 'x', True)
         
@@ -175,6 +175,8 @@ class Playground:
                 
 
         self.decor.spawnDecor('house', x+100, 200, 600, 400, speed, 'x', False)
+        
+
     def quitter(self):
         self.cacher()
         quit()

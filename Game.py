@@ -114,7 +114,7 @@ class Game():  # Design pattern singleton
         self.isInRun = True
         self.player.tpRun = True
         self.planque.cacher()
-        self.playground.generateWorld(night,self.nbRun)
+        self.playground.generateWorld(self.nbRun)
 
 
     def update_backgrounds(self):
