@@ -481,7 +481,7 @@ class Player(pygame.sprite.Sprite):
                         self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
 
                 if nouvPos[0] >= 1000:
-                    self.game.startRun('foret', False) #lancement du prochain run!
+                    self.game.startRun(False) #lancement du prochain run!
 
                 
                 nouvPos[1] = 530
