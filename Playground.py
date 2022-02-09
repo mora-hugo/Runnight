@@ -75,19 +75,22 @@ class Playground:
     def update_background(self):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
 
-    def generateWorld(self, nbRun):
+    def generateWorld(self,nbRun,night):
         
         biome = 'ville'
         if (randint(0,1) == 1):
             biome = 'foret'
         
-        
-        speed = nbRun + 1
+        if night:
+            speed = (nbRun + 1) *1.5
+        else:
+            speed = nbRun + 1
+
         runLenght = nbRun*1.5+20
         x = 0
         treesx = 0
         # fond
-        if (nbRun % 3) != 0:
+        if not night:
             self.music.playMusic(biome,"day", 0.09)
             self.decor.spawnDecor('sunset', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
         else:
@@ -96,7 +99,7 @@ class Playground:
 
         for i in range(0, int(runLenght)):
             if biome == 'foret':
-                if (nbRun % 3) != 0:
+                if not night:
                    
                     self.decor.spawnDecor(
                         'foret_jour', x, -200, 1200, 1000, speed/5, 'x', False)
@@ -106,7 +109,7 @@ class Playground:
                         'foret_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
                    
             else :
-                if (nbRun % 3) != 0:
+                if not night:
                     self.decor.spawnDecor(
                         'ville_jour', x, -400, 1200, 1000, speed/5, 'x', False)
                 else:
@@ -114,9 +117,14 @@ class Playground:
                     self.decor.spawnDecor(
                         'ville_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
             x += 1199
+            #arbres
             for y in range(1, 5):
-                self.decor.spawnDecor('tree1', treesx, randint(300, 400), randint(
-                    150, 300), randint(500, 600), speed/2, 'x', False)
+                if not night:
+                    self.decor.spawnDecor('tree1', treesx, randint(300, 400), randint(
+                        150, 300), randint(500, 600), speed/2, 'x', False)
+                else:
+                    self.decor.spawnDecor('tree1_n', treesx, randint(300, 400), randint(
+                        150, 300), randint(500, 600), speed/2, 'x', False)
                 treesx += randint(50, 150)
         # ground
         self.decor.spawnDecor('ground_1', 0, 600, 1024, 500, 0, 'x', True)
@@ -138,9 +146,9 @@ class Playground:
                 self.decor.spawnDecor(
                     'ground_1',x+randwidth/5,  randy-100, randint(50, 300), 1000, speed, 'x', True)
                 self.decor.spawnDecor(
-                    'bus', x+randwidth/2, randy-200, 500, 250, speed, 'x', True)
+                    'bus', x+randwidth/2, randy-200, 500, 250, speed, 'x', True, 50,0)
 
-            if randint(0, 5) == 0:
+            if randint(0, 1) == 0:
                 self.decor.spawnDecor(
                     'rocher', x+randwidth/2, randy, 250, 60, speed, 'x', True)
 

@@ -39,11 +39,11 @@ class DecorElement(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
         #rect collider
-        if hitBoxX == None or hitBoxY == None or hitBoxWidth == None or hitBoxHeight == None:
+        if hitBoxX == None or hitBoxY == None:
             self.Colliderect = self.image.get_rect()
             self.Colliderect.topleft = (x, y)
         else:
-            self.Colliderect = pygame.Rect(x + hitBoxX, y + hitBoxY,hitBoxWidth ,hitBoxHeight)
+            self.Colliderect = pygame.Rect(x + hitBoxX, y + hitBoxY,self.hitBoxWidth ,self.hitBoxHeight)
 
 
 

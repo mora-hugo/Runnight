@@ -33,6 +33,8 @@ class Game():  # Design pattern singleton
 
             self.isInRun = False
 
+            self.night = False
+
             self.all_sprites = pygame.sprite.Group() # Variables ou tous les sprites seront stockés
             self.characters = pygame.sprite.Group()
             self.barre = Chargement.Chargement(self.screen,"Chargement menu")
@@ -114,7 +116,11 @@ class Game():  # Design pattern singleton
         self.isInRun = True
         self.player.tpRun = True
         self.planque.cacher()
-        self.playground.generateWorld(self.nbRun)
+        if self.nbRun % 3 == 0:
+            self.night = True
+        else:
+            self.night = False
+        self.playground.generateWorld(self.nbRun,self.night)
 
 
     def update_backgrounds(self):
