@@ -99,7 +99,17 @@
             {
                 "name": "groar",
                 "path": "Data/sprites/monster/roaring/",
-                "lenght": 32
+                "lenght": 296
+            },
+            {
+                "name": "run",
+                "path": "Data/sprites/monster/run/",
+                "lenght": 53
+            },
+            {
+                "name": "jumploop",
+                "path": "Data/sprites/monster/jumploop/",
+                "lenght": 41
             }
         ]
     },
