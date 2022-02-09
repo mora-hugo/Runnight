@@ -202,7 +202,7 @@ def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None):
                 if recette in joueur.inventory["Plats"].keys():
                     temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
                     temp = random.uniform(0.6,1.4)*temp
-                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur))
+                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
                     
                     
                     #else:
@@ -211,7 +211,7 @@ def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None):
                     temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
                     temp = random.uniform(0.6,1.4)*temp
                     joueur.inventory["Plats"][recette] = []
-                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur))
+                joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
                 print(joueur.inventory["Plats"])
         """if ingredient3 is None:
             if "1" in recetteT and "2" in recetteT:

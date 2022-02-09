@@ -48,7 +48,11 @@ class Player(pygame.sprite.Sprite):
         self.isFallingSlow = False
         self.isPicking = False
         self.isGoingUp = False
+        self.multiplicateurVitesse = 1
+        self.multiplicateurSaut = 1
 
+        self.multiplicateurVitesseDefinitif = 1
+        self.multiplicateurSautDefinitif = 1
         self.tpPlanque = False
         self.tpRun = False
 
@@ -268,7 +272,7 @@ class Player(pygame.sprite.Sprite):
                         
                         if not  self.isTurning and not self.isJumping and not self.isPicking:
                             self.setAnimation('fastrun',0.9)
-                        self.speed_x = self.data['Player']["speed_x"]
+                        self.speed_x = self.data['Player']["speed_x"]*self.multiplicateurVitesse*self.multiplicateurVitesseDefinitif
                         if self.isLanding == True:
                             self.isLanding = False
 
@@ -350,7 +354,7 @@ class Player(pygame.sprite.Sprite):
                         
 
                     if self.isJumping == True:
-                        self.speed_y = self.jumpForce
+                        self.speed_y = self.jumpForce*self.multiplicateurSaut*self.multiplicateurSautDefinitif
                         nouvPos[1] -= self.speed_y
                         self.isGoingUp = True
                         
@@ -363,7 +367,7 @@ class Player(pygame.sprite.Sprite):
                     if self.isJumping == True:
 
                         if self.isRunning:
-                            self.speed_x = self.data['Player']["speed_x"]/1.5
+                            self.speed_x = (self.data['Player']["speed_x"]*self.multiplicateurVitesse*self.multiplicateurVitesseDefinitif)/1.5
                             if self.direction == 'left' and not self.collisionX('left'):    
                                 nouvPos[0] -= self.speed_x
                             if self.direction == 'right' and not self.collisionX('right'):
