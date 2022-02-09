@@ -3,7 +3,7 @@ import Game
 import ItemShowcase
 import json
 class CraftingTable(pygame.sprite.Sprite):
-    def __init__(self,game,decor):
+    def __init__(self,game,decor,planque):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(game.data["Items"]["crafting_table"]["img"]).convert_alpha()
         self.image = pygame.transform.scale(self.image,(game.data["Items"]["crafting_table"]["WIDTH"]*1.5,game.data["Items"]["crafting_table"]["HEIGHT"]*1.5))
@@ -17,6 +17,8 @@ class CraftingTable(pygame.sprite.Sprite):
         self.isCaseClicked = False
         self.caseClicked = -1
         self.decor = decor
+        self.isVisible = False
+        self.planque = planque
         self.createCollisionBox()
         self.cacher()
         
@@ -55,13 +57,29 @@ class CraftingTable(pygame.sprite.Sprite):
         
         self.game.all_sprites.remove(self.sprites)
 
+    def isOverred(self):  
+        mouse = pygame.mouse.get_pos()
+        if self.rect.colliderect((mouse[0], mouse[1], 5, 5)) and self.isVisible:
+            return True
+        else:
+            return False
+
+    def isQuitting(self):
+        if not self.isOverred() and pygame.mouse.get_pressed()[0] and self.isVisible:
+            return True
+        else:
+            return False
 
     def afficher(self):
         self.game.all_sprites.add(self)
+        self.isVisible = True
+        self.planque.isInMenu = True
         self.afficherIngredients()
 
     def cacher(self):
         self.game.all_sprites.remove(self)
+        self.isVisible = False
+        self.planque.isInMenu = False
         self.cacherIngredients()
 
     def update(self):
@@ -86,6 +104,10 @@ class CraftingTable(pygame.sprite.Sprite):
                 for case in self.sprites:
                     if case.deposerSurCase:
                         case.kill()
+        
+        if self.isQuitting():
+            self.cacher()
+
 def canCraft(ingredient1, ingredient2, ingredient3=None):
     f = open('Data/config/config.json', 'r')
     data = json.load(f)

@@ -26,18 +26,28 @@ class Ingredient(pygame.sprite.Sprite):
                 return True
         return False
 
+    
+    def collisionYdeep(self):
+        for sprite in self.game.all_sprites:
+            if type(sprite) is not Player and sprite.collider and sprite.rect.colliderect((self.rect.x, self.rect.y+self.element["height"]/2-10, self.element['width']-10, 20)):        
+                self.pos_y -= 5
+
     def collisionPlayer(self):
         if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, 50, 50)):
             if self.name in self.game.player.inventory['Ingredients'].keys():
                 self.game.player.inventory['Ingredients'][self.name] += 1
             else:
                 self.game.player.inventory['Ingredients'][self.name] = 1
+            if self.game.player.isRunning:
+                self.game.player.playAnimation('pick_up',0.9)
+                self.game.player.isPicking = True
             print(self.game.player.inventory)
 
             self.kill()
 
     def update(self):
         self.collisionPlayer()
+        self.collisionYdeep()
         if not self.isOnGround():
             self.pos_y += 5
         if self.direction == 'x':

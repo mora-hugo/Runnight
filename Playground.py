@@ -92,8 +92,7 @@ class Playground:
 
         # ground
         self.decor.spawnDecor('ground_1', 0, 600, 1024, 500, 0, 'x', True)
-        self.decor.spawnIngredient(
-            "Salade", 600, 300, 50, 50, speed, "x", False)
+        
 
         x = 1024
         # obstacles
@@ -112,6 +111,30 @@ class Playground:
                     'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, speed, 'x', True)
 
             x += randint(10, 1024)
+
+            #stuff
+            if randint(0,5) == 0: #salade
+                self.decor.spawnIngredient(
+                "Salade", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,8) == 0: #pain
+                self.decor.spawnIngredient(
+                "Tomate", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,10) == 0: #tomate
+                self.decor.spawnIngredient(
+                "Tomate", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,20) == 0: #Comcombre
+                self.decor.spawnIngredient(
+                "Comcombre", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,30) == 0: #Champignon
+                self.decor.spawnIngredient(
+                "Champignon", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,30) == 0: #Patate
+                self.decor.spawnIngredient(
+                "Patate", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+            if randint(0,35) == 0: #Viande
+                self.decor.spawnIngredient(
+                "Viande", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+                
 
         self.decor.spawnDecor('house', x+100, 200, 600, 400, speed, 'x', False)
 

@@ -5,7 +5,7 @@ from random import randint
 
 
 class armoire(pygame.sprite.Sprite):
-    def __init__(self, game):
+    def __init__(self, game, planque):
         pygame.sprite.Sprite.__init__(self)
         file = open('Data/config/config.json', "r")
         self.data = json.load(file)
@@ -30,13 +30,21 @@ class armoire(pygame.sprite.Sprite):
         
             
 
-        
+        self.planque = planque
         self.game = game
         self.collider = False
         self.isVisible = False
 
     def afficher(self):  
 
+        self.updateAfficher()
+        
+        self.game.all_sprites.add(self)
+        self.game.all_sprites.add(self.ingredientsGroup)
+        self.isVisible = True
+        self.planque.isInMenu = True
+
+    def updateAfficher(self):
         x = 250
         y = 120
         y_offset = y
@@ -51,18 +59,12 @@ class armoire(pygame.sprite.Sprite):
             x = 250
             y_offset += 60
             y = y_offset
-            
-            
-
-        
-        self.game.all_sprites.add(self)
-        self.game.all_sprites.add(self.ingredientsGroup)
-        self.isVisible = True
 
     def cacher(self):
         self.game.all_sprites.remove(self)
         self.game.all_sprites.remove(self.ingredientsGroup)
         self.isVisible = False
+        self.planque.isInMenu = False
 
     def isOverred(self):  
         mouse = pygame.mouse.get_pos()
@@ -113,4 +115,7 @@ class ArmoireButton(pygame.sprite.Sprite):
     def update(self):
 
         if self.isClicked():
-            print ("self.nom")
+            print (self.nom)
+            self.armoire.game.player.inventory['Ingredients'][self.nom] -= 1
+            self.armoire.updateAfficher()
+            self.kill()

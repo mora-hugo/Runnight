@@ -16,6 +16,7 @@ class ItemShowcase(pygame.sprite.Sprite):
         self.name = name
         self.deposerSurCase = False
         self.caseDepose = -1
+        self.collider = False
 
         self.craftingTable = craftingTable
         self.afficher()
