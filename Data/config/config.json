@@ -211,6 +211,20 @@
             "width": 4567,
             "img": "Data/sprites/background/moon.png",
             "animation": "None"
+        },
+        {
+            "name": "bus",
+            "height": 500,
+            "width": 250,
+            "img": "Data/sprites/decors/bus.png",
+            "animation": "None"
+        },
+        {
+            "name": "rocher",
+            "height": 120,
+            "width": 250,
+            "img": "Data/sprites/decors/rocher.png",
+            "animation": "None"
         }
     ],
     "Bindings": {
@@ -301,7 +315,10 @@
         "crash": "Data/sounds/crash.mp3"
     },
     "Music": {
-        "jungleNight": "Data/music/jungleNight.mp3"
+        "nightMusic": "Data/music/nightMusic.mp3",
+        "dayMusic": "Data/music/dayMusic.mp3",
+        "menu": "Data/music/menuMusic.mp3",
+        "house": "Data/music/elevator.mp3"
     },
     "Planque_boutons": {
         "cuisine": {
