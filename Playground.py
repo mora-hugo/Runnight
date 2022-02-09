@@ -78,17 +78,19 @@ class Playground:
     def generateWorld(self, night, nbRun):
         biome = 'ville'
         if (randint(0,1) == 1):
-            biome = 'forest'
+            biome = 'foret'
         
-        self.music.playMusic(biome,"f", 0.09)
+        
         speed = nbRun + 1
         runLenght = nbRun*1.5+20
         x = 0
         treesx = 0
         # fond
         if not night:
-            self.decor.spawnDecor('moon', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
+            self.music.playMusic(biome,night, 0.09)
+            self.decor.spawnDecor('sunset', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
         else:
+            self.music.playMusic(biome,night, 0.09)
             self.decor.spawnDecor('moon', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
 
         for i in range(0, int(runLenght)):
@@ -98,8 +100,7 @@ class Playground:
                     self.decor.spawnDecor(
                         'foret_jour', x, -200, 1200, 1000, speed/5, 'x', False)
                 else:
-                    self.decor.spawnDecor(
-                        'moon', x, 0, 1200, 1000, speed/5, 'x', False)
+                    
                     self.decor.spawnDecor(
                         'foret_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
             else :
