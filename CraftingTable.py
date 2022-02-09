@@ -110,7 +110,7 @@ class CraftingTable(pygame.sprite.Sprite):
                 elif case.caseDepose == 3:
                     ingredient3 = case.name
         if ingredient1 is not None and ingredient2 is not None and ingredient3 is not None and canCraft(ingredient1,ingredient2,ingredient3):
-            
+            print("passer par la")
             craft = getCraft(ingredient1,ingredient2,ingredient3)
             self.item = ItemShowcase.ItemShowcase(self.game.playground.plats[craft], self.rect.left+385, self.rect.bottom-170,self,-1,craft,True)
             self.item.isPlat = True
@@ -129,19 +129,15 @@ class CraftingTable(pygame.sprite.Sprite):
                 self.afficher()
         
 
-        elif self.item is not None:
-            self.item.kill()
-            for case in self.sprites:
-                if case.isPlat or case.isCraftable:
-                    case.kill()
-        if not canCraft(ingredient1,ingredient2,ingredient3) and ingredient1 is not None and  ingredient2 is not None and  ingredient3 is not None:
+        
+        elif not canCraft(ingredient1,ingredient2,ingredient3) and ingredient1 is not None and  ingredient2 is not None and  ingredient3 is not None:
             self.item = ItemShowcase.ItemShowcase(self.game.playground.plats["Soupe"], self.rect.left+385, self.rect.bottom-170,self,-1,"Soupe",True)
             self.item.isPlat = True
             self.item.isCraftable = True
             self.item.afficherCraftResult()
             mouse = pygame.mouse.get_pos()
             if pygame.Rect(self.rect.left+385, self.rect.bottom-170,120,70).colliderect((mouse[0],mouse[1],1,1)) and pygame.mouse.get_pressed()[0]:
-                creerPlat(self.game.player,ingredient1,ingredient2,ingredient3)
+                creerPlat(self.game.player,ingredient1,ingredient2,ingredient3,True)
                 for case in self.sprites:
                     if case.deposerSurCase:
                         self.game.player.inventory["Ingredients"][case.name] -= 1
@@ -149,6 +145,11 @@ class CraftingTable(pygame.sprite.Sprite):
                         case.kill()
                         self.item.kill()
                 self.afficher()
+        elif self.item is not None:
+            self.item.kill()
+            for case in self.sprites:
+                if case.isPlat or case.isCraftable:
+                    case.kill()
         if self.isQuitting():
             self.cacher()
             
@@ -198,11 +199,11 @@ def getCraft(ingredient1, ingredient2, ingredient3=None):
         recetteT.clear()
     return None
 
-def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None,isPoop=None):
+def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None,isPoop=False):
     f = open('Data/config/config.json', 'r')
     data = json.load(f)
     f.close()
-    if isPoop is not None:
+    if not isPoop:
         for recette in data['Recettes']:
             recetteT = []
 

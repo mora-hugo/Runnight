@@ -4,7 +4,7 @@ import json
 import Sound
 import armoire
 import CraftingTable
-
+import Lit
 
 class Planque(pygame.sprite.Sprite):
     def __init__(self, game):
@@ -47,7 +47,9 @@ class Planque(pygame.sprite.Sprite):
 
         self.isInMenu = False
 
+        #Chargement Lit
 
+        self.lit = Lit.Lit(self.game)
         #chargement armoire
         self.armoire = armoire.armoire(game,self)
 
@@ -110,4 +112,6 @@ class PlanqueButton(pygame.sprite.Sprite):
                 self.planque.armoire.afficher()
             if self.nom == 'cuisine':
                 self.planque.crafting_table.afficher()
+            if self.nom == 'lit':
+                self.planque.lit.afficher()
             print("cliquer")

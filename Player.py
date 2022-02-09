@@ -81,6 +81,8 @@ class Player(pygame.sprite.Sprite):
 
         self.inventory["Ingredients"]["Tomate"] = 3
 
+        self.inventory["Ingredients"]["Champignon"] = 3
+
         self.background_image = pygame.image.load(
             self.data["Background_images"]["gameOver"]).convert()
 
