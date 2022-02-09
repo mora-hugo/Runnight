@@ -319,6 +319,9 @@
         "jump": "Data/sounds/jump.mp3",
         "fall": "Data/sounds/tomber.mp3",
         "walf": "Data/sounds/wolf.mp3",
+        "groar": "Data/sounds/groar.mp3",
+        "wolf": "Data/sounds/wolf.mp3",
+        "death": "Data/sounds/death.mp3",
         "crash": "Data/sounds/crash.mp3"
     },
     "Music": {

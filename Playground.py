@@ -1,3 +1,4 @@
+from asyncore import loop
 from random import randint
 import pygame
 import Bouton as bouton
@@ -200,7 +201,7 @@ class Monster(pygame.sprite.Sprite):
         super().__init__()
         self.sound = Sound.Sound()
         self.game = game
-        self.lastUpdatedFrame = time.time()
+        self.lastSoundPlay = time.time()
         self.updateJson()
 
         self.coordinates = coordinates
@@ -306,13 +307,15 @@ class Monster(pygame.sprite.Sprite):
         
     def update(self):
         if self.jeu.currentMenu == "gameMenu":
-
+            
             self.currentSprite += self.animationRate
 
             nouvPos = list(self.coordinates)
 
             if self.jeu.isInRun and self.jeu.night:
-            
+                if (time.time() >= self.lastSoundPlay + 18): 
+                    self.lastSoundPlay = time.time()
+                    self.sound.MonsterGroar(.06)
                 ############################## EN RUN ######################################
                 if not self.isStarting:
                     if self.collisionX():
@@ -375,7 +378,11 @@ class Monster(pygame.sprite.Sprite):
                 self.rect.topleft = self.coordinates     
             else:
                 self.cacher()
-   
+                self.sound.StopGroar()
+
+            
+                    
+            
 
     def updateJson(self):
         f = open('Data/config/config.json', "r")

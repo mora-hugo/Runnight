@@ -14,11 +14,13 @@ class Sound():
         for i in self.data["Sounds"]:
             self.sound[i] = pygame.mixer.Sound(self.data["Sounds"][i])
         self.canal_1 = pygame.mixer.Channel(0)
+        self.canal_2 = pygame.mixer.Channel(1)
 
+        self.soundM =  pygame.mixer.Sound(self.data["Sounds"]["groar"])
         self.music = {}
         for i in self.data["Music"]:
             self.music[i] = self.data["Music"][i]
-           
+        
 
 
     def playSound(self,name,volume):
@@ -42,3 +44,10 @@ class Sound():
                 pygame.mixer.music.load( self.music['menu'] )
         
         pygame.mixer.music.play(-1,0,0)
+
+    def MonsterGroar(self,volume):
+        self.canal_2.set_volume(volume)
+        self.canal_2.play(self.soundM)
+
+    def StopGroar(self):
+        self.canal_2.stop()
