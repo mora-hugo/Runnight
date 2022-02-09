@@ -96,6 +96,20 @@
             "animation": "None"
         },
         {
+            "name": "moon",
+            "height": 5000,
+            "width": 4567,
+            "img": "Data/sprites/background/moon.png",
+            "animation": "None"
+        },
+        {
+            "name": "sunset",
+            "height": 1600,
+            "width": 1200,
+            "img": "Data/sprites/background/sunset.png",
+            "animation": "None"
+        },
+        {
             "name": "sol_egout1",
             "height": 192,
             "width": 1024,
@@ -114,6 +128,20 @@
             "height": 1200,
             "width": 1200,
             "img": "Data/sprites/background/jungle_nuit.png",
+            "animation": "None"
+        },
+        {
+            "name": "ville_jour",
+            "height": 1200,
+            "width": 1200,
+            "img": "Data/sprites/background/ville_jour_top.png",
+            "animation": "None"
+        },
+        {
+            "name": "ville_nuit",
+            "height": 1200,
+            "width": 1200,
+            "img": "Data/sprites/background/ville_nuit_top.png",
             "animation": "None"
         },
         {
@@ -392,7 +420,6 @@
             "width": 50,
             "height": 50
         }
-
     },
     "Recettes": {
         "Burger": {

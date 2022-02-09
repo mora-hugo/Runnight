@@ -69,21 +69,42 @@ class Playground:
     def update_background(self):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
 
-    def generateWorld(self, biome, night, nbRun):
+    def generateWorld(self, night, nbRun):
+        biome = 'ville'
+        if (randint(0,1) == 1):
+            biome = 'ville'
+        
         self.music.playMusic(biome, night, 0.09)
         speed = nbRun + 1
         runLenght = nbRun*1.5+20
         x = 0
         treesx = 0
         # fond
+        if not night:
+            self.decor.spawnDecor('moon', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
+        else:
+            self.decor.spawnDecor('moon', 0, 0, self.data['Settings']['WIDTH'], self.data['Settings']['HEIGHT'], 0, 'x', False)
+
         for i in range(0, int(runLenght)):
             if biome == 'foret':
                 if not night:
+                   
                     self.decor.spawnDecor(
                         'foret_jour', x, -200, 1200, 1000, speed/5, 'x', False)
                 else:
                     self.decor.spawnDecor(
+                        'moon', x, 0, 1200, 1000, speed/5, 'x', False)
+                    self.decor.spawnDecor(
                         'foret_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
+            else :
+                if not night:
+                    self.decor.spawnDecor(
+                        'ville_jour', x, -400, 1200, 1000, speed/5, 'x', False)
+                else:
+                    
+                    self.decor.spawnDecor(
+                        'ville_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
+
             x += 1199
             for y in range(1, 5):
                 self.decor.spawnDecor('tree1', treesx, randint(300, 400), randint(

@@ -109,12 +109,12 @@ class Game():  # Design pattern singleton
                 file.close()
                 self.player.updateJson()
 
-    def startRun(self, biome, night):
+    def startRun(self, night):
         self.nbRun += 1
         self.isInRun = True
         self.player.tpRun = True
         self.planque.cacher()
-        self.playground.generateWorld(biome,night,self.nbRun)
+        self.playground.generateWorld(night,self.nbRun)
 
 
     def update_backgrounds(self):

@@ -6,7 +6,7 @@ import Game as game
 import json
 import Classement
 import Parchemin
-
+from random import randint
 
 class Menu:
     def __init__(self, jeu):
@@ -59,6 +59,7 @@ class Menu:
         self.papier = pygame.transform.scale(
             self.papier, (self.data["Items"]["papier"]["WIDTH"]*1.8, self.data["Items"]["papier"]["HEIGHT"]*1.8))
 
+        
     # Affiche les elements du menu
     def afficher(self, group_menu=None):
         if group_menu == None:  # si pas de menu rentré, alors mettre le menu de base
@@ -121,4 +122,7 @@ class Menu:
         jeu = game.Game.get_instance()
         jeu.playground.update_background()
         jeu.currentMenu = "gameMenu"
-        jeu.startRun('foret',False)
+        
+        
+
+        jeu.startRun(False)
