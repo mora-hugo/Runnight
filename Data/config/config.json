@@ -238,7 +238,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 97,
+        "left": 113,
         "use": 13
     },
     "Background_images": {
@@ -596,7 +596,7 @@
             "width": 50,
             "height": 50
         },
-        "Soupe" : {
+        "Soupe": {
             "img": "Data/sprites/items/Ingredients/soupe.png",
             "width": 75,
             "height": 75
