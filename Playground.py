@@ -78,9 +78,9 @@ class Playground:
     def generateWorld(self, night, nbRun):
         biome = 'ville'
         if (randint(0,1) == 1):
-            biome = 'ville'
+            biome = 'forest'
         
-        self.music.playMusic(biome, night, 0.09)
+        self.music.playMusic(biome,"f", 0.09)
         speed = nbRun + 1
         runLenght = nbRun*1.5+20
         x = 0
@@ -164,7 +164,6 @@ class Playground:
                 
 
         self.decor.spawnDecor('house', x+100, 200, 600, 400, speed, 'x', False)
-
     def quitter(self):
         self.cacher()
         quit()

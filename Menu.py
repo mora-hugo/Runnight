@@ -7,6 +7,7 @@ import json
 import Classement
 import Parchemin
 from random import randint
+import Sound
 
 class Menu:
     def __init__(self, jeu):
@@ -58,6 +59,8 @@ class Menu:
 
         self.papier = pygame.transform.scale(
             self.papier, (self.data["Items"]["papier"]["WIDTH"]*1.8, self.data["Items"]["papier"]["HEIGHT"]*1.8))
+        self.music = Sound.Sound()
+        self.music.playMusic("menu", None, 0.03)
 
         
     # Affiche les elements du menu

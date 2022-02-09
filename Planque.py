@@ -1,6 +1,7 @@
 from re import X
 import pygame
 import json
+import Sound
 import armoire
 import CraftingTable
 
@@ -11,7 +12,7 @@ class Planque(pygame.sprite.Sprite):
         file = open('Data/config/config.json', "r")
         self.data = json.load(file)
         file.close()
-
+        self.music = Sound.Sound()
         self.backgroundJungle = pygame.image.load(
             self.data["Background_images"]["jungle_jour"]).convert_alpha()
         self.backgroundSun = pygame.image.load(
@@ -54,6 +55,7 @@ class Planque(pygame.sprite.Sprite):
         self.crafting_table = CraftingTable.CraftingTable(game,self.game.decor,self)
 
     def afficher(self):
+        self.music.playMusic("house", None, 0.03)
         self.game.all_sprites.add(self)
         self.game.all_sprites.add(self.boutonsGroup)
         self.isVisible = True
