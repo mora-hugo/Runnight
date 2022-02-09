@@ -87,6 +87,22 @@
             }
         ]
     },
+    "Monster": {
+        "hp": 100,
+        "speed_x": 8,
+        "speed_y": 0.1,
+        "gravity": 10,
+        "jumpForce": 8,
+        "width": 80,
+        "height": 212,
+        "animations": [
+            {
+                "name": "groar",
+                "path": "Data/sprites/monster/roaring/",
+                "lenght": 32
+            }
+        ]
+    },
     "Decors": [
         {
             "name": "ground_1",

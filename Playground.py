@@ -4,7 +4,7 @@ import Bouton as bouton
 import Game as game
 import json
 import Sound
-import CraftingTable
+import time
 
 class Playground:
     def __init__(self, screen, game):
@@ -150,3 +150,189 @@ class Playground:
 
     def test(self):
         print("ok")
+
+class Monster(pygame.sprite.Sprite):
+    def __init__(self, coordinates, game):
+        super().__init__()
+        self.sound = Sound.Sound()
+        self.game = game
+        self.lastUpdatedFrame = time.time()
+        self.updateJson()
+
+        self.coordinates = coordinates
+        self.hp = self.data['Monster']['hp']
+        self.image = pygame.Surface([1, 1])
+        self.rect = self.image.get_rect()
+        self.rect.topleft = coordinates
+        self.playerScale = (150, 275)
+
+        self.collider = True
+
+        self.sprites = []
+        self.currentSprite = 0
+        self.animationRate = 0.1
+
+        self.speed_x = self.data['Monster']["speed_x"]
+        self.speed_y = self.data['Monster']["speed_y"]
+        self.gravity = self.data['Monster']["gravity"]
+        self.jumpForce = self.data['Monster']["jumpForce"]
+
+        self.animations = {}
+
+        self.loadAnimations()
+
+        self.isRunning = False
+
+        self.isJumping = False
+        self.isFlying = False
+
+        self.playAnimation('groar', 1.5)
+
+
+        self.jeu = game  # Creation instance jeu
+
+
+    def loadAnimations(self):
+        for i in self.data['Monster']['animations']:
+            animPath = i['path']
+            animLenght = i['lenght']
+            self.animations[i['name']] = []
+            for y in range(animLenght):
+                img = pygame.image.load(
+                    animPath + str(y+1) + '.png').convert_alpha()
+                img = pygame.transform.scale(img, self.playerScale)
+                self.animations[i['name']].append(img)
+
+    def playAnimation(self, animation, rate):
+        self.sprites = self.animations[animation]
+        self.animationRate = rate
+        self.currentSprite = 0
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.coordinates
+
+    def setAnimation(self, animation, rate):
+        self.sprites = self.animations[animation]
+        if self.currentSprite >= len(self.sprites):
+            self.currentSprite = 0
+        self.animationRate = rate
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.coordinates
+
+    def isOnGround(self):
+        for sprite in game.Game.get_instance().all_sprites:
+            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+self.data['Monster']['height']-10, self.data['Player']['width']-10, 20)):
+
+                return True
+        return False
+
+    def collisionY(self):
+        for sprite in game.Game.get_instance().all_sprites:
+            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+39, self.rect.y+self.data['Monster']['height']-10, self.data['Player']['width']-10, 20)):
+                self.speed_y = 0
+
+    def collisionYdeep(self, nouvPos):
+        for sprite in game.Game.get_instance().all_sprites:
+            if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+37, self.rect.y+self.data['Monster']['height']-20, self.data['Player']['width']-8, 20)):
+                self.speed_y = 0
+                if self.isRiding:
+                    nouvPos[1] -= 5
+                else:
+                    nouvPos[1] -= 1
+
+
+    def collisionX(self, direction):
+        for sprite in game.Game.get_instance().all_sprites:
+            if direction == "left":
+                if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.left+30, self.rect.y-20, self.data['Player']['width']/2, self.data['Player']['height'])):
+                    return True
+            else:
+                if type(sprite) is not Monster and sprite.collider and sprite.rect.colliderect((self.rect.x+80, self.rect.y-20, self.data['Player']['width']/2, self.data['Player']['height'])):
+                    return True
+        return False
+
+    def action(self,event):
+        pass
+        
+    def update(self):
+        if self.jeu.currentMenu == "gameMenu":
+
+            self.currentSprite += self.animationRate
+
+            nouvPos = list(self.coordinates)
+
+            if self.jeu.isInRun:
+            
+                ############################## EN RUN ######################################
+
+
+                if self.speed_y == 0:
+                    
+                                        
+                    if not self.isJumping:
+                        self.setAnimation('fastrun',0.9)
+
+                    if self.currentSprite >= len(self.sprites):
+                        self.currentSprite = 0               
+
+                    if self.isJumping == True:
+                        self.speed_y = self.jumpForce
+                        nouvPos[1] -= self.speed_y
+                        
+                        
+
+                elif self.speed_y != 0:
+
+                    if self.isJumping == True:
+                        
+                        nouvPos[1]-= self.speed_y #(-0.001*(y[0]*y[0]))
+                        if self.speed_y > 0.5:
+                            self.speed_y -= 0.5
+                            
+                        else:
+                            self.speed_y = 0.1
+                            self.isJumping = False
+                            
+                        
+                        if not self.currentSprite >= len(self.sprites):
+                            self.playAnimation('jumploop',3)
+
+                    else:    
+                        if (time.time() >= self.lastUpdatedFrame+0.3): 
+                            self.lastUpdatedFrame = time.time()
+                            self.sound.playSound("fall",0.01)
+                        
+                        self.setAnimation('jumploop',3)
+                        self.speed_y +=0.2
+                        nouvPos[1] += self.speed_y
+
+                        if self.speed_y >= 10:
+                            self.isFallingHard = True
+                        if self.speed_y <= 1.5:
+                            self.isFallingSlow = True
+
+
+
+
+                if not self.isOnGround() and not self.isJumping and not self.isFlying:   
+                    self.isFlying = True      
+                    self.speed_y = 0.1
+                
+                self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
+                self.collisionYdeep(nouvPos)
+                self.collisionY()
+
+                #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
+                #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+120, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
+                #pygame.draw.rect(self.game.screen,(255,255,255),(self.rect.x+39 , self.rect.y+self.data['Player']['height'],self.data['Player']['width']-10,20))
+                #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
+
+            nouvPos[0] = 500
+            self.coordinates = tuple(nouvPos)
+            self.rect.topleft = self.coordinates     
+   
+
+    def updateJson(self):
+        f = open('Data/config/config.json', "r")
+        self.data = json.load(f)
+        f.close()
