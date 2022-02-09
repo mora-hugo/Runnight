@@ -19,7 +19,7 @@ class CraftingTable(pygame.sprite.Sprite):
         self.decor = decor
         self.createCollisionBox()
         self.cacher()
-        
+        self.item = None
         
 
     def createCollisionBox(self):
@@ -78,14 +78,25 @@ class CraftingTable(pygame.sprite.Sprite):
                 elif case.caseDepose == 3:
                     ingredient3 = case.name
         if ingredient1 is not None and ingredient2 is not None and canCraft(ingredient1,ingredient2,ingredient3):
-            pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+385, self.rect.bottom-170,120,70))
+            
+            craft = getCraft(ingredient1,ingredient2,ingredient3)
+            self.item = ItemShowcase.ItemShowcase(self.game.playground.plats[craft], self.rect.left+385, self.rect.bottom-170,self,-1,craft)
+            self.item.isPlat = True
+            self.item.isCraftable = True
+            self.item.afficherCraftResult()
             mouse = pygame.mouse.get_pos()
+    
             if pygame.Rect(self.rect.left+385, self.rect.bottom-170,120,70).colliderect((mouse[0],mouse[1],1,1)) and pygame.mouse.get_pressed()[0]:
-                print("Plat creer !")
                 creerPlat(self.game.player,ingredient1,ingredient2,ingredient3)
                 for case in self.sprites:
                     if case.deposerSurCase:
                         case.kill()
+                        self.item.kill()
+        elif self.item is not None:
+            self.item.kill()
+            for case in self.sprites:
+                if case.isPlat or case.isCraftable:
+                    case.kill()
 def canCraft(ingredient1, ingredient2, ingredient3=None):
     f = open('Data/config/config.json', 'r')
     data = json.load(f)
@@ -111,7 +122,26 @@ def canCraft(ingredient1, ingredient2, ingredient3=None):
                 return True
         else:"""
             
-   
+def getCraft(ingredient1, ingredient2, ingredient3=None):
+    f = open('Data/config/config.json', 'r')
+    data = json.load(f)
+    f.close()
+    for recette in data['Recettes']:
+        recetteT = []
+
+        for i in data['Recettes'][recette]:
+            if data['Recettes'][recette][i] == ingredient1 and i not in recetteT:
+                recetteT.append(i)
+            elif data['Recettes'][recette][i] == ingredient2 and i not in recetteT:
+
+                recetteT.append(i)
+            elif ingredient3 is not None and data['Recettes'][recette][i] == ingredient3 and i not in recetteT:
+
+                recetteT.append(i)
+            if "1" in recetteT and "2" in recetteT and "3" in recetteT:
+                return recette
+        recetteT.clear()
+    return None
 
 def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None):
     f = open('Data/config/config.json', 'r')

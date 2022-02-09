@@ -30,6 +30,11 @@ class Playground:
         self.data = json.load(file)
         file.close()
 
+        #Chargements plats
+        self.plats = self.game.data["Plats"]
+        for plats in self.plats:
+            self.plats[plats]["img"] = pygame.image.load(self.plats[plats]["img"]).convert_alpha()
+            self.plats[plats]["img"] = pygame.transform.scale(self.plats[plats]["img"],(self.plats[plats]["width"],self.plats[plats]["height"]))
         # Background de bg
         self.background_image = pygame.image.load(
             self.data["Background_images"]["gameMenu"]).convert()  # Chargement background
@@ -55,6 +60,7 @@ class Playground:
         jeu = game.Game.get_instance()
         jeu.all_sprites.remove(group_menu)
         self.update_background()
+
     # Switch to gameMenu
 
     def gameMenu(self):
