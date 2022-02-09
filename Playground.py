@@ -132,7 +132,7 @@ class Playground:
 
             if randint(0, 5) == 0:
                 self.decor.spawnDecor(
-                    'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True)
+                    'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True, 50, 10 ,5, 150)
 
             if randint(0, 10) == 0:
                 self.decor.spawnDecor(

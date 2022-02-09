@@ -1,3 +1,4 @@
+from genericpath import exists
 import pygame
 import json
 import Game as game
@@ -5,8 +6,26 @@ import Player
 
 
 class DecorElement(pygame.sprite.Sprite):
-    def __init__(self, element, game, x, y, width, height, speed, direction, isColliding, hitBoxX=None, hitBoxY=None):
+    def __init__(self, element, game, x, y, width, height, speed, direction, isColliding, hitBoxX=None, hitBoxY=None, hitBoxWidth=None, hitBoxHeight=None):
         super().__init__()
+
+        if hitBoxX == None:
+            self.hitBoxX = 0
+        else:
+            self.hitBoxX = hitBoxX
+        if hitBoxY == None:
+            self.hitBoxY = 0
+        else:
+            self.hitBoxY = hitBoxY
+        if hitBoxWidth == None:
+            self.hitBoxWidth = width
+        else:
+            self.hitBoxWidth = hitBoxWidth
+        if hitBoxHeight == None:
+            self.hitBoxHeight = height
+        else:
+            self.hitBoxHeight = hitBoxHeight
+
         self.width = width
         self.height = height
         self.direction = direction  # x ou y : x pour horizontal et y pour vertical
@@ -14,24 +33,28 @@ class DecorElement(pygame.sprite.Sprite):
         self.pos_y = y
         self.game = game
         self.image = pygame.transform.scale(element['img'], (width, height))
+
+        #rect image
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
+
+        #rect collider
+        if hitBoxX == None or hitBoxY == None or hitBoxWidth == None or hitBoxHeight == None:
+            self.Colliderect = self.image.get_rect()
+            self.Colliderect.topleft = (x, y)
+        else:
+            self.Colliderect = pygame.Rect(x + hitBoxX, y + hitBoxY,hitBoxWidth ,hitBoxHeight)
+
+
+
         self.collider = isColliding
+
+
         self.speed = speed
         self.name = element['name']
-        self.hitBoxX = hitBoxX
-        self.hitBoxY = hitBoxY
 
     def collisionPlayer(self):
-        if self.hitBoxX is not None:
-            width = self.hitBoxX
-        else:
-            width = self.width
-        if self.hitBoxY is not None:
-            height = self.hitBoxY
-        else:
-            height = self.height
-        if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, width, height)):
+        if self.game.player.rect.colliderect(self.rect):
             self.game.player.tpPlanque = True
             return True
         return False
@@ -50,7 +73,11 @@ class DecorElement(pygame.sprite.Sprite):
             self.game.planque.afficher()
             self.game.isInRun = False
 
+        self.Colliderect.topleft = (self.pos_x + self.hitBoxX, self.pos_y + self.hitBoxY)
+
         self.rect.topleft = (self.pos_x, self.pos_y)
 
         if not self.game.isInRun:
             self.kill()
+
+
