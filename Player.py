@@ -47,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         self.isRiding = False
         self.isFallingSlow = False
         self.isPicking = False
-        self.isGoingUp = False
+        self.isRolling = False
         self.multiplicateurVitesse = 1
         self.multiplicateurSaut = 1
 
@@ -230,15 +230,19 @@ class Player(pygame.sprite.Sprite):
                         self.runtostop = False
             
 
-            
+            if self.jeu.key_pressed[self.data['Bindings']['roll']] == True and self.isFallingHard and self.currentSprite <= 20 and not self.isRolling:
+                self.isFallingHard = False
+                self.playAnimation('roll',1.5)
+                self.isRolling = True
 
-            if event.type == pygame.KEYUP and not self.isFallingHard:
-                
+            if event.type == pygame.KEYUP:                
+
                 if (event.key == self.data['Bindings']['right'] and not self.jeu.key_pressed[self.data['Bindings']['left']]) or (event.key == self.data['Bindings']['left'] and not self.jeu.key_pressed[self.data['Bindings']['right']]):
                     if not self.isLanding and self.isJumping == False and self.speed_y == 0 and self.isRunning and not self.isTurning and not self.isTurningRun:
-                        self.playAnimation('runtostop',0.9)
-                        if not self.isRiding:
-                            self.runtostop = True
+                        if not self.isFallingHard and not self.isRolling:
+                            self.playAnimation('runtostop',0.9)
+                            if not self.isRiding:
+                                self.runtostop = True
                     self.isRunning = False
 
     def update_background(self):    
@@ -284,7 +288,7 @@ class Player(pygame.sprite.Sprite):
 
                     if self.isRunning == True and not self.isTurningRun and not self.isFallingHard and not self.isRiding and not ((self.collisionX('left') and self.direction == 'left') or (self.collisionX('right') and self.direction == 'right')):
                         
-                        if not  self.isTurning and not self.isJumping and not self.isPicking:
+                        if not  self.isTurning and not self.isJumping and not self.isPicking and not self.isRolling:
                             self.setAnimation('fastrun',0.9)
                         self.speed_x = self.data['Player']["speed_x"]*self.multiplicateurVitesse*self.multiplicateurVitesseDefinitif
                         if self.isLanding == True:
@@ -298,7 +302,7 @@ class Player(pygame.sprite.Sprite):
                         if self.direction == 'right' and not self.collisionX('right'):
                             nouvPos[0] += self.speed_x
 
-                    elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping and not self.isTurning and not self.isTurningRun and not self.isFallingHard and not self.isRiding and not self.isPicking:
+                    elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping and not self.isTurning and not self.isTurningRun and not self.isFallingHard and not self.isRiding and not self.isPicking and not self.isRolling:
                         self.setAnimation('idle',0.4)
 
                     if self.currentSprite >= len(self.sprites):
@@ -326,11 +330,13 @@ class Player(pygame.sprite.Sprite):
                             self.isRiding = False
                         if self.isPicking == True:
                             self.isPicking = False
+                        if self.isRolling == True:
+                            self.isRolling = False
                         self.currentSprite = 0
                         
                     
 
-                    if self.runtostop == True or self.isLanding == True: 
+                    if self.runtostop == True or self.isLanding == True or self.isRolling and self.isRunning == False: 
                         
                         if self.speed_x > 0:
                             self.speed_x -=0.4
@@ -370,7 +376,6 @@ class Player(pygame.sprite.Sprite):
                     if self.isJumping == True:
                         self.speed_y = self.jumpForce*self.multiplicateurSaut*self.multiplicateurSautDefinitif
                         nouvPos[1] -= self.speed_y
-                        self.isGoingUp = True
                         
                         
 
@@ -394,7 +399,6 @@ class Player(pygame.sprite.Sprite):
                         else:
                             self.speed_y = 0.1
                             self.isJumping = False
-                            self.isGoingUp = False
                             
                         
                         if not self.currentSprite >= len(self.sprites):
