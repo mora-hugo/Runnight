@@ -383,7 +383,7 @@ class Monster(pygame.sprite.Sprite):
                 #pygame.draw.rect(self.game.screen,(0,0,255),(self.rect.x+80, self.rect.y-10 ,self.data['Player']['width']/2,self.data['Player']['height']))
 
                 if self.isStarting:
-                     nouvPos[1] = 500
+                     nouvPos[1] = 250
 
                 nouvPos[0] = -40
                 self.coordinates = tuple(nouvPos)

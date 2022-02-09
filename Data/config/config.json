@@ -239,7 +239,7 @@
         "crouch": 121,
         "right": 100,
         "left": 97,
-        "use": 13
+        "roll": 1073742049
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background/MenuBg.png",
@@ -556,7 +556,7 @@
             "height": 50,
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.10
+                "value": 0.1
             }
         },
         "Saumon": {
@@ -577,7 +577,7 @@
             "height": 50,
             "bonus": {
                 "type": "saut",
-                "value": 0.10
+                "value": 0.1
             }
         },
         "Caviar": {
@@ -680,7 +680,7 @@
             "width": 50,
             "height": 50
         },
-        "Soupe" : {
+        "Soupe": {
             "img": "Data/sprites/items/Ingredients/soupe.png",
             "width": 75,
             "height": 75
