@@ -28,10 +28,10 @@ class Ingredient(pygame.sprite.Sprite):
 
     def collisionPlayer(self):
         if self.game.player.rect.colliderect((self.pos_x, self.pos_y+25, 50, 50)):
-            if self.name in self.game.player.inventory.keys():
-                self.game.player.inventory[self.name] += 1
+            if self.name in self.game.player.inventory['Ingredients'].keys():
+                self.game.player.inventory['Ingredients'][self.name] += 1
             else:
-                self.game.player.inventory[self.name] = 1
+                self.game.player.inventory['Ingredients'][self.name] = 1
             print(self.game.player.inventory)
 
             self.kill()

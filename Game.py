@@ -113,6 +113,7 @@ class Game():  # Design pattern singleton
         self.nbRun += 1
         self.isInRun = True
         self.player.tpRun = True
+        self.planque.cacher()
         self.playground.generateWorld(biome,night,self.nbRun)
 
 
