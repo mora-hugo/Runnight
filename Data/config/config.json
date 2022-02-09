@@ -238,7 +238,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 97,
+        "left": 113,
         "use": 13
     },
     "Background_images": {
@@ -384,7 +384,11 @@
                 "champignon": 0.9
             },
             "width": 50,
-            "height": 50
+            "height": 50,
+            "bonus": {
+                "type" : "speed",
+                "value" : 0.01
+            }
         },
         "Salade": {
             "img": "Data/sprites/items/Ingredients/salade.png",
@@ -398,7 +402,11 @@
                 "champignon": 0.9
             },
             "width": 50,
-            "height": 50
+            "height": 50,
+            "bonus": {
+                "type" : "speed",
+                "value" : 0.01
+            }
         },
         "Pain": {
             "img": "Data/sprites/items/Ingredients/pain.png",
@@ -412,7 +420,11 @@
                 "champignon": 0.9
             },
             "width": 50,
-            "height": 50
+            "height": 50,
+            "bonus": {
+                "type" : "speed",
+                "value" : 0.01
+            }
         },
         "Comcombre": {
             "img": "Data/sprites/items/Ingredients/comcombre.png",
@@ -426,7 +438,11 @@
                 "champignon": 0.9
             },
             "width": 50,
-            "height": 50
+            "height": 50,
+            "bonus": {
+                "type" : "saut",
+                "value" : 0.01
+            }
         },
         "Viande": {
             "img": "Data/sprites/items/Ingredients/viande.png",
@@ -440,7 +456,11 @@
                 "champignon": 1.7
             },
             "width": 50,
-            "height": 50
+            "height": 50,
+            "bonus": {
+                "type" : "saut",
+                "value" : 0.01
+            }
         },
         "Patate": {
             "img": "Data/sprites/items/Ingredients/patate.png",
@@ -454,7 +474,11 @@
                 "champignon": 1.7
             },
             "width": 50,
-            "height": 50
+            "height": 50,
+            "bonus": {
+                "type" : "ralentissement",
+                "value" : 0.01
+            }
         },
         "Champignon": {
             "img": "Data/sprites/items/Ingredients/champignon.png",
@@ -468,39 +492,58 @@
                 "champignon": 1.1
             },
             "width": 50,
-            "height": 50
+            "height": 50,
+            "bonus": {
+                "type" : "ralentissement",
+                "value" : 0.01
+            }
         }
     },
     "Recettes": {
         "Burger": {
             "1": "Pain",
             "2": "Salade",
-            "3": "Viande"
+            "3": "Viande",
+            "bonus": {
+                "type" : "speed",
+                "value" : 0.1
+            }
         },
         "Salade Compose": {
             "1": "Salade",
             "2": "Tomate",
-            "3": "Comcombre"
-        },
-        "Champignon hallucinogene": {
-            "1": "Champignon",
-            "2": "Champignon",
-            "3": "Champignon"
+            "3": "Comcombre",
+            "bonus": {
+                "type" : "ralentissement",
+                "value" : 0.1
+            }
         },
         "Tacos": {
             "1": "Pain",
             "2": "Tomate",
-            "3": "Viande"
+            "3": "Viande",
+            "bonus": {
+                "type" : "ralentissement",
+                "value" : 0.1
+            }
         },
         "Pizza": {
             "1": "Pain",
             "2": "Tomate",
-            "3": "Champignon"
+            "3": "Champignon",
+            "bonus": {
+                "type" : "ralentissement",
+                "value" : 0.1
+            }
         },
         "Hachis parmentier": {
             "1": "Patate",
             "2": "Viande",
-            "3": "Champignon"
+            "3": "Champignon",
+            "bonus": {
+                "type" : "ralentissement",
+                "value" : 0.1
+            }
         }
     },
     "Plats": {
