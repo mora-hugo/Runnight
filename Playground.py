@@ -1,6 +1,8 @@
+from asyncore import loop
 from random import randint
 import pygame
 import Bouton as bouton
+from DecorElement import DecorElement
 import Game as game
 import json
 import Sound
@@ -199,7 +201,7 @@ class Monster(pygame.sprite.Sprite):
         super().__init__()
         self.sound = Sound.Sound()
         self.game = game
-        self.lastUpdatedFrame = time.time()
+        self.lastSoundPlay = time.time()
         self.updateJson()
 
         self.coordinates = coordinates
@@ -230,15 +232,19 @@ class Monster(pygame.sprite.Sprite):
         self.isJumping = False
         self.isFlying = False
 
-        self.playAnimation('groar', 1.5)
+        self.isStarting = False
 
 
         self.jeu = game  # Creation instance jeu
 
         self.cacher()
 
+        self.speed = 0
+
     def afficher(self):
         self.image.set_alpha(255)
+        self.isStarting = True
+        self.playAnimation('groar', 0.8)
 
     def cacher(self):
         self.image.set_alpha(0)
@@ -301,57 +307,61 @@ class Monster(pygame.sprite.Sprite):
         
     def update(self):
         if self.jeu.currentMenu == "gameMenu":
-
+            
             self.currentSprite += self.animationRate
 
             nouvPos = list(self.coordinates)
 
             if self.jeu.isInRun and self.jeu.night:
-            
+                if (time.time() >= self.lastSoundPlay + 18): 
+                    self.lastSoundPlay = time.time()
+                    self.sound.MonsterGroar(.06)
                 ############################## EN RUN ######################################
+                if not self.isStarting:
+                    if self.collisionX():
+                        self.isJumping = True
 
-                if self.collisionX():
-                    self.isJumping = True
-
-                if self.speed_y == 0:
-                    
-                    self.isFlying = False
-                                        
-                    if not self.isJumping:
-                        self.setAnimation('run',0.9)              
-
-                    if self.isJumping == True:
-                        self.speed_y = self.jumpForce
-                        nouvPos[1] -= self.speed_y
-                        self.playAnimation('jumploop',3)
+                    if self.speed_y == 0:
                         
+                        self.isFlying = False
+                                            
+                        if not self.isJumping:
+                            self.setAnimation('run',0.9)              
 
-                elif self.speed_y != 0:
-
-                    if self.isJumping == True:
-                        
-                        nouvPos[1]-= self.speed_y #(-0.001*(y[0]*y[0]))
-                        if self.speed_y > 0.5:
-                            self.speed_y -= 0.5
+                        if self.isJumping == True:
+                            self.speed_y = self.jumpForce
+                            nouvPos[1] -= self.speed_y
+                            self.playAnimation('jumploop',3)
                             
+
+                    elif self.speed_y != 0:
+
+                        if self.isJumping == True:
+                            
+                            nouvPos[1]-= self.speed_y #(-0.001*(y[0]*y[0]))
+                            if self.speed_y > 0.5:
+                                self.speed_y -= 0.5
+                                
+                            else:
+                                self.speed_y = 0.1
+                                self.isJumping = False             
+
                         else:
-                            self.speed_y = 0.1
-                            self.isJumping = False             
+                            
+                            self.setAnimation('jumploop',3)
+                            self.speed_y +=0.2
+                            nouvPos[1] += self.speed_y
 
-                    else:
-                        
-                        self.setAnimation('jumploop',3)
-                        self.speed_y +=0.2
-                        nouvPos[1] += self.speed_y
-
-                        if self.speed_y >= 10:
-                            self.isFallingHard = True
-                        if self.speed_y <= 1.5:
-                            self.isFallingSlow = True
+                            if self.speed_y >= 10:
+                                self.isFallingHard = True
+                            if self.speed_y <= 1.5:
+                                self.isFallingSlow = True
 
 
                 if self.currentSprite >= len(self.sprites):
-                        self.currentSprite = 0 
+                    if self.isStarting:
+                        self.isStarting = False
+                    self.currentSprite = 0 
 
                 if not self.isOnGround() and not self.isJumping and not self.isFlying:   
                     self.isFlying = True      
@@ -368,7 +378,11 @@ class Monster(pygame.sprite.Sprite):
                 self.rect.topleft = self.coordinates     
             else:
                 self.cacher()
-   
+                self.sound.StopGroar()
+
+            
+                    
+            
 
     def updateJson(self):
         f = open('Data/config/config.json', "r")

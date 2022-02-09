@@ -238,7 +238,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "use": 13
     },
     "Background_images": {
@@ -255,7 +255,8 @@
         "planque": "Data/sprites/background/house.png",
         "jungle_jour": "Data/sprites/background/jungle_jour.png",
         "jungle_nuit": "Data/sprites/background/jungle_nuit.png",
-        "armoire": "Data/sprites/planque/armoireProche.png"
+        "armoire": "Data/sprites/planque/armoireProche.png",
+        "gameOver": "Data/sprites/background/gameOver.png"
     },
     "Images": {
         "logo": "Data/sprites/logoWC.png"
@@ -334,6 +335,9 @@
         "jump": "Data/sounds/jump.mp3",
         "fall": "Data/sounds/tomber.mp3",
         "walf": "Data/sounds/wolf.mp3",
+        "groar": "Data/sounds/groar.mp3",
+        "wolf": "Data/sounds/wolf.mp3",
+        "death": "Data/sounds/death.mp3",
         "crash": "Data/sounds/crash.mp3"
     },
     "Music": {
@@ -396,13 +400,13 @@
                 "Comcombre": 1.8,
                 "Viande": 0.9,
                 "Patate": 0.7,
-                "champignon": 0.9
+                "Champignon": 0.9
             },
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "speed",
-                "value" : 0.01
+                "type": "speed",
+                "value": 0.01
             }
         },
         "Salade": {
@@ -414,13 +418,13 @@
                 "Comcombre": 1.7,
                 "Viande": 0.9,
                 "Patate": 0.9,
-                "champignon": 0.9
+                "Champignon": 0.9
             },
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "speed",
-                "value" : 0.01
+                "type": "speed",
+                "value": 0.01
             }
         },
         "Pain": {
@@ -432,13 +436,13 @@
                 "Comcombre": 1.1,
                 "Viande": 2.3,
                 "Patate": 0.7,
-                "champignon": 0.9
+                "Champignon": 0.9
             },
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "speed",
-                "value" : 0.01
+                "type": "speed",
+                "value": 0.01
             }
         },
         "Comcombre": {
@@ -450,13 +454,13 @@
                 "Comcombre": 1,
                 "Viande": 0.8,
                 "Patate": 0.9,
-                "champignon": 0.9
+                "Champignon": 0.9
             },
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "saut",
-                "value" : 0.01
+                "type": "saut",
+                "value": 0.01
             }
         },
         "Viande": {
@@ -468,13 +472,13 @@
                 "Comcombre": 0.8,
                 "Viande": 1.5,
                 "Patate": 1.7,
-                "champignon": 1.7
+                "Champignon": 1.7
             },
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "saut",
-                "value" : 0.01
+                "type": "saut",
+                "value": 0.01
             }
         },
         "Patate": {
@@ -486,13 +490,13 @@
                 "Comcombre": 0.9,
                 "Viande": 1.7,
                 "Patate": 1.1,
-                "champignon": 1.7
+                "Champignon": 1.7
             },
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.01
+                "type": "ralentissement",
+                "value": 0.01
             }
         },
         "Champignon": {
@@ -504,13 +508,13 @@
                 "Comcombre": 0.9,
                 "Viande": 1.7,
                 "Patate": 1.7,
-                "champignon": 1.1
+                "Champignon": 1.1
             },
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.01
+                "type": "ralentissement",
+                "value": 0.01
             }
         }
     },
@@ -520,8 +524,8 @@
             "2": "Salade",
             "3": "Viande",
             "bonus": {
-                "type" : "speed",
-                "value" : 0.1
+                "type": "speed",
+                "value": 0.1
             }
         },
         "Salade Compose": {
@@ -529,8 +533,8 @@
             "2": "Tomate",
             "3": "Comcombre",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         },
         "Tacos": {
@@ -538,8 +542,8 @@
             "2": "Tomate",
             "3": "Viande",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         },
         "Pizza": {
@@ -547,8 +551,8 @@
             "2": "Tomate",
             "3": "Champignon",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         },
         "Hachis parmentier": {
@@ -556,8 +560,8 @@
             "2": "Viande",
             "3": "Champignon",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         }
     },

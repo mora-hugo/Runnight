@@ -11,7 +11,6 @@ clock = pygame.time.Clock()
 
 
 # bdd load
-
 # player instanciation
 
 while True:

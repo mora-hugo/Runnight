@@ -60,14 +60,15 @@ class DecorElement(pygame.sprite.Sprite):
         return False
 
     def update(self):
-        if self.direction == 'x':
-            self.pos_x -= self.speed
-            if (self.pos_x < -1200 and self.speed > 0) or (self.pos_x > 1200 and self.speed < 0):
-                self.kill()
-        else:
-            self.pos_y -= self.speed
-            if (self.pos_y < -1200 and self.speed > 0) or (self.pos_y > 1200 and self.speed < 0):
-                self.kill()
+        if not self.game.monster.isStarting:
+            if self.direction == 'x':
+                self.pos_x -= self.speed
+                if (self.pos_x < -1200 and self.speed > 0) or (self.pos_x > 1200 and self.speed < 0):
+                    self.kill()
+            else:
+                self.pos_y -= self.speed
+                if (self.pos_y < -1200 and self.speed > 0) or (self.pos_y > 1200 and self.speed < 0):
+                    self.kill()
 
         if self.name == 'house' and self.collisionPlayer():
             self.game.planque.afficher()
