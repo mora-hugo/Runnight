@@ -247,9 +247,8 @@ class Player(pygame.sprite.Sprite):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
 
     def GameOver(self):
-        jeu = game.Game.get_instance()
-        jeu.playground.update_background()
-        jeu.currentMenu = "gameOver"
+        self.game.playground.update_background()
+        self.game.currentMenu = "gameOver"
         
 
     def update(self):
@@ -421,11 +420,11 @@ class Player(pygame.sprite.Sprite):
                     if self.direction == 'right':
                         self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
                         if not self.collisionX('right'):
-                            nouvPos[0] += self.speed_x
+                            nouvPos[0] += self.speed_x*self.multiplicateurSaut*self.multiplicateurSautDefinitif
                     if self.direction == 'left':
                         self.image = self.sprites[int(self.currentSprite)]
                         if not self.collisionX('left'):
-                            nouvPos[0] -= self.speed_x
+                            nouvPos[0] -= self.speed_x*self.multiplicateurSaut*self.multiplicateurSautDefinitif
 
 
 

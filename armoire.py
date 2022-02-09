@@ -54,17 +54,17 @@ class armoire(pygame.sprite.Sprite):
         y = 120
         y_offset = y
         for ingredient in self.game.player.inventory['Ingredients']:
+            if self.game.player.inventory['Ingredients'][ingredient] > 0:
+                for i in range(0,self.game.player.inventory['Ingredients'][ingredient]):
+                    print("Creation :",ingredient," avec ",self.game.player.inventory['Ingredients'][ingredient], " de quantité")
+                    self.ingredientsGroup.add(ArmoireButton(
+                        ingredient, self.game.player.inventory['Ingredients'][ingredient], self.ingredientsImg[ingredient], x, y,  self.data["Ingredients"][ingredient]["width"],  self.data["Ingredients"][ingredient]["height"], self, 'ingredient'))
+                    x+=15
+                    y = randint(y_offset-5,y_offset+5)
 
-            for i in range(0,self.game.player.inventory['Ingredients'][ingredient]):
-                print("Creation :",ingredient," avec ",self.game.player.inventory['Ingredients'][ingredient], " de quantité")
-                self.ingredientsGroup.add(ArmoireButton(
-                    ingredient, self.game.player.inventory['Ingredients'][ingredient], self.ingredientsImg[ingredient], x, y,  self.data["Ingredients"][ingredient]["width"],  self.data["Ingredients"][ingredient]["height"], self, 'ingredient'))
-                x+=15
-                y = randint(y_offset-5,y_offset+5)
-
-            x = 250
-            y_offset += 60
-            y = y_offset
+                x = 250
+                y_offset += 60
+                y = y_offset
         
         for plats in self.game.player.inventory['Plats']:
            
