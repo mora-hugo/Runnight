@@ -2,26 +2,29 @@ import pygame
 
 class ItemShowcase(pygame.sprite.Sprite):
 
-    def __init__(self, data, x, y,craftingTable,num,name):
+    def __init__(self, data, x, y,craftingTable,num,name,isPlat = False):
         pygame.sprite.Sprite.__init__(self)
-        self.image = data['img']
-        self.rect = self.image.get_rect()
-        self.baseX = x
-        self.baseY = y
-        self.rect.x = x
-        self.rect.y = y
-        self.rect.width = data["width"]
-        self.rect.height = data["height"]
-        self.num = num
-        self.name = name
-        self.deposerSurCase = False
-        self.caseDepose = -1
-        self.collider = False
-        self.isPlat = False
-        self.isCraftable = False
-
-        self.craftingTable = craftingTable
-        self.afficher()
+        
+        if isPlat or data["quantite"] > 0:
+            self.image = data['img']
+            self.rect = self.image.get_rect()
+            self.baseX = x
+            self.baseY = y
+            self.rect.x = x
+            self.rect.y = y
+            self.rect.width = data["width"]
+            self.rect.height = data["height"]
+            self.num = num
+            self.name = name
+            self.deposerSurCase = False
+            self.caseDepose = -1
+            self.isPlat = False 
+            self.isCraftable = False
+            self.collider = False
+            self.craftingTable = craftingTable
+            self.afficher()
+        else:
+            self.kill()
     def afficherCraftResult(self):
         self.afficher()
         self.craftingTable.game.all_sprites.add(self)
@@ -39,6 +42,7 @@ class ItemShowcase(pygame.sprite.Sprite):
 
     def isMouseDown(self): # Si la souris clique sur le bouton
         if self.isOverred() and self.craftingTable.game.mouse_pressed == 0:
+
             return True
         else:
             return False
@@ -55,11 +59,9 @@ class ItemShowcase(pygame.sprite.Sprite):
     def update(self):
         if not self.isPlat:
             if self.isMouseDown() and not self.craftingTable.isCaseClicked:
-                print("dag")
                 self.craftingTable.caseClicked = self.num
                 self.craftingTable.isCaseClicked = True
             elif self.isMouseUp() and self.craftingTable.isCaseClicked and self.craftingTable.caseClicked == self.num:
-                print("drop")
                 self.craftingTable.isCaseClicked = False
                 self.craftingTable.caseClicked = -1
             if self.rect.colliderect((self.craftingTable.rect.left+90, self.craftingTable.rect.bottom-260,50,50)): # Deposer sur la case 1

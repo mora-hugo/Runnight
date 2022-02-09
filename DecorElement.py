@@ -72,6 +72,9 @@ class DecorElement(pygame.sprite.Sprite):
         if self.name == 'house' and self.collisionPlayer():
             self.game.planque.afficher()
             self.game.isInRun = False
+            self.game.player.multiplicateurVitesse = 1
+            self.game.player.multiplicateurSaut = 1
+            self.game.playground.multiplicateurVitesseCamera = 1
 
         self.Colliderect.topleft = (self.pos_x + self.hitBoxX, self.pos_y + self.hitBoxY)
 

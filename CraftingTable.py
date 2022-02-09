@@ -2,6 +2,8 @@ import pygame
 import Game
 import ItemShowcase
 import json
+import InventoryItem
+import random
 class CraftingTable(pygame.sprite.Sprite):
     def __init__(self,game,decor,planque):
         pygame.sprite.Sprite.__init__(self)
@@ -25,9 +27,17 @@ class CraftingTable(pygame.sprite.Sprite):
         
 
     def createCollisionBox(self):
+
         inventoryIngredient = self.game.player.inventory["Ingredients"]
-        sortedDict = dict( sorted(inventoryIngredient.items(), key=lambda x: x[0].lower()) )
+        
         data = self.decor.ingredients
+        for i in inventoryIngredient:
+            for y in data:
+                if i == y:
+                    data[y]["quantite"] = inventoryIngredient[i]
+        for y in data:
+            if not "quantite" in data[y].keys():
+                data[y]["quantite"] = 0
 
         
 
@@ -47,8 +57,8 @@ class CraftingTable(pygame.sprite.Sprite):
 
 
         #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+47+110*7,self.rect.bottom-145,80,50))
-        
-        self.afficher()
+        self.game.all_sprites.add(self)
+        self.game.all_sprites.add(self.sprites)
 
     def afficherIngredients(self):
         self.game.all_sprites.add(self.sprites)
@@ -74,7 +84,11 @@ class CraftingTable(pygame.sprite.Sprite):
         self.game.all_sprites.add(self)
         self.isVisible = True
         self.planque.isInMenu = True
-        self.afficherIngredients()
+        for sprite in  self.sprites:
+            sprite.kill()
+        self.createCollisionBox()
+        
+        
 
     def cacher(self):
         self.game.all_sprites.remove(self)
@@ -98,7 +112,7 @@ class CraftingTable(pygame.sprite.Sprite):
         if ingredient1 is not None and ingredient2 is not None and canCraft(ingredient1,ingredient2,ingredient3):
             
             craft = getCraft(ingredient1,ingredient2,ingredient3)
-            self.item = ItemShowcase.ItemShowcase(self.game.playground.plats[craft], self.rect.left+385, self.rect.bottom-170,self,-1,craft)
+            self.item = ItemShowcase.ItemShowcase(self.game.playground.plats[craft], self.rect.left+385, self.rect.bottom-170,self,-1,craft,True)
             self.item.isPlat = True
             self.item.isCraftable = True
             self.item.afficherCraftResult()
@@ -108,8 +122,11 @@ class CraftingTable(pygame.sprite.Sprite):
                 creerPlat(self.game.player,ingredient1,ingredient2,ingredient3)
                 for case in self.sprites:
                     if case.deposerSurCase:
+                        self.game.player.inventory["Ingredients"][case.name] -= 1
+                        print("Quantite : ", self.game.player.inventory["Ingredients"][case.name])
                         case.kill()
                         self.item.kill()
+                self.afficher()
         elif self.item is not None:
             self.item.kill()
             for case in self.sprites:
@@ -183,10 +200,19 @@ def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None):
                 recetteT.append(i)
         if "1" in recetteT and "2" in recetteT and "3" in recetteT:
                 if recette in joueur.inventory["Plats"].keys():
-                    joueur.inventory["Plats"][recette] += 1
-                else:
-                    joueur.inventory["Plats"][recette] = 1
+                    temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
+                    temp = random.uniform(0.6,1.4)*temp
+                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
+                    
+                    
+                    #else:
 
+                else:
+                    temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
+                    temp = random.uniform(0.6,1.4)*temp
+                    joueur.inventory["Plats"][recette] = []
+                joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
+                print(joueur.inventory["Plats"])
         """if ingredient3 is None:
             if "1" in recetteT and "2" in recetteT:
                 if data['Recettes'][recette] in joueur.inventory.keys():

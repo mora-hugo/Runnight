@@ -2,8 +2,7 @@ from re import X
 import pygame
 import json
 from random import randint
-
-
+import InventoryItem
 class armoire(pygame.sprite.Sprite):
     def __init__(self, game, planque):
         pygame.sprite.Sprite.__init__(self)
@@ -40,21 +39,24 @@ class armoire(pygame.sprite.Sprite):
 
 
     def afficher(self):  
-
+        
         self.updateAfficher()
         
         self.game.all_sprites.add(self)
+        
         self.game.all_sprites.add(self.ingredientsGroup)
         self.isVisible = True
         self.planque.isInMenu = True
 
     def updateAfficher(self):
+        
         x = 250
         y = 120
         y_offset = y
         for ingredient in self.game.player.inventory['Ingredients']:
 
             for i in range(0,self.game.player.inventory['Ingredients'][ingredient]):
+                print("Creation :",ingredient," avec ",self.game.player.inventory['Ingredients'][ingredient], " de quantité")
                 self.ingredientsGroup.add(ArmoireButton(
                     ingredient, self.game.player.inventory['Ingredients'][ingredient], self.ingredientsImg[ingredient], x, y,  self.data["Ingredients"][ingredient]["width"],  self.data["Ingredients"][ingredient]["height"], self, 'ingredient'))
                 x+=15
@@ -65,10 +67,11 @@ class armoire(pygame.sprite.Sprite):
             y = y_offset
         
         for plats in self.game.player.inventory['Plats']:
-
-            for i in range(0,self.game.player.inventory['Plats'][plats]):
+           
+            for i in self.game.player.inventory['Plats'][plats]:
+                
                 self.ingredientsGroup.add(ArmoireButton(
-                    plats, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat'))
+                    i.name, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat',i))
                 x+=15
                 y = randint(y_offset-5,y_offset+5)
 
@@ -77,8 +80,11 @@ class armoire(pygame.sprite.Sprite):
             y = y_offset
 
     def cacher(self):
+        
         self.game.all_sprites.remove(self)
         self.game.all_sprites.remove(self.ingredientsGroup)
+        self.ingredientsGroup.empty()
+        
         self.isVisible = False
         self.planque.isInMenu = False
 
@@ -101,10 +107,11 @@ class armoire(pygame.sprite.Sprite):
 
 
 class ArmoireButton(pygame.sprite.Sprite):
-    def __init__(self, nom, nombre, img, x, y, width, height, armoire, type):
+    def __init__(self, nom, nombre, img, x, y, width, height, armoire, type,obj = None):
         pygame.sprite.Sprite.__init__(self)
         self.type = type
         self.nom = nom
+        self.obj = obj
         self.nombre = nombre
         self.image = img
         self.image = pygame.transform.scale(self.image, (width, height))
@@ -133,15 +140,33 @@ class ArmoireButton(pygame.sprite.Sprite):
 
         if self.isClicked():
             print (self.nom)
-            if self.type == 'ingredient':
+            if self.obj is None:
                 self.armoire.game.player.inventory['Ingredients'][self.nom] -= 1
+                bonus = self.armoire.game.player.data["Ingredients"][self.nom]["bonus"]
+                if bonus["type"] == "speed":
+                    self.armoire.game.player.multiplicateurVitesse += bonus["value"]
+                    print("Vitesse : " + str(self.armoire.game.player.multiplicateurVitesse))
+
+                elif bonus["type"] == "saut":
+                    self.armoire.game.player.multiplicateurSaut += bonus["value"]
+                    print("Saut : " + str(self.armoire.game.player.multiplicateurSaut))
+                elif bonus["type"] == "ralentissement":
+                    self.armoire.game.playground.multiplicateurVitesseCamera -= bonus["value"]
+                    print("VitesseCamera : " + str(self.armoire.game.playground.multiplicateurVitesseCamera))
 
                 ###### A COMPLETER : apllique les effets ####
 
             else:
-                self.armoire.game.player.inventory['Plats'][self.nom] -= 1
+                if self.obj.type == "speed":
+                    self.armoire.game.player.multiplicateurVitesse+= self.obj.stats
 
-                ###### A COMPLETER : apllique les effets ####
+                elif self.obj.type == "saut":
+                    self.armoire.game.player.multiplicateurSaut += self.obj.stats
+                elif self.obj.type == "ralentissement":
+                    self.armoire.game.playground.multiplicateurVitesseCamera-= self.obj.stats
+                self.armoire.game.player.inventory['Plats'][self.nom].remove(self.obj) 
+
+                
                 
             self.armoire.updateAfficher()
             self.kill()

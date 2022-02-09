@@ -24,6 +24,8 @@ class Playground:
 
         self.lastClickedButton = None
         self.currentMenu = self.echapMenuButtons
+        self.multiplicateurVitesseCamera = 1
+        self.multiplicateurVitesseCameraDefinitif = 1
 
         # Lecture du json pour les data
         file = open('Data/config/config.json', "r")
@@ -82,9 +84,9 @@ class Playground:
             biome = 'foret'
         
         if night:
-            speed = (nbRun + 1) *1.5
+            speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif *1.5
         else:
-            speed = nbRun + 1
+            speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif
 
         runLenght = nbRun*1.5+20
         x = 0
@@ -209,6 +211,7 @@ class Monster(pygame.sprite.Sprite):
 
         self.collider = True
 
+        self.multiplicateurVitesseCamera = 1
         self.sprites = []
         self.currentSprite = 0
         self.animationRate = 0.1
