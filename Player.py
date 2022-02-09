@@ -81,6 +81,9 @@ class Player(pygame.sprite.Sprite):
 
         self.inventory["Ingredients"]["Tomate"] = 3
 
+        self.background_image = pygame.image.load(
+            self.data["Background_images"]["gameOver"]).convert()
+
     def loadAnimations(self):
         for i in self.data['Player']['animations']:
             animPath = i['path']
@@ -235,6 +238,15 @@ class Player(pygame.sprite.Sprite):
                         if not self.isRiding:
                             self.runtostop = True
                     self.isRunning = False
+
+    def update_background(self):    
+        game.Game.get_instance().screen.blit(self.background_image, (0, 0))
+
+    def GameOver(self):
+        jeu = game.Game.get_instance()
+        jeu.playground.update_background()
+        jeu.currentMenu = "gameOver"
+        
 
     def update(self):
         if self.jeu.currentMenu == "gameMenu":
@@ -503,7 +515,14 @@ class Player(pygame.sprite.Sprite):
                 
                 nouvPos[1] = 530
             self.coordinates = tuple(nouvPos)
-            self.rect.topleft = self.coordinates          
+            self.rect.topleft = self.coordinates   
+            if nouvPos[0] <= -200:
+                self.GameOver()
+                self.sound.playSound("death",0.09)
+                pygame.mixer.music.stop()
+        elif self.jeu.currentMenu == "gameOver":   
+            self.update_background()
+            
 
     def updateJson(self):
         f = open('Data/config/config.json', "r")

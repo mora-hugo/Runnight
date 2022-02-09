@@ -255,7 +255,8 @@
         "planque": "Data/sprites/background/house.png",
         "jungle_jour": "Data/sprites/background/jungle_jour.png",
         "jungle_nuit": "Data/sprites/background/jungle_nuit.png",
-        "armoire": "Data/sprites/planque/armoireProche.png"
+        "armoire": "Data/sprites/planque/armoireProche.png",
+        "gameOver": "Data/sprites/background/gameOver.png"
     },
     "Images": {
         "logo": "Data/sprites/logoWC.png"
