@@ -319,6 +319,9 @@
         "jump": "Data/sounds/jump.mp3",
         "fall": "Data/sounds/tomber.mp3",
         "walf": "Data/sounds/wolf.mp3",
+        "groar": "Data/sounds/groar.mp3",
+        "wolf": "Data/sounds/wolf.mp3",
+        "death": "Data/sounds/death.mp3",
         "crash": "Data/sounds/crash.mp3"
     },
     "Music": {
@@ -386,8 +389,8 @@
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "speed",
-                "value" : 0.01
+                "type": "speed",
+                "value": 0.01
             }
         },
         "Salade": {
@@ -404,8 +407,8 @@
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "speed",
-                "value" : 0.01
+                "type": "speed",
+                "value": 0.01
             }
         },
         "Pain": {
@@ -422,8 +425,8 @@
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "speed",
-                "value" : 0.01
+                "type": "speed",
+                "value": 0.01
             }
         },
         "Comcombre": {
@@ -440,8 +443,8 @@
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "saut",
-                "value" : 0.01
+                "type": "saut",
+                "value": 0.01
             }
         },
         "Viande": {
@@ -458,8 +461,8 @@
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "saut",
-                "value" : 0.01
+                "type": "saut",
+                "value": 0.01
             }
         },
         "Patate": {
@@ -476,8 +479,8 @@
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.01
+                "type": "ralentissement",
+                "value": 0.01
             }
         },
         "Champignon": {
@@ -494,8 +497,8 @@
             "width": 50,
             "height": 50,
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.01
+                "type": "ralentissement",
+                "value": 0.01
             }
         }
     },
@@ -505,8 +508,8 @@
             "2": "Salade",
             "3": "Viande",
             "bonus": {
-                "type" : "speed",
-                "value" : 0.1
+                "type": "speed",
+                "value": 0.1
             }
         },
         "Salade Compose": {
@@ -514,8 +517,8 @@
             "2": "Tomate",
             "3": "Comcombre",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         },
         "Tacos": {
@@ -523,8 +526,8 @@
             "2": "Tomate",
             "3": "Viande",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         },
         "Pizza": {
@@ -532,8 +535,8 @@
             "2": "Tomate",
             "3": "Champignon",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         },
         "Hachis parmentier": {
@@ -541,8 +544,8 @@
             "2": "Viande",
             "3": "Champignon",
             "bonus": {
-                "type" : "ralentissement",
-                "value" : 0.1
+                "type": "ralentissement",
+                "value": 0.1
             }
         }
     },
