@@ -75,11 +75,11 @@ class Game():  # Design pattern singleton
             self.playground = Playground.Playground(self.screen, self)
 
             # Planque
-            self.barre.update(80, "Chargmement de la planque")
+            self.barre.update(80, "Chargement de la planque")
             self.planque = Planque.Planque(self)
 
             # Monstre
-            self.barre.update(80, "Chargmement de la planque")
+            self.barre.update(90, "Chargement des entites")
             self.monster = Playground.Monster((0,200),self)
             self.characters.add(self.monster)
 

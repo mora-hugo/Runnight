@@ -20,14 +20,15 @@ class BDDSCORE():
         """
         CREATE TABLE IF NOT EXISTS SCORE (
             name VARCHAR PRIMARY KEY,
-            score INT NOT NULL
+            score INT NOT NULL,
+            run INT NOT NULL
             )
             """
         )
         self.cursor.execute(tables)
         self.conn.commit()
 
-    def addScore(self,name,score):
+    def addScore(self,name,score,run):
         select = ( #Test si le joueur existe dÃ©ja
         """
         SELECT * from score
@@ -40,27 +41,31 @@ class BDDSCORE():
             add = (
             """
             INSERT INTO SCORE
-            VALUES(%s,%s);
+            VALUES(%s,%s,%s);
             """
             )
-            self.cursor.execute(add,(name,score))
+            self.cursor.execute(add,(name,score,run))
             self.conn.commit()
         else: #Si il existe, changer son score
             update = (
             """
-            UPDATE SCORE SET score= (%s)
+            UPDATE SCORE SET score= (%s), run = (%s)
             WHERE name = (%s)
             """
             )
-            self.cursor.execute(update,(score,name,))
+            self.cursor.execute(update,(score,run,name,))
             self.conn.commit()
 
     def afficherScore(self): #renvoi un dictionnaire des scores
-        self.cursor.execute("select * from SCORE ORDER BY score DESC")
+        self.addScore("Hugo le PGM",100,3)
+        self.addScore("Ilyas",1,1)
+        self.addScore("Lori",100000,30)
+
+        self.cursor.execute("select * from SCORE ORDER BY score DESC limit 6")
         scores = self.cursor.fetchall()
         score_dict = {}
         for score in scores:
-            score_dict[score[0]] = score[1]
+            score_dict[score[0]] = {"score" :score[1], "run" : score[2]}
         return score_dict
 """ EXEMPLE ajouter score
 BDDSCORE = BDDSCORE()

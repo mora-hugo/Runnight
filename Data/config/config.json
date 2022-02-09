@@ -306,10 +306,25 @@
             "HEIGHT": 540,
             "WIDTH": 482
         },
+        "passer_la_nuit": {
+            "img": "Data/sprites/items/passer_la_nuit.png",
+            "HEIGHT": 384,
+            "WIDTH": 512
+        },
+        "passer_la_nuit_oui": {
+            "img": "Data/sprites/items/passer_la_nuit_oui.png",
+            "HEIGHT": 384,
+            "WIDTH": 512
+        },
+        "passer_la_nuit_non": {
+            "img": "Data/sprites/items/passer_la_nuit_non.png",
+            "HEIGHT": 384,
+            "WIDTH": 512
+        },
         "panneau_menu_quitter_hover": {
             "img": "Data/sprites/items/pancarte_menu_quitter_hover.png",
-            "HEIGHT": 575,
-            "WIDTH": 464
+            "HEIGHT": 384,
+            "WIDTH": 512
         }
     },
     "Sounds": {
@@ -576,6 +591,11 @@
             "img": "Data/sprites/items/Ingredients/hachis.png",
             "width": 50,
             "height": 50
+        },
+        "Soupe" : {
+            "img": "Data/sprites/items/Ingredients/soupe.png",
+            "width": 75,
+            "height": 75
         }
     }
 }

@@ -109,7 +109,7 @@ class CraftingTable(pygame.sprite.Sprite):
                     ingredient2 = case.name
                 elif case.caseDepose == 3:
                     ingredient3 = case.name
-        if ingredient1 is not None and ingredient2 is not None and canCraft(ingredient1,ingredient2,ingredient3):
+        if ingredient1 is not None and ingredient2 is not None and ingredient3 is not None and canCraft(ingredient1,ingredient2,ingredient3):
             
             craft = getCraft(ingredient1,ingredient2,ingredient3)
             self.item = ItemShowcase.ItemShowcase(self.game.playground.plats[craft], self.rect.left+385, self.rect.bottom-170,self,-1,craft,True)
@@ -127,12 +127,28 @@ class CraftingTable(pygame.sprite.Sprite):
                         case.kill()
                         self.item.kill()
                 self.afficher()
+        
+
         elif self.item is not None:
             self.item.kill()
             for case in self.sprites:
                 if case.isPlat or case.isCraftable:
                     case.kill()
-
+        if not canCraft(ingredient1,ingredient2,ingredient3) and ingredient1 is not None and  ingredient2 is not None and  ingredient3 is not None:
+            self.item = ItemShowcase.ItemShowcase(self.game.playground.plats["Soupe"], self.rect.left+385, self.rect.bottom-170,self,-1,"Soupe",True)
+            self.item.isPlat = True
+            self.item.isCraftable = True
+            self.item.afficherCraftResult()
+            mouse = pygame.mouse.get_pos()
+            if pygame.Rect(self.rect.left+385, self.rect.bottom-170,120,70).colliderect((mouse[0],mouse[1],1,1)) and pygame.mouse.get_pressed()[0]:
+                creerPlat(self.game.player,ingredient1,ingredient2,ingredient3)
+                for case in self.sprites:
+                    if case.deposerSurCase:
+                        self.game.player.inventory["Ingredients"][case.name] -= 1
+                        print("Quantite : ", self.game.player.inventory["Ingredients"][case.name])
+                        case.kill()
+                        self.item.kill()
+                self.afficher()
         if self.isQuitting():
             self.cacher()
             
@@ -182,43 +198,45 @@ def getCraft(ingredient1, ingredient2, ingredient3=None):
         recetteT.clear()
     return None
 
-def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None):
+def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None,isPoop=None):
     f = open('Data/config/config.json', 'r')
     data = json.load(f)
     f.close()
-    for recette in data['Recettes']:
-        recetteT = []
+    if isPoop is not None:
+        for recette in data['Recettes']:
+            recetteT = []
 
-        for i in data['Recettes'][recette]:
-            if data['Recettes'][recette][i] == ingredient1 and i not in recetteT:
-                recetteT.append(i)
-            elif data['Recettes'][recette][i] == ingredient2 and i not in recetteT:
+            for i in data['Recettes'][recette]:
+                if data['Recettes'][recette][i] == ingredient1 and i not in recetteT:
+                    recetteT.append(i)
+                elif data['Recettes'][recette][i] == ingredient2 and i not in recetteT:
 
-                recetteT.append(i)
-            elif ingredient3 is not None and data['Recettes'][recette][i] == ingredient3 and i not in recetteT:
+                    recetteT.append(i)
+                elif ingredient3 is not None and data['Recettes'][recette][i] == ingredient3 and i not in recetteT:
 
-                recetteT.append(i)
-        if "1" in recetteT and "2" in recetteT and "3" in recetteT:
-                if recette in joueur.inventory["Plats"].keys():
-                    temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
-                    temp = random.uniform(0.6,1.4)*temp
-                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
-                    
-                    
-                    #else:
+                    recetteT.append(i)
+            if "1" in recetteT and "2" in recetteT and "3" in recetteT:
+                    if recette in joueur.inventory["Plats"].keys():
+                        
+                        joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"],joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
+                        
+                        
+                        #else:
 
-                else:
-                    temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
-                    temp = random.uniform(0.6,1.4)*temp
-                    joueur.inventory["Plats"][recette] = []
-                joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,temp,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
-                print(joueur.inventory["Plats"])
-        """if ingredient3 is None:
-            if "1" in recetteT and "2" in recetteT:
-                if data['Recettes'][recette] in joueur.inventory.keys():
-                    joueur.inventory[data['Recettes'][recette]] += 1
-                else:
-                    joueur.inventory[data['Recettes'][recette]] = 1"""
-        
+
+                    else:
+                        
+                        joueur.inventory["Plats"][recette] = []
+                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"],joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
+                    print(joueur.inventory["Plats"])
             
-        recetteT.clear()    
+                
+            recetteT.clear()    
+    else:
+            temp = data["Ingredients"][ingredient1]["coef"][ingredient2]*data["Ingredients"][ingredient2]["coef"][ingredient3]*data["Ingredients"][ingredient1]["coef"][ingredient3]
+            temp = random.uniform(0.6,1.4)*temp
+            if "Soupe" in joueur.inventory["Plats"]:
+                joueur.inventory["Plats"]["Soupe"].append(InventoryItem.InventoryItem("Soupe",temp,joueur.game.data["Ingredients"][ingredient3]["bonus"]["type"],joueur))
+            else:
+                joueur.inventory["Plats"]["Soupe"] = []
+                joueur.inventory["Plats"]["Soupe"].append(InventoryItem.InventoryItem("Soupe",temp,joueur.game.data["Ingredients"][ingredient3]["bonus"]["type"],joueur))
