@@ -45,6 +45,7 @@ class Player(pygame.sprite.Sprite):
         self.isTurningRun = False
         self.isRiding = False
         self.isFallingSlow = False
+        self.isPicking = False
 
         self.tpPlanque = False
         self.tpRun = False
@@ -257,7 +258,7 @@ class Player(pygame.sprite.Sprite):
 
                     if self.isRunning == True and not self.isTurningRun and not self.isFallingHard and not self.isRiding and not ((self.collisionX('left') and self.direction == 'left') or (self.collisionX('right') and self.direction == 'right')):
                         
-                        if not  self.isTurning and not self.isJumping:
+                        if not  self.isTurning and not self.isJumping and not self.isPicking:
                             self.setAnimation('fastrun',0.9)
                         self.speed_x = self.data['Player']["speed_x"]
                         if self.isLanding == True:
@@ -271,7 +272,7 @@ class Player(pygame.sprite.Sprite):
                         if self.direction == 'right' and not self.collisionX('right'):
                             nouvPos[0] += self.speed_x
 
-                    elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping and not self.isTurning and not self.isTurningRun and not self.isFallingHard and not self.isRiding:
+                    elif not self.isLanding and not self.runtostop and not self.stoptorun and not self.isJumping and not self.isTurning and not self.isTurningRun and not self.isFallingHard and not self.isRiding and not self.isPicking:
                         self.setAnimation('idle',0.4)
 
                     if self.currentSprite >= len(self.sprites):
@@ -297,6 +298,8 @@ class Player(pygame.sprite.Sprite):
                         if self.isRiding == True:
                             self.playAnimation('idle',0.4)
                             self.isRiding = False
+                        if self.isPicking == True:
+                            self.isPicking = False
                         self.currentSprite = 0
                         
                     
@@ -347,6 +350,7 @@ class Player(pygame.sprite.Sprite):
                 elif self.speed_y != 0:
                     self.isTurning = False
                     self.isTurningRun = False
+                    self.isPicking = False
                     if self.isJumping == True:
 
                         if self.isRunning:
@@ -424,6 +428,7 @@ class Player(pygame.sprite.Sprite):
                 self.isRiding = False
                 self.isFallingHard = False
                 self.isFallingSlow = False
+                self.isPicking = False
 
                 if self.isRunning == True and not self.isTurningRun :
                     if not  self.isTurning:
@@ -481,7 +486,8 @@ class Player(pygame.sprite.Sprite):
                 
                 nouvPos[1] = 530
             self.coordinates = tuple(nouvPos)
-            self.rect.topleft = self.coordinates            
+            self.rect.topleft = self.coordinates     
+            print(self.isPicking)       
 
     def updateJson(self):
         f = open('Data/config/config.json', "r")

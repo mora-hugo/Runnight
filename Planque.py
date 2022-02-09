@@ -44,11 +44,14 @@ class Planque(pygame.sprite.Sprite):
         self.collider = False
         self.isVisible = False
 
+        self.isInMenu = False
+
+
         #chargement armoire
-        self.armoire = armoire.armoire(game)
+        self.armoire = armoire.armoire(game,self)
 
         #chargement crafting
-        self.crafting_table = CraftingTable.CraftingTable(game,self.game.decor)
+        self.crafting_table = CraftingTable.CraftingTable(game,self.game.decor,self)
 
     def afficher(self):
         self.game.all_sprites.add(self)
@@ -58,6 +61,7 @@ class Planque(pygame.sprite.Sprite):
     def cacher(self):
         self.game.all_sprites.remove(self)
         self.game.all_sprites.remove(self.boutonsGroup)
+        self.isInMenu = False
         self.isVisible = False
 
 
@@ -94,12 +98,12 @@ class PlanqueButton(pygame.sprite.Sprite):
             return False
 
     def update(self):
-        if self.isOverred():
+        if self.isOverred() and not self.planque.isInMenu:
             self.afficher()
         else:
             self.cacher()
 
-        if self.isClicked():
+        if self.isClicked() and not self.planque.isInMenu:
             if self.nom == 'armoire':
                 self.planque.armoire.afficher()
             if self.nom == 'cuisine':

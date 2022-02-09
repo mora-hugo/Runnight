@@ -58,7 +58,7 @@
             {
                 "name": "pick_up",
                 "path": "Data/sprites/player/pick_up/",
-                "lenght": 73
+                "lenght": 40
             },
             {
                 "name": "hard_landing",
@@ -84,6 +84,22 @@
                 "name": "slide",
                 "path": "Data/sprites/player/slide/",
                 "lenght": 75
+            }
+        ]
+    },
+    "Monster": {
+        "hp": 100,
+        "speed_x": 8,
+        "speed_y": 0.1,
+        "gravity": 10,
+        "jumpForce": 8,
+        "width": 80,
+        "height": 212,
+        "animations": [
+            {
+                "name": "groar",
+                "path": "Data/sprites/monster/roaring/",
+                "lenght": 32
             }
         ]
     },
@@ -191,7 +207,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "use": 13
     },
     "Background_images": {
@@ -449,7 +465,42 @@
         },
         "Hachis parmentier": {
             "1": "Patate",
-            "2": "Viande"
+            "2": "Viande",
+            "3" : "Champignon"
         }
+    },
+    "Plats": {
+        "Burger" : {
+            "img" : "Data/sprites/items/Ingredients/burger.png",
+            "width": 50,
+            "height": 50
+
+        },
+        "Salade Compose" : {
+            "img" : "Data/sprites/items/Ingredients/salade.png",
+            "width": 50,
+            "height": 50
+        },
+        "Champignon hallucinogene" : {
+            "img" : "Data/sprites/items/Ingredients/champignon.png",
+            "width": 50,
+            "height": 50
+        },
+        "Tacos" : {
+            "img" : "Data/sprites/items/Ingredients/tacos.png",
+            "width": 75,
+            "height": 75
+        },
+        "Pizza" : {
+            "img" : "Data/sprites/items/Ingredients/pizza.png",
+            "width": 50,
+            "height": 50
+        },
+        "Hachis parmentier" : {
+            "img" : "Data/sprites/items/Ingredients/hachis.png",
+            "width": 50,
+            "height": 50
+        }
+
     }
 }
