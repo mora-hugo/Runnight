@@ -31,8 +31,8 @@ class Sound():
     def playMusic(self,biome,night,volume):
         pygame.mixer.music.stop()
         pygame.mixer.music.set_volume(volume)
-        if (biome == "forest"):
-            if(not night):
+        if (biome == "foret" or biome == "ville"):
+            if(night == "day"):
                 pygame.mixer.music.load( self.music['dayMusic'] )
             else:
                 pygame.mixer.music.load( self.music['nightMusic'] )
@@ -40,10 +40,5 @@ class Sound():
                 pygame.mixer.music.load( self.music['house'] )
         elif (biome == "menu"):
                 pygame.mixer.music.load( self.music['menu'] )
-        else:
-            if(not night):
-                pygame.mixer.music.load( self.music['dayMusic'] )
-            else:
-                pygame.mixer.music.load( self.music['nightMusic'] )
         
         pygame.mixer.music.play(-1,0,0)
