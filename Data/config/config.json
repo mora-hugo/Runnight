@@ -192,6 +192,13 @@
             "animation": "None"
         },
         {
+            "name": "tree1_n",
+            "height": 449,
+            "width": 854,
+            "img": "Data/sprites/decors/tree1_n.png",
+            "animation": "None"
+        },
+        {
             "name": "house",
             "height": 1080,
             "width": 767,

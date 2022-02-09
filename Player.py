@@ -47,6 +47,7 @@ class Player(pygame.sprite.Sprite):
         self.isRiding = False
         self.isFallingSlow = False
         self.isPicking = False
+        self.isGoingUp = False
 
         self.tpPlanque = False
         self.tpRun = False
@@ -198,7 +199,7 @@ class Player(pygame.sprite.Sprite):
                         self.isRiding = True
                         
                     elif self.isJumping == False and self.speed_y == 0:
-                        self.playAnimation('jump',1)
+                        self.playAnimation('jumploop',3)
                         self.isJumping = True
                         self.runtostop = False
                 else:
@@ -209,7 +210,7 @@ class Player(pygame.sprite.Sprite):
                         self.isRiding = True
 
                     elif self.isJumping == False and self.speed_y == 0:
-                        self.playAnimation('jump',1)
+                        self.playAnimation('jumploop',3)
                         self.isJumping = True
                         self.runtostop = False
             
@@ -252,7 +253,7 @@ class Player(pygame.sprite.Sprite):
                         else:
                             self.sound.playSound("crash",0.15)
                             self.playAnimation('hard_landing',1)
-                        self.runtostop = False            
+                        self.runtostop = False        
                         self.isFlying = False
 
                     
@@ -345,10 +346,11 @@ class Player(pygame.sprite.Sprite):
                     if self.isJumping == True:
                         self.speed_y = self.jumpForce
                         nouvPos[1] -= self.speed_y
+                        self.isGoingUp = True
                         
                         
 
-                elif self.speed_y != 0:
+                elif self.speed_y != 0:                   
                     self.isTurning = False
                     self.isTurningRun = False
                     self.isPicking = False
@@ -361,13 +363,14 @@ class Player(pygame.sprite.Sprite):
                             if self.direction == 'right' and not self.collisionX('right'):
                                 nouvPos[0] += self.speed_x
                         
-                        nouvPos[1]-= self.speed_y #(-0.001*(y[0]*y[0]))
+                        nouvPos[1]-= self.speed_y 
                         if self.speed_y > 0.5:
                             self.speed_y -= 0.5
                             
                         else:
                             self.speed_y = 0.1
                             self.isJumping = False
+                            self.isGoingUp = False
                             
                         
                         if not self.currentSprite >= len(self.sprites):
@@ -407,7 +410,10 @@ class Player(pygame.sprite.Sprite):
                 
                 self.collisionYdeep(nouvPos)
                 self.collisionY()
-                nouvPos[0] -= self.game.nbRun + 1
+                if self.game.night:
+                    nouvPos[0] -= (self.game.nbRun + 1)*1.5
+                else:
+                    nouvPos[0] -= self.game.nbRun + 1
 
                 #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
                 #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+120, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
