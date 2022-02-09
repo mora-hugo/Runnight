@@ -420,10 +420,12 @@ class Player(pygame.sprite.Sprite):
                 
                 self.collisionYdeep(nouvPos)
                 self.collisionY()
-                if self.game.night:
-                    nouvPos[0] -= (self.game.nbRun + 1)*1.5
-                else:
-                    nouvPos[0] -= self.game.nbRun + 1
+
+                if not self.game.monster.isStarting:
+                    if self.game.night:
+                        nouvPos[0] -= (self.game.nbRun + 1)*1.5
+                    else:
+                        nouvPos[0] -= self.game.nbRun + 1
 
                 #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
                 #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+120, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
