@@ -133,6 +133,16 @@ class Playground:
                 self.decor.spawnDecor(
                     'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True)
 
+            if randint(0, 10) == 0:
+                self.decor.spawnDecor(
+                    'ground_1',x+randwidth/5,  randy-100, randint(50, 300), 1000, speed, 'x', True)
+                self.decor.spawnDecor(
+                    'bus', x+randwidth/2, randy-200, 500, 250, speed, 'x', True)
+
+            if randint(0, 5) == 0:
+                self.decor.spawnDecor(
+                    'rocher', x+randwidth/2, randy-200, 250, 190, speed, 'x', True)
+
             if randy >= 500:
                 self.decor.spawnDecor(
                     'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, speed, 'x', True)

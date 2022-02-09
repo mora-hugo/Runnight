@@ -211,6 +211,20 @@
             "width": 4567,
             "img": "Data/sprites/background/moon.png",
             "animation": "None"
+        },
+        {
+            "name": "bus",
+            "height": 500,
+            "width": 250,
+            "img": "Data/sprites/decors/bus.png",
+            "animation": "None"
+        },
+        {
+            "name": "rocher",
+            "height": 120,
+            "width": 250,
+            "img": "Data/sprites/decors/rocher.png",
+            "animation": "None"
         }
     ],
     "Bindings": {
