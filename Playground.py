@@ -140,7 +140,7 @@ class Playground:
         for i in range(0, int(runLenght)):
             # ground
             self.decor.spawnDecor('ground_1', groundsx, 600, groundwidth, 500, speed, 'x', True,0,10)
-            groundsx += groundwidth + 400
+            groundsx += groundwidth + 300
             groundwidth = randint(500,2000)
             
 
@@ -173,36 +173,36 @@ class Playground:
             x += randint(10, 1024)
 
             #stuff
-            if randint(0,5) == 0: #salade
+            if randint(0,self.data['Ingredients']['Salade']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Salade']['rare']/2)) == 0): #salade
                 self.decor.spawnIngredient(
-                "Salade", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,8) == 0: #pain
+                "Salade", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Tomate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Tomate']['rare']/2)) == 0): #pain
                 self.decor.spawnIngredient(
-                "Tomate", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,10) == 0: #tomate
+                "Tomate", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Pain']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Pain']['rare']/2)) == 0): #tomate
                 self.decor.spawnIngredient(
-                "Tomate", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,20) == 0: #Comcombre
+                "Pain", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Comcombre']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Comcombre']['rare']/2)) == 0): #Comcombre
                 self.decor.spawnIngredient(
-                "Comcombre", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,30) == 0: #Champignon
+                "Comcombre", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Champignon']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Champignon']['rare']/2)) == 0): #Champignon
                 self.decor.spawnIngredient(
-                "Champignon", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,30) == 0: #Patate
+                "Champignon", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Patate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Patate']['rare']/2)) == 0): #Patate
                 self.decor.spawnIngredient(
-                "Patate", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,35) == 0: #Viande
+                "Patate", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Viande']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Viande']['rare']/2)) == 0): #Viande
                 self.decor.spawnIngredient(
-                "Viande", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,50) == 0: #Sucre
+                "Viande", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Sucre']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Sucre']['rare']/2)) == 0): #Sucre
                 self.decor.spawnIngredient(
-                "Sucre", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,50) == 0: #Saumon
+                "Sucre", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Saumon']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Saumon']['rare']/2)) == 0): #Saumon
                 self.decor.spawnIngredient(
-                "Saumon", x+randint(-100,100), 300, 50, 50, speed, "x", False)
-            if randint(0,100) == 0: #Caviar
+                "Saumon", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+            if randint(0,self.data['Ingredients']['Caviar']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Caviar']['rare']/2)) == 0): #Caviar
                 self.decor.spawnIngredient(
-                "Caviar", x+randint(-100,100), 300, 50, 50, speed, "x", False)
+                "Caviar", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
                 
 
         self.decor.spawnDecor('house', x+100, 200, 600, 400, speed, 'x', False)

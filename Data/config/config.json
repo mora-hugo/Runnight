@@ -414,6 +414,7 @@
     },
     "Ingredients": {
         "Tomate": {
+            "rare": 5,
             "img": "Data/sprites/items/Ingredients/tomate.png",
             "coef": {
                 "Tomate": 2,
@@ -435,6 +436,7 @@
             }
         },
         "Salade": {
+            "rare": 8,
             "img": "Data/sprites/items/Ingredients/salade.png",
             "coef": {
                 "Tomate": 4,
@@ -456,6 +458,7 @@
             }
         },
         "Pain": {
+            "rare": 10,
             "img": "Data/sprites/items/Ingredients/pain.png",
             "coef": {
                 "Tomate": 3,
@@ -477,6 +480,7 @@
             }
         },
         "Comcombre": {
+            "rare": 10,
             "img": "Data/sprites/items/Ingredients/comcombre.png",
             "coef": {
                 "Tomate": 4,
@@ -498,6 +502,7 @@
             }
         },
         "Viande": {
+            "rare": 20,
             "img": "Data/sprites/items/Ingredients/viande.png",
             "coef": {
                 "Tomate": 2,
@@ -519,6 +524,7 @@
             }
         },
         "Patate": {
+            "rare": 15,
             "img": "Data/sprites/items/Ingredients/patate.png",
             "coef": {
                 "Tomate": 1.3,
@@ -540,6 +546,7 @@
             }
         },
         "Champignon": {
+            "rare": 13,
             "img": "Data/sprites/items/Ingredients/champignon.png",
             "coef": {
                 "Tomate": 1.4,
@@ -561,6 +568,7 @@
             }
         },
         "Sucre": {
+            "rare": 50,
             "img": "Data/sprites/items/Ingredients/sucre.png",
             "coef": {
                 "Tomate": 5,
@@ -582,6 +590,7 @@
             }
         },
         "Saumon": {
+            "rare": 70,
             "img": "Data/sprites/items/Ingredients/saumon.png",
             "coef": {
                 "Tomate": 5,
@@ -603,6 +612,7 @@
             }
         },
         "Caviar": {
+            "rare": 100,
             "img": "Data/sprites/items/Ingredients/caviar.png",
             "coef": {
                 "Tomate": 9,

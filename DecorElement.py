@@ -54,8 +54,7 @@ class DecorElement(pygame.sprite.Sprite):
         self.name = element['name']
 
     def collisionPlayer(self):
-        if self.game.player.rect.colliderect(self.rect):
-            self.game.player.tpPlanque = True
+        if self.game.player.rect.colliderect(self.rect):         
             return True
         return False
 
@@ -71,6 +70,7 @@ class DecorElement(pygame.sprite.Sprite):
                     self.kill()
 
         if self.name == 'house' and self.collisionPlayer():
+            self.game.player.tpPlanque = True
             self.game.planque.afficher()
             self.game.isInRun = False
             self.game.player.multiplicateurVitesse = 1

@@ -141,6 +141,8 @@ class Game():  # Design pattern singleton
             self.player.multiplicateurSautDefinitif = 1
             self.player.multiplicateurVitesse = 1
             self.player.multiplicateurSaut = 1
+            self.player.isRunning = False
+            self.player.speed_y = 0
 
             self.menu.update_background()
             self.menu.afficher()
