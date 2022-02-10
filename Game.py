@@ -144,6 +144,9 @@ class Game():  # Design pattern singleton
             self.player.speed_y = 0
             self.player.argent = 0
 
+            self.playground.multiplicateurVitesseCamera = 1
+            self.playground.multiplicateurVitesseCameraDefinitif = 1
+
             self.menu.update_background()
             self.menu.afficher()
             self.planque.cacher()

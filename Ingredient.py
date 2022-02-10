@@ -38,7 +38,7 @@ class Ingredient(pygame.sprite.Sprite):
                 self.game.player.inventory['Ingredients'][self.name] += 1
             else:
                 self.game.player.inventory['Ingredients'][self.name] = 1
-            if self.game.player.isRunning and not self.game.player.isPicking:
+            if self.game.player.isRunning and not self.game.player.isPicking and not self.game.player.isRolling:
                 self.game.player.playAnimation('pick_up',0.9)
                 self.game.player.isPicking = True
             self.game.player.score += self.game.data['Ingredients'][self.name]['score']

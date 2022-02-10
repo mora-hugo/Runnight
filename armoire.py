@@ -124,7 +124,6 @@ class ArmoireButton(pygame.sprite.Sprite):
         self.sound = Sound()
  
         self.statsHUD = pygame.image.load(self.armoire.data['Items']['Stats_planche']['img']).convert_alpha()
-        self.statsHUD = pygame.transform.scale(self.statsHUD, (100,60))
         self.fonts = pygame.font.Font(self.armoire.data["Font"]["base"], 36)
 
 
@@ -143,19 +142,27 @@ class ArmoireButton(pygame.sprite.Sprite):
             return False
 
     def afficherStats(self,screen):
-        screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
 
-        if self.obj.type == "speed":
-            txt = self.fonts.render("Vitesse : +"+str(self.obj.stats)+"%", True, (255,255,255))
-
+        
+        if self.obj.type == "speed":     
+            self.statsHUD = pygame.transform.scale(self.statsHUD, (200,60))   
+            screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
+            txt = self.fonts.render("Vitesse : +"+str(round(self.obj.stats,2)*10)+"%", True, (255,255,255))
+            screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
         elif self.obj.type == "saut":
-            txt = self.fonts.render("Saut : +"+str(self.obj.stats)+"%", True, (255,255,255))
+            self.statsHUD = pygame.transform.scale(self.statsHUD, (200,60))   
+            screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
+            txt = self.fonts.render("Saut : +"+str(round(self.obj.stats,2)*10)+"%", True, (255,255,255))
+            screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
         elif self.obj.type == "ralentissement":
-            txt = self.fonts.render("Ralentissement : -"+str(self.obj.stats)+"%", True, (255,255,255))
+            self.statsHUD = pygame.transform.scale(self.statsHUD, (300,60))   
+            screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
+            txt = self.fonts.render("Ralentissement : -"+str(round(self.obj.stats,2)*10)+"%", True, (255,255,255))
+            screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
 
         
         
-        screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
+        
 
     def update(self):
 
@@ -185,14 +192,15 @@ class ArmoireButton(pygame.sprite.Sprite):
                 elif self.obj.type == "saut":
                     self.armoire.game.player.multiplicateurSaut += self.obj.stats
                 elif self.obj.type == "ralentissement":
-                    self.armoire.game.playground.multiplicateurVitesseCamera-= self.obj.stats
+                    self.armoire.game.playground.multiplicateurVitesseCamera -= self.obj.stats
                 self.armoire.game.player.inventory['Plats'][self.nom].remove(self.obj) 
 
             self.armoire.updateAfficher()
             self.kill()
 
         if self.isOverred():
-            if not self.obj is None:
+            if self.obj != None:
                 self.afficherStats(self.armoire.game.screen)
+
                 
             
