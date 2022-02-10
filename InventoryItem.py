@@ -1,7 +1,7 @@
 class InventoryItem():
     def __init__(self,name,stats,type,player):
         self.name = name
-        self.stats = stats
+        self.stats = stats/100
         self.player = player
         self.type = type
         
