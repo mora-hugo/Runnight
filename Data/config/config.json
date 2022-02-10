@@ -333,6 +333,21 @@
             "img": "Data/sprites/items/pancarte_menu_quitter_hover.png",
             "HEIGHT": 384,
             "WIDTH": 512
+        },
+        "Argent": {
+            "img": "Data/sprites/items/money.png",
+            "HEIGHT": 50,
+            "WIDTH": 50
+        },
+        "BaignoireHUD": {
+            "img": "Data/sprites/items/baignoire.png",
+            "HEIGHT": 50,
+            "WIDTH": 50
+        },
+        "BibliotequeHUD": {
+            "img": "Data/sprites/items/bibliotheque.png",
+            "HEIGHT": 384,
+            "WIDTH": 512
         }
     },
     "Sounds": {
