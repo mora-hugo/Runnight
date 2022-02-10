@@ -341,8 +341,8 @@
         },
         "BaignoireHUD": {
             "img": "Data/sprites/items/baignoire.png",
-            "HEIGHT": 50,
-            "WIDTH": 50
+            "HEIGHT": 576,
+            "WIDTH": 768
         },
         "BibliotequeHUD": {
             "img": "Data/sprites/items/bibliotheque.png",

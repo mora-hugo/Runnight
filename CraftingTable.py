@@ -12,7 +12,7 @@ class CraftingTable(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.game = game
         self.rect.x = game.data["Settings"]["WIDTH"]/2 - game.data["Items"]["crafting_table"]["WIDTH"]/2*1.5
-        self.rect.y = 10
+        self.rect.y = 10+200
         #self.rect.y = game.data["Settings"]["HEIGHT"]/2 - game.data["Items"]["crafting_table"]["HEIGHT"]/2*1.5
         self.collider = False
         self.sprites = pygame.sprite.Group()
@@ -22,7 +22,7 @@ class CraftingTable(pygame.sprite.Sprite):
         self.isVisible = False
         self.planque = planque
         self.createCollisionBox()
-        self.cacher()
+        self.cacherFirstTime()
         self.item = None
         
 
@@ -89,7 +89,11 @@ class CraftingTable(pygame.sprite.Sprite):
         self.createCollisionBox()
         
         
-
+    def cacherFirstTime(self):
+        self.game.all_sprites.remove(self)
+        self.isVisible = False
+        self.planque.isInMenu = False
+        self.cacherIngredients()
     def cacher(self):
         self.game.all_sprites.remove(self)
         self.isVisible = False

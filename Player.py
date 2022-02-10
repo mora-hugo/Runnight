@@ -60,9 +60,9 @@ class Player(pygame.sprite.Sprite):
         self.gameOverDelay = None
 
         self.isFallingHard = False
-
+        self.hardLandingBonus = 0
         self.isLanding = False
-
+        self.bonusRiding = 0
         self.playAnimation('idle', 0.4)
 
         self.runtostop = False
@@ -126,7 +126,7 @@ class Player(pygame.sprite.Sprite):
             if type(sprite) is DecorElement and sprite.collider and sprite.Colliderect.colliderect((self.rect.x+37, self.rect.y+self.data['Player']['height']-20, self.data['Player']['width']-8, 20)):
                 self.speed_y = 0
                 if self.isRiding:
-                    nouvPos[1] -= 5
+                    nouvPos[1] -= 5+self.bonusRiding
                 else:
                     nouvPos[1] -= 1
 
@@ -205,7 +205,7 @@ class Player(pygame.sprite.Sprite):
                     if not self.collisionXup('left') and self.collisionX('left'):
                         self.runtostop = False
                         self.isLanding = False
-                        self.playAnimation('jump_ride',1.5)
+                        self.playAnimation('jump_ride',1.5*(self.bonusRiding+5)/5)
                         self.isRiding = True
                         
                     elif self.isJumping == False and self.speed_y == 0:
@@ -216,7 +216,7 @@ class Player(pygame.sprite.Sprite):
                     if not self.collisionXup('right') and self.collisionX('right'):
                         self.runtostop = False
                         self.isLanding = False
-                        self.playAnimation('jump_ride',1.5)
+                        self.playAnimation('jump_ride',1.5*(self.bonusRiding+5)/5)
                         self.isRiding = True
 
                     elif self.isJumping == False and self.speed_y == 0:
@@ -275,7 +275,7 @@ class Player(pygame.sprite.Sprite):
                             pass
                         else:
                             self.sound.playSound("crash",0.15)
-                            self.playAnimation('hard_landing',1)
+                            self.playAnimation('hard_landing',1+self.hardLandingBonus/10)
                         self.runtostop = False        
                         self.isFlying = False
 
