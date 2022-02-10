@@ -116,8 +116,8 @@
     "Decors": [
         {
             "name": "ground_1",
-            "height": 10,
-            "width": 10,
+            "height": 512,
+            "width": 512,
             "img": "Data/sprites/grounds/ground_1.png",
             "animation": "None"
         },

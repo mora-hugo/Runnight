@@ -63,7 +63,7 @@ class DecorElement(pygame.sprite.Sprite):
         if not self.game.monster.isStarting:
             if self.direction == 'x':
                 self.pos_x -= self.speed
-                if (self.pos_x < -1200 and self.speed > 0) or (self.pos_x > 1200 and self.speed < 0):
+                if (self.pos_x < -2100 and self.speed > 0) or (self.pos_x > 1200 and self.speed < 0):
                     self.kill()
             else:
                 self.pos_y -= self.speed

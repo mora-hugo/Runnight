@@ -129,7 +129,23 @@ class Game():  # Design pattern singleton
 
     def update_backgrounds(self):
         if self.currentMenu == "mainMenu":
+            #mise a zero des valeurs lorsque dans le menu
+            self.nbRun = 1
+
+            self.isInRun = False
+
+            self.night = False
+            self.player.inventory = {"Ingredients" : {},"Plats" : {}}
+
+            self.player.multiplicateurVitesseDefinitif = 1
+            self.player.multiplicateurSautDefinitif = 1
+            self.player.multiplicateurVitesse = 1
+            self.player.multiplicateurSaut = 1
+
             self.menu.update_background()
+            self.menu.afficher()
+            self.planque.cacher()
+            self.monster.cacher()
         elif self.currentMenu == "gameMenu":
             self.playground.update_background()
 

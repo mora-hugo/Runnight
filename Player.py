@@ -56,6 +56,9 @@ class Player(pygame.sprite.Sprite):
         self.tpPlanque = False
         self.tpRun = False
 
+        self.gameOverWait = False
+        self.gameOverDelay = None
+
         self.isFallingHard = False
 
         self.isLanding = False
@@ -74,14 +77,6 @@ class Player(pygame.sprite.Sprite):
 
             }
         }
-        self.inventory["Ingredients"]["Pain"] = 3
-
-
-        self.inventory["Ingredients"]["Viande"]= 3
-
-        self.inventory["Ingredients"]["Tomate"] = 3
-
-        self.inventory["Ingredients"]["Champignon"] = 3
 
         self.background_image = pygame.image.load(
             self.data["Background_images"]["gameOver"]).convert()
@@ -195,16 +190,15 @@ class Player(pygame.sprite.Sprite):
                     self.isRunning = True
                     self.runtostop = False
 
-            if self.jeu.key_pressed[self.data['Bindings']['jump']] == True and not self.isRiding and self.game.isInRun and not self.isFallingHard:
+            if self.jeu.key_pressed[self.data['Bindings']['jump']] == True and not self.isRiding and self.game.isInRun and not self.isFallingHard and not self.isJumping and not self.isFlying:
                 self.sound.StopSound()
                 
-                if not self.isJumping or not self.isFlying:
-                    if (time.time() >= self.lastUpdatedFrame): 
-                        self.lastUpdatedFrame = time.time()
-                        if (randint(1,40) == 5):
-                            self.sound.playSound("jumpProot",0.1)
-                        else:
-                            self.sound.playSound("jump",0.1)
+                if (time.time() >= self.lastUpdatedFrame): 
+                    self.lastUpdatedFrame = time.time()
+                    if (randint(1,40) == 5):
+                        self.sound.playSound("jumpProot",0.1)
+                    else:
+                        self.sound.playSound("jump",0.1)
                 
                 if self.direction == 'left':
                     if not self.collisionXup('left') and self.collisionX('left'):
@@ -267,6 +261,7 @@ class Player(pygame.sprite.Sprite):
                 if self.tpRun == True:
                     nouvPos[0] = 100
                     nouvPos[1] = 350
+                    self.direction = 'right'
                     self.tpRun = False
 
                 if self.speed_y == 0:
@@ -523,13 +518,22 @@ class Player(pygame.sprite.Sprite):
                 nouvPos[1] = 530
             self.coordinates = tuple(nouvPos)
             self.rect.topleft = self.coordinates   
-            if nouvPos[0] <= -200:
+            if nouvPos[0] <= -200 or nouvPos[1] >= 1000:
                 self.GameOver()
                 self.sound.playSound("death",0.09)
                 pygame.mixer.music.stop()
         elif self.jeu.currentMenu == "gameOver":   
             self.update_background()
-            
+            if pygame.mouse.get_pressed()[0]:
+                if self.gameOverWait == False:
+                    self.gameOverDelay = time.time()
+                    self.gameOverWait = True
+                    
+            if self.gameOverDelay != None:
+                if time.time() >= self.gameOverDelay + 0.1:
+                    self.jeu.currentMenu = "mainMenu"
+                    self.gameOverWait = False
+                    self.gameOverDelay = None
 
     def updateJson(self):
         f = open('Data/config/config.json', "r")

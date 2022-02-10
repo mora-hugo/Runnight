@@ -61,3 +61,6 @@ class Ingredient(pygame.sprite.Sprite):
                     self.kill()
 
         self.rect.topleft = (self.pos_x, self.pos_y)
+
+        if not self.game.isInRun:
+            self.kill()

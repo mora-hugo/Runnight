@@ -121,6 +121,7 @@ class Playground:
                     self.decor.spawnDecor(
                         'ville_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
             x += 1199
+
             #arbres
             for y in range(1, 5):
                 if not night:
@@ -130,9 +131,15 @@ class Playground:
                     self.decor.spawnDecor('tree1_n', treesx, randint(300, 400), randint(
                         150, 300), randint(500, 600), speed/2, 'x', False)
                 treesx += randint(50, 150)
-        # ground
-        self.decor.spawnDecor('ground_1', 0, 600, 1024, 500, 0, 'x', True)
-        
+
+        groundsx = -100
+        groundwidth = 2000
+        for i in range(0, int(runLenght)):
+            # ground
+            self.decor.spawnDecor('ground_1', groundsx, 600, groundwidth, 500, speed, 'x', True,0,10)
+            groundsx += groundwidth + 400
+            groundwidth = randint(500,2000)
+            
 
         x = 1024
         # obstacles
@@ -140,7 +147,7 @@ class Playground:
             randy = randint(500, 600)
             randwidth = randint(50, 1000)
             self.decor.spawnDecor('ground_1', x, randy,
-                                  randwidth, 1000, speed, 'x', True)
+                                  randwidth, 500, speed, 'x', True,0,10)
 
             if randint(0, 5) == 0:
                 self.decor.spawnDecor(
