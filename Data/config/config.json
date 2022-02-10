@@ -250,10 +250,9 @@
     ],
     "Bindings": {
         "jump": 32,
-        "crouch": 1073742049,
         "right": 100,
-        "left": 97,
-        "roll": 1073742049,
+        "left": 113,
+        "roll": 1073741905,
         "pause": 27
     },
     "Background_images": {
