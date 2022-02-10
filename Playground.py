@@ -58,6 +58,8 @@ class Playground:
         self.txt = self.fonts.render(str(self.game.player.argent), True, (255,255,255))
         self.txtScore = self.fonts.render(str(self.game.player.score), True, (255,255,255))
         self.txtRun = self.fonts.render(str(self.game.nbRun), True, (255,255,255))
+
+        self.speed = 0
         
 
     # Affiche les elements du menu
@@ -97,12 +99,12 @@ class Playground:
             biome = 'foret'
         
         if night:
-            speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif *1.5
+            self.speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif *1.5
         else:
-            speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif
+            self.speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif
 
         if nbRun >3:
-            speed = speed/1.8
+            self.speed = self.speed/1.8
 
         runLenght = nbRun*1.5+20
         x = 0
@@ -120,40 +122,40 @@ class Playground:
                 if not night:
                    
                     self.decor.spawnDecor(
-                        'foret_jour', x, -200, 1200, 1000, speed/5, 'x', False)
+                        'foret_jour', x, -200, 1200, 1000, self.speed/5, 'x', False)
                 else:
                     
                     self.decor.spawnDecor(
-                        'foret_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
+                        'foret_nuit', x, -200, 1200, 1000, self.speed/5, 'x', False)
                    
             else :
                 if not night:
                     self.decor.spawnDecor(
-                        'ville_jour', x, -300, 1200, 1000, speed/5, 'x', False)
+                        'ville_jour', x, -300, 1200, 1000, self.speed/5, 'x', False)
                 else:
                     
                     self.decor.spawnDecor(
-                        'ville_nuit', x, -290, 1200, 1000, speed/5, 'x', False)
+                        'ville_nuit', x, -290, 1200, 1000, self.speed/5, 'x', False)
                 #grue 
                 if randint(0, 30) == 0:
-                    self.decor.spawnDecor('grue', treesx, 100, 652 , 500, speed/2, 'x', False)
+                    self.decor.spawnDecor('grue', treesx, 100, 652 , 500, self.speed/2, 'x', False)
             x += 1199
 
             #arbres
             for y in range(1, 5):
                 if not night:
                     self.decor.spawnDecor('tree1', treesx, randint(300, 400), randint(
-                        150, 300), randint(500, 600), speed/2, 'x', False)
+                        150, 300), randint(500, 600), self.speed/2, 'x', False)
                 else:
                     self.decor.spawnDecor('tree1_n', treesx, randint(300, 400), randint(
-                        150, 300), randint(500, 600), speed/2, 'x', False)
+                        150, 300), randint(500, 600), self.speed/2, 'x', False)
                 treesx += randint(50, 150)
 
         groundsx = -100
         groundwidth = 2000
         for i in range(0, int(runLenght)):
             # ground
-            self.decor.spawnDecor('ground_1', groundsx, 600, groundwidth, 500, speed, 'x', True,0,10)
+            self.decor.spawnDecor('ground_1', groundsx, 600, groundwidth, 500, self.speed, 'x', True,0,10)
             groundsx += groundwidth + 300
             groundwidth = randint(500,2000)
             
@@ -164,73 +166,73 @@ class Playground:
             randy = randint(500, 600)
             randwidth = randint(50, 1000)
             self.decor.spawnDecor('ground_1', x, randy,
-                                  randwidth, 500, speed, 'x', True,0,10)
+                                  randwidth, 500, self.speed, 'x', True,0,10)
 
             if randint(0, 5) == 0:
                 self.decor.spawnDecor(
-                    'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True, 50, 10 ,20, 150)
+                    'souche', x+randwidth/2, randy-100, 100, 150, self.speed, 'x', True, 50, 10 ,20, 150)
 
             if randint(0, 10) == 0:
                 self.decor.spawnDecor(
-                    'ground_1',x+randwidth/5,  randy-100, randint(200, 300), 500, speed, 'x', True,0,10)
+                    'ground_1',x+randwidth/5,  randy-100, randint(200, 300), 500, self.speed, 'x', True,0,10)
                 self.decor.spawnDecor(
-                    'bus', x+randwidth/2+100, randy-200, 500, 250, speed, 'x', True, 20,10)
+                    'bus', x+randwidth/2+100, randy-200, 500, 250, self.speed, 'x', True, 20,10)
                 self.decor.spawnDecor(
-                    'ground_1',x+randwidth/2+100,  randy+50, 500, 500, speed, 'x', True,0,10)
+                    'ground_1',x+randwidth/2+100,  randy+50, 500, 500, self.speed, 'x', True,0,10)
 
             if randint(0, 1) == 0:
                 self.decor.spawnDecor(
-                    'rocher', x+randwidth/2, randy, 250, 60, speed, 'x', True,0,10)
+                    'rocher', x+randwidth/2, randy, 250, 60, self.speed, 'x', True,0,10)
 
             if randy >= 500:
                 self.decor.spawnDecor(
-                    'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, speed, 'x', True,0,10)
+                    'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, self.speed, 'x', True,0,10)
 
             x += randint(10, 1024)
 
             #stuff
             if randint(0,self.data['Ingredients']['Salade']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Salade']['rare']/2)) == 0): #salade
                 self.decor.spawnIngredient(
-                "Salade", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Salade", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Tomate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Tomate']['rare']/2)) == 0): #pain
                 self.decor.spawnIngredient(
-                "Tomate", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Tomate", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Pain']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Pain']['rare']/2)) == 0): #tomate
                 self.decor.spawnIngredient(
-                "Pain", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Pain", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Comcombre']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Comcombre']['rare']/2)) == 0): #Comcombre
                 self.decor.spawnIngredient(
-                "Comcombre", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Comcombre", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Champignon']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Champignon']['rare']/2)) == 0): #Champignon
                 self.decor.spawnIngredient(
-                "Champignon", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Champignon", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Patate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Patate']['rare']/2)) == 0): #Patate
                 self.decor.spawnIngredient(
-                "Patate", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Patate", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Viande']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Viande']['rare']/2)) == 0): #Viande
                 self.decor.spawnIngredient(
-                "Viande", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Viande", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Sucre']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Sucre']['rare']/2)) == 0): #Sucre
                 self.decor.spawnIngredient(
-                "Sucre", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Sucre", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Saumon']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Saumon']['rare']/2)) == 0): #Saumon
                 self.decor.spawnIngredient(
-                "Saumon", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Saumon", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
             if randint(0,self.data['Ingredients']['Caviar']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Caviar']['rare']/2)) == 0): #Caviar
                 self.decor.spawnIngredient(
-                "Caviar", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+                "Caviar", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
 
             #dollars
             if randint(0,5) == 0:
                 dx = x
                 for posd in range(0,5):
                     self.decor.spawnDecor(
-                        'money', dx, randint(400,500), 50, 60, speed, 'x', False)
+                        'money', dx, randint(400,500), 50, 60, self.speed, 'x', False)
                     dx += 100
 
                 
 
-        self.decor.spawnDecor('house', x+100, -200, 600, 900, speed, 'x', False,200,0)
+        self.decor.spawnDecor('house', x+100, -200, 600, 900, self.speed, 'x', False,200,0)
 
 
     def updateMoney(self,screen):
