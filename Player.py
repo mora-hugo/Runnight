@@ -78,6 +78,7 @@ class Player(pygame.sprite.Sprite):
 
             }
         }
+        self.argent = 0
 
         self.background_image = pygame.image.load(
             self.data["Background_images"]["gameOver"]).convert()

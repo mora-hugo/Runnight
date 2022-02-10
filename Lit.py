@@ -61,12 +61,13 @@ class Lit(pygame.sprite.Sprite):
             self.image = self.imageHoverYes
             if pygame.mouse.get_pressed()[0]:
                 i = 0
+                self.game.nbRun+= 1
                 for i in range(1,3):
                     if self.game.nbRun % 3 != 0:
                         self.game.nbRun+= 1
                 self.game.night = True
                 self.game.nbRun -=1
-                    
+                self.cacher() 
         elif pygame.Rect(550,410,120,100).colliderect((mouse[0],mouse[1],1,1)): 
             self.image = self.imageHoverNo
             if pygame.mouse.get_pressed()[0]:
