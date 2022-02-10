@@ -421,6 +421,7 @@
     },
     "Ingredients": {
         "Tomate": {
+            "score": 100,
             "rare": 5,
             "img": "Data/sprites/items/Ingredients/tomate.png",
             "coef": {
@@ -443,6 +444,7 @@
             }
         },
         "Salade": {
+            "score": 200,
             "rare": 8,
             "img": "Data/sprites/items/Ingredients/salade.png",
             "coef": {
@@ -465,6 +467,7 @@
             }
         },
         "Pain": {
+            "score": 300,
             "rare": 10,
             "img": "Data/sprites/items/Ingredients/pain.png",
             "coef": {
@@ -487,6 +490,7 @@
             }
         },
         "Comcombre": {
+            "score": 300,
             "rare": 10,
             "img": "Data/sprites/items/Ingredients/comcombre.png",
             "coef": {
@@ -509,6 +513,7 @@
             }
         },
         "Viande": {
+            "score": 1000,
             "rare": 20,
             "img": "Data/sprites/items/Ingredients/viande.png",
             "coef": {
@@ -531,6 +536,7 @@
             }
         },
         "Patate": {
+            "score": 800,
             "rare": 15,
             "img": "Data/sprites/items/Ingredients/patate.png",
             "coef": {
@@ -553,6 +559,7 @@
             }
         },
         "Champignon": {
+            "score": 500,
             "rare": 13,
             "img": "Data/sprites/items/Ingredients/champignon.png",
             "coef": {
@@ -575,6 +582,7 @@
             }
         },
         "Sucre": {
+            "score": 8000,
             "rare": 50,
             "img": "Data/sprites/items/Ingredients/sucre.png",
             "coef": {
@@ -597,6 +605,7 @@
             }
         },
         "Saumon": {
+            "score": 10000,
             "rare": 70,
             "img": "Data/sprites/items/Ingredients/saumon.png",
             "coef": {
@@ -619,6 +628,7 @@
             }
         },
         "Caviar": {
+            "score": 50000,
             "rare": 100,
             "img": "Data/sprites/items/Ingredients/caviar.png",
             "coef": {

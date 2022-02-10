@@ -79,6 +79,7 @@ class Player(pygame.sprite.Sprite):
             }
         }
         self.argent = 0
+        self.score = 0
 
         self.background_image = pygame.image.load(
             self.data["Background_images"]["gameOver"]).convert()
@@ -181,7 +182,7 @@ class Player(pygame.sprite.Sprite):
 
                 
                 if not self.collisionX('right'):
-                    if self.direction == 'left' and self.speed_y == 0:
+                    if self.direction == 'left' and self.speed_y == 0 and not self.isRiding and not self.isLanding:
                         if self.isRunning == False:            
                             self.playAnimation('turn',5)
                             self.isTurning = True
@@ -286,6 +287,7 @@ class Player(pygame.sprite.Sprite):
                         
                         if not  self.isTurning and not self.isJumping and not self.isPicking and not self.isRolling:
                             self.setAnimation('fastrun',0.9)
+                            self.score += 1
                         self.speed_x = self.data['Player']["speed_x"]*self.multiplicateurVitesse*self.multiplicateurVitesseDefinitif
                         if self.isLanding == True:
                             self.isLanding = False
@@ -327,6 +329,7 @@ class Player(pygame.sprite.Sprite):
                         if self.isPicking == True:
                             self.isPicking = False
                         if self.isRolling == True:
+                            self.score += 5000
                             self.isRolling = False
                         self.currentSprite = 0
                         
@@ -430,6 +433,7 @@ class Player(pygame.sprite.Sprite):
                 if not self.isOnGround() and not self.isJumping and not self.isFlying:   
                     self.isFlying = True      
                     self.speed_y = 0.1
+                    
                 
                 
                 self.collisionYdeep(nouvPos)
@@ -514,7 +518,7 @@ class Player(pygame.sprite.Sprite):
                         self.image = pygame.transform.flip(self.sprites[int(self.currentSprite)], True, False)
 
                 if nouvPos[0] >= 1000:
-                    self.game.startRun(False) #lancement du prochain run!
+                    self.game.startRun() #lancement du prochain run!
 
                 
                 nouvPos[1] = 530

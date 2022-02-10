@@ -79,9 +79,14 @@ class DecorElement(pygame.sprite.Sprite):
             self.game.player.tpPlanque = True
             self.game.planque.afficher()
             self.game.isInRun = False
+            self.game.nbRun += 1
             self.game.player.multiplicateurVitesse = 1
             self.game.player.multiplicateurSaut = 1
             self.game.playground.multiplicateurVitesseCamera = 1
+            if self.game.nbRun % 3 == 0:
+                self.game.night = True
+            else:
+                self.game.night = False
 
         if self.name == 'money':
 

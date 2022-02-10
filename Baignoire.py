@@ -79,7 +79,7 @@ class Baignoire(pygame.sprite.Sprite):
         if pygame.Rect(290,400,400,60).colliderect((mouse[0],mouse[1],1,1)) and pygame.mouse.get_pressed()[0] and self.canBuyJump:
             self.cacher()
             self.game.player.argent -= self.amountJump
-            self.amountLanding *= 1.8
+            self.amountJump *= 1.8
             self.game.player.hardLandingBonus += 1
         if self.isQuitting():
             self.cacher()

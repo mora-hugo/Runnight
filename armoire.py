@@ -67,17 +67,17 @@ class armoire(pygame.sprite.Sprite):
                 y = y_offset
         
         for plats in self.game.player.inventory['Plats']:
-           
-            for i in self.game.player.inventory['Plats'][plats]:
-                
-                self.ingredientsGroup.add(ArmoireButton(
-                    i.name, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat',i))
-                x+=15
-                y = randint(y_offset-5,y_offset+5)
+            if self.game.player.inventory['Plats'][plats] > 0:
+                for i in self.game.player.inventory['Plats'][plats]:
+                    
+                    self.ingredientsGroup.add(ArmoireButton(
+                        i.name, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat',i))
+                    x+=15
+                    y = randint(y_offset-5,y_offset+5)
 
-            x = 250
-            y_offset += 60
-            y = y_offset
+                x = 250
+                y_offset += 60
+                y = y_offset
 
     def cacher(self):
         

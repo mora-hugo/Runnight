@@ -49,13 +49,15 @@ class Playground:
         self.imgIngredients = {}
         self.nbJour = 1
 
-        # Creation hud money
+        # Creation hud money / score / run
         self.moneyHUD = pygame.image.load(self.data['Items']['Money']['img']).convert_alpha()
         self.moneyHUD = pygame.transform.scale(self.moneyHUD, (70,60))
         self.moneyRect = self.moneyHUD.get_rect()
         self.moneyRect.topleft = (1000,10)
         self.fonts = pygame.font.Font(self.data["Font"]["base"], 36)
         self.txt = self.fonts.render(str(self.game.player.argent), True, (255,255,255))
+        self.txtScore = self.fonts.render(str(self.game.player.score), True, (255,255,255))
+        self.txtRun = self.fonts.render(str(self.game.nbRun), True, (255,255,255))
         
 
     # Affiche les elements du menu
@@ -98,6 +100,9 @@ class Playground:
             speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif *1.5
         else:
             speed = (nbRun + 1)*self.multiplicateurVitesseCamera*self.multiplicateurVitesseCameraDefinitif
+
+        if nbRun >3:
+            speed = speed/1.8
 
         runLenght = nbRun*1.5+20
         x = 0
@@ -170,6 +175,8 @@ class Playground:
                     'ground_1',x+randwidth/5,  randy-100, randint(200, 300), 500, speed, 'x', True,0,10)
                 self.decor.spawnDecor(
                     'bus', x+randwidth/2+100, randy-200, 500, 250, speed, 'x', True, 20,10)
+                self.decor.spawnDecor(
+                    'ground_1',x+randwidth/2+100,  randy+50, 500, 500, speed, 'x', True,0,10)
 
             if randint(0, 1) == 0:
                 self.decor.spawnDecor(
@@ -214,7 +221,7 @@ class Playground:
                 "Caviar", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
 
             #dollars
-            if randint(0,10) == 0:
+            if randint(0,5) == 0:
                 dx = x
                 for posd in range(0,5):
                     self.decor.spawnDecor(
@@ -228,9 +235,17 @@ class Playground:
 
     def updateMoney(self,screen):
 
-        screen.blit(self.moneyHUD, (10,10))
+        screen.blit(self.moneyHUD, (10,2))
         self.txt = self.fonts.render(str(self.game.player.argent), True, (255,255,255))
+        self.txtScore = self.fonts.render("Score "+str(self.game.player.score), True, (255,255,255))
+        if self.game.night:
+            self.txtRun = self.fonts.render("Run " + str(self.game.nbRun), True, (255,0,0))
+        else:
+            self.txtRun = self.fonts.render("Run " + str(self.game.nbRun), True, (255,255,255))
         screen.blit(self.txt, (80,10))
+        screen.blit(self.txtScore, (10,60))
+        screen.blit(self.txtRun, (10,110))
+        
 
 
         
