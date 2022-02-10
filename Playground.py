@@ -106,7 +106,7 @@ class Playground:
         if nbRun >3:
             self.speed = self.speed/1.8
 
-        runLenght = nbRun*1.5+20
+        runLenght = nbRun*1.5+10
         x = 0
         treesx = 0
         # fond
@@ -191,34 +191,34 @@ class Playground:
             x += randint(10, 1024)
 
             #stuff
-            if randint(0,self.data['Ingredients']['Salade']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Salade']['rare']/2)) == 0): #salade
+            if randint(0,self.data['Ingredients']['Salade']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Salade']['rare']*10)) == 0): #salade
                 self.decor.spawnIngredient(
                 "Salade", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Tomate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Tomate']['rare']/2)) == 0): #pain
+            if randint(0,self.data['Ingredients']['Tomate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Tomate']['rare']*10)) == 0): #pain
                 self.decor.spawnIngredient(
                 "Tomate", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Pain']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Pain']['rare']/2)) == 0): #tomate
+            if randint(0,self.data['Ingredients']['Pain']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Pain']['rare']*10)) == 0): #tomate
                 self.decor.spawnIngredient(
                 "Pain", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Comcombre']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Comcombre']['rare']/2)) == 0): #Comcombre
+            if randint(0,self.data['Ingredients']['Comcombre']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Comcombre']['rare']*10)) == 0): #Comcombre
                 self.decor.spawnIngredient(
                 "Comcombre", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Champignon']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Champignon']['rare']/2)) == 0): #Champignon
+            if randint(0,self.data['Ingredients']['Champignon']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Champignon']['rare']*10)) == 0): #Champignon
                 self.decor.spawnIngredient(
                 "Champignon", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Patate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Patate']['rare']/2)) == 0): #Patate
+            if randint(0,self.data['Ingredients']['Patate']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Patate']['rare']*10)) == 0): #Patate
                 self.decor.spawnIngredient(
                 "Patate", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Viande']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Viande']['rare']/2)) == 0): #Viande
+            if randint(0,self.data['Ingredients']['Viande']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Viande']['rare']*10)) == 0): #Viande
                 self.decor.spawnIngredient(
                 "Viande", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Sucre']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Sucre']['rare']/2)) == 0): #Sucre
+            if randint(0,self.data['Ingredients']['Sucre']['rare']*10) == 0 or (night and randint(0,int(self.data['Ingredients']['Sucre']['rare']/1.5)) == 0): #Sucre
                 self.decor.spawnIngredient(
                 "Sucre", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Saumon']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Saumon']['rare']/2)) == 0): #Saumon
+            if randint(0,self.data['Ingredients']['Saumon']['rare']*10) == 0 or (night and randint(0,int(self.data['Ingredients']['Saumon']['rare']/1.5)) == 0): #Saumon
                 self.decor.spawnIngredient(
                 "Saumon", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
-            if randint(0,self.data['Ingredients']['Caviar']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Caviar']['rare']/2)) == 0): #Caviar
+            if randint(0,self.data['Ingredients']['Caviar']['rare']*10) == 0 or (night and randint(0,int(self.data['Ingredients']['Caviar']['rare']/1.5)) == 0): #Caviar
                 self.decor.spawnIngredient(
                 "Caviar", x+randint(-1000,1000), 300, 50, 50, self.speed, "x", False)
 
@@ -367,6 +367,12 @@ class Monster(pygame.sprite.Sprite):
                     return True
         return False
 
+    def collisionPlayer(self):
+        for sprite in game.Game.get_instance().characters:
+                if type(sprite) is not Monster and sprite.rect.colliderect((self.rect.x+130, self.rect.y+180, 50, 150)):
+                    return True
+        return False
+
     def action(self,event):
         pass
         
@@ -443,7 +449,10 @@ class Monster(pygame.sprite.Sprite):
 
                 nouvPos[0] = -40
                 self.coordinates = tuple(nouvPos)
-                self.rect.topleft = self.coordinates     
+                self.rect.topleft = self.coordinates   
+
+                if self.collisionPlayer():
+                    self.game.player.GameOver()
             else:
                 self.cacher()
                 self.sound.StopGroar()

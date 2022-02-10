@@ -18,10 +18,10 @@ class armoire(pygame.sprite.Sprite):
         self.backgroundArmoire = pygame.image.load(
             self.data["Background_images"]["armoire"]).convert_alpha()
         self.image = self.backgroundArmoire
-        self.image = pygame.transform.scale(self.image,(700,700))
+        self.image = pygame.transform.scale(self.image,(800,800))
 
         self.rect = self.image.get_rect()
-        self.rect.topleft = (150,50)  
+        self.rect.topleft = (100,10)  
 
         # Chargement sprite ingredients
         self.ingredientsImg = {}
@@ -50,19 +50,18 @@ class armoire(pygame.sprite.Sprite):
 
     def updateAfficher(self):
         
-        x = 250
-        y = 120
+        x = 200
+        y = 90
         y_offset = y
         for ingredient in self.game.player.inventory['Ingredients']:
             if self.game.player.inventory['Ingredients'][ingredient] > 0:
                 for i in range(0,self.game.player.inventory['Ingredients'][ingredient]):
-                    print("Creation :",ingredient," avec ",self.game.player.inventory['Ingredients'][ingredient], " de quantité")
                     self.ingredientsGroup.add(ArmoireButton(
                         ingredient, self.game.player.inventory['Ingredients'][ingredient], self.ingredientsImg[ingredient], x, y,  self.data["Ingredients"][ingredient]["width"],  self.data["Ingredients"][ingredient]["height"], self, 'ingredient'))
-                    x+=15
+                    x+=30
                     y = randint(y_offset-5,y_offset+5)
 
-                x = 250
+                x = 200
                 y_offset += 60
                 y = y_offset
         
@@ -72,7 +71,7 @@ class armoire(pygame.sprite.Sprite):
                     
                     self.ingredientsGroup.add(ArmoireButton(
                         i.name, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat',i))
-                    x+=15
+                    x+=50
                     y = randint(y_offset-5,y_offset+5)
 
                 x = 250

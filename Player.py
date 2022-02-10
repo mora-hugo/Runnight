@@ -199,7 +199,7 @@ class Player(pygame.sprite.Sprite):
                 
                 if (time.time() >= self.lastUpdatedFrame): 
                     self.lastUpdatedFrame = time.time()
-                    if (randint(1,40) == 5):
+                    if (randint(1,1000) == 5):
                         self.sound.playSound("jumpProot",0.1)
                     else:
                         self.sound.playSound("jump",0.1)
@@ -247,8 +247,12 @@ class Player(pygame.sprite.Sprite):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
 
     def GameOver(self):
+        self.sound.playSound("death",0.09)
+        self.sound.StopGroar()
+        pygame.mixer.music.stop()
         self.game.playground.update_background()
         self.game.currentMenu = "gameOver"
+        self.rect.topleft = (0,-500)
         
 
     def update(self):
@@ -263,7 +267,7 @@ class Player(pygame.sprite.Sprite):
                 ############################## EN RUN ######################################
 
                 if self.tpRun == True:
-                    nouvPos[0] = 100
+                    nouvPos[0] = 500
                     nouvPos[1] = 350
                     self.direction = 'right'
                     self.tpRun = False
@@ -272,8 +276,9 @@ class Player(pygame.sprite.Sprite):
 
                     if self.isFlying == True:
                         if not self.isFallingHard:
-                            self.isLanding = True
-                            self.playAnimation('runtostop',0.9)
+                            if not self.isRunning:
+                                self.isLanding = True
+                                self.playAnimation('runtostop',0.9)
                         elif not self.isFallingSlow:
                             pass
                         else:
@@ -308,30 +313,30 @@ class Player(pygame.sprite.Sprite):
                         if self.runtostop == True:
                             if self.isRunning == False:
                                 self.playAnimation('idle',0.4)
-                            self.runtostop = False
+                        self.runtostop = False
                         if self.stoptorun == True:
                             self.playAnimation('fastrun',0.9)
-                            self.stoptorun = False
+                        self.stoptorun = False
                         if self.isLanding == True:
                             self.playAnimation('idle',0.4)
-                            self.isLanding = False
+                        self.isLanding = False
                         if self.isTurning == True:
                             self.playAnimation('idle',0.4)
-                            self.isTurning = False
-                        if self.isTurningRun == True:                       
-                            self.isTurningRun = False
+                        self.isTurning = False
+                        #if self.isTurningRun == True:                       
+                        self.isTurningRun = False
 
                         if self.isFallingHard == True:
                             self.playAnimation('idle',0.4)
-                            self.isFallingHard = False
+                        self.isFallingHard = False
                         if self.isRiding == True:
                             self.playAnimation('idle',0.4)
-                            self.isRiding = False
-                        if self.isPicking == True:
-                            self.isPicking = False
+                        self.isRiding = False
+                        #if self.isPicking == True:
+                        self.isPicking = False
                         if self.isRolling == True:
                             self.score += 5000
-                            self.isRolling = False
+                        self.isRolling = False
                         self.currentSprite = 0
                         
                     
@@ -525,9 +530,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.topleft = self.coordinates   
             if nouvPos[0] <= -200 or nouvPos[1] >= 1000:
                 self.GameOver()
-                self.sound.playSound("death",0.09)
-                self.sound.StopGroar()
-                pygame.mixer.music.stop()
         elif self.jeu.currentMenu == "gameOver":   
             self.update_background()
             if pygame.mouse.get_pressed()[0]:
