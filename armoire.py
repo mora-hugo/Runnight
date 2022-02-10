@@ -67,17 +67,17 @@ class armoire(pygame.sprite.Sprite):
                 y = y_offset
         
         for plats in self.game.player.inventory['Plats']:
-           
-            for i in self.game.player.inventory['Plats'][plats]:
-                
-                self.ingredientsGroup.add(ArmoireButton(
-                    i.name, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat',i))
-                x+=15
-                y = randint(y_offset-5,y_offset+5)
+            if len(self.game.player.inventory['Plats'][plats]) > 0:
+                for i in self.game.player.inventory['Plats'][plats]:
+                    
+                    self.ingredientsGroup.add(ArmoireButton(
+                        i.name, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat',i))
+                    x+=15
+                    y = randint(y_offset-5,y_offset+5)
 
-            x = 250
-            y_offset += 60
-            y = y_offset
+                x = 250
+                y_offset += 60
+                y = y_offset
 
     def cacher(self):
         
@@ -121,6 +121,11 @@ class ArmoireButton(pygame.sprite.Sprite):
         self.armoire = armoire
         self.collider = False
 
+ 
+        self.statsHUD = pygame.image.load(self.armoire.data['Items']['Stats_planche']['img']).convert_alpha()
+        self.statsHUD = pygame.transform.scale(self.statsHUD, (100,60))
+        self.fonts = pygame.font.Font(self.armoire.data["Font"]["base"], 36)
+
 
     def isClicked(self):  # Si la souris clique sur le bouton
         mouse = pygame.mouse.get_pos()
@@ -135,6 +140,21 @@ class ArmoireButton(pygame.sprite.Sprite):
             return True
         else:
             return False
+
+    def afficherStats(self,screen):
+        screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
+
+        if self.obj.type == "speed":
+            txt = self.fonts.render("Vitesse : +"+str(self.obj.stats)+"%", True, (255,255,255))
+
+        elif self.obj.type == "saut":
+            txt = self.fonts.render("Saut : +"+str(self.obj.stats)+"%", True, (255,255,255))
+        elif self.obj.type == "ralentissement":
+            txt = self.fonts.render("Ralentissement : -"+str(self.obj.stats)+"%", True, (255,255,255))
+
+        
+        
+        screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
 
     def update(self):
 
@@ -166,7 +186,11 @@ class ArmoireButton(pygame.sprite.Sprite):
                     self.armoire.game.playground.multiplicateurVitesseCamera-= self.obj.stats
                 self.armoire.game.player.inventory['Plats'][self.nom].remove(self.obj) 
 
-                
-                
             self.armoire.updateAfficher()
             self.kill()
+
+        if self.isOverred():
+            if not self.obj is None:
+                self.afficherStats(self.armoire.game.screen)
+                
+            

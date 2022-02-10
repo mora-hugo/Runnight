@@ -114,16 +114,12 @@ class Game():  # Design pattern singleton
                 file.close()
                 self.player.updateJson()
 
-    def startRun(self, night):
-        self.nbRun += 1
+    def startRun(self):
         self.isInRun = True
         self.player.tpRun = True
         self.planque.cacher()
-        if self.nbRun % 3 == 0:
-            self.night = True
+        if self.night:
             self.monster.afficher()
-        else:
-            self.night = False
         self.playground.generateWorld(self.nbRun,self.night)
 
 

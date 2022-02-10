@@ -128,4 +128,4 @@ class Menu:
         jeu = game.Game.get_instance()
         jeu.playground.update_background()
         jeu.currentMenu = "gameMenu"
-        jeu.startRun(False)
+        jeu.startRun()
