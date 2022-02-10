@@ -27,11 +27,12 @@ class Lit(pygame.sprite.Sprite):
     def afficher(self):
         self.game.all_sprites.add(self)
         self.isVisible = True
+        
 
     def cacher(self):
         self.game.all_sprites.remove(self)
         self.isVisible = False
-
+        self.game.planque.isInMenu = False
     def isOverred(self):  
         mouse = pygame.mouse.get_pos()
         if self.rect.colliderect((mouse[0], mouse[1], 5, 5)) and self.isVisible:
