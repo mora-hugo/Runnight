@@ -67,7 +67,7 @@ class armoire(pygame.sprite.Sprite):
                 y = y_offset
         
         for plats in self.game.player.inventory['Plats']:
-            if self.game.player.inventory['Plats'][plats] > 0:
+            if len(self.game.player.inventory['Plats'][plats]) > 0:
                 for i in self.game.player.inventory['Plats'][plats]:
                     
                     self.ingredientsGroup.add(ArmoireButton(
@@ -121,6 +121,10 @@ class ArmoireButton(pygame.sprite.Sprite):
         self.armoire = armoire
         self.collider = False
 
+ 
+        self.statsHUD = pygame.image.load(self.data['Items']['Money']['img']).convert_alpha()
+        self.statsHUD = pygame.transform.scale(self.statsHUD, (70,60))
+
 
     def isClicked(self):  # Si la souris clique sur le bouton
         mouse = pygame.mouse.get_pos()
@@ -135,6 +139,14 @@ class ArmoireButton(pygame.sprite.Sprite):
             return True
         else:
             return False
+
+    def afficherStats(self,screen):
+        screen.blit(self.statsHUD, (10,2))
+        self.txt = self.fonts.render(str(self.game.player.argent), True, (255,255,255))
+        
+        screen.blit(self.txt, (80,10))
+        screen.blit(self.txtScore, (10,60))
+        screen.blit(self.txtRun, (10,110))
 
     def update(self):
 
@@ -166,7 +178,11 @@ class ArmoireButton(pygame.sprite.Sprite):
                     self.armoire.game.playground.multiplicateurVitesseCamera-= self.obj.stats
                 self.armoire.game.player.inventory['Plats'][self.nom].remove(self.obj) 
 
-                
-                
             self.armoire.updateAfficher()
             self.kill()
+
+        if self.isOverred():
+            if not self.obj is None:
+                self.afficherStats(self.armoire.game.screen)
+                
+            
