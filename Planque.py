@@ -5,7 +5,7 @@ import Sound
 import armoire
 import CraftingTable
 import Lit
-
+import Baignoire
 class Planque(pygame.sprite.Sprite):
     def __init__(self, game):
         pygame.sprite.Sprite.__init__(self)
@@ -55,6 +55,8 @@ class Planque(pygame.sprite.Sprite):
 
         #chargement crafting
         self.crafting_table = CraftingTable.CraftingTable(game,self.game.decor,self)
+
+        self.baignoire = Baignoire.Baignoire(self.game)
 
     def afficher(self):
         self.music.playMusic("house", None, 0.03)
@@ -108,10 +110,13 @@ class PlanqueButton(pygame.sprite.Sprite):
             self.cacher()
 
         if self.isClicked() and not self.planque.isInMenu:
+            self.planque.isInMenu = True
             if self.nom == 'armoire':
                 self.planque.armoire.afficher()
             if self.nom == 'cuisine':
                 self.planque.crafting_table.afficher()
             if self.nom == 'lit':
                 self.planque.lit.afficher()
+            if self.nom == "douche":
+                self.planque.baignoire.afficher()
             print("cliquer")

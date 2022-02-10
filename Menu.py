@@ -9,6 +9,7 @@ import Parchemin
 from random import randint
 import Sound
 import Lit
+import Baignoire
 class Menu:
     def __init__(self, jeu):
         # Tableaux contenant tous les boutons du menu
@@ -62,6 +63,7 @@ class Menu:
         self.music = Sound.Sound()
         self.music.playMusic("menu", None, 0.03)
 
+        
         
         
     # Affiche les elements du menu
