@@ -120,7 +120,8 @@ class ArmoireButton(pygame.sprite.Sprite):
         self.rect.y = y
         self.armoire = armoire
         self.collider = False
-        self.sound = Sound()
+        
+        self.sound = self.armoire.game.sons
  
         self.statsHUD = pygame.image.load(self.armoire.data['Items']['Stats_planche']['img']).convert_alpha()
         self.fonts = pygame.font.Font(self.armoire.data["Font"]["base"], 36)
