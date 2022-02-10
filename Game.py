@@ -26,7 +26,7 @@ class Game():  # Design pattern singleton
                 "Utiliser la méthode get_instance() pour obtenir une instance de l'objet")
         else:
             pygame.init()
-            pygame.display.set_caption("WATIBJEU") # Nom de la fenetre
+            pygame.display.set_caption("RUN'NIGHT") # Nom de la fenetre
             self.screen = pygame.display.set_mode((1024,768)) # taille + mode , ...
             
             self.nbRun = 1
@@ -143,6 +143,7 @@ class Game():  # Design pattern singleton
             self.player.multiplicateurSaut = 1
             self.player.isRunning = False
             self.player.speed_y = 0
+            self.player.argent = 0
 
             self.menu.update_background()
             self.menu.afficher()
@@ -159,4 +160,6 @@ class Game():  # Design pattern singleton
         self.characters.draw(self.screen)
         self.all_sprites.update()
         self.characters.update()
+        if self.currentMenu == "gameMenu":
+            self.playground.updateMoney(self.screen)
         pygame.display.flip()

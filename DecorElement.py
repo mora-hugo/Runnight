@@ -54,8 +54,14 @@ class DecorElement(pygame.sprite.Sprite):
         self.name = element['name']
 
     def collisionPlayer(self):
-        if self.game.player.rect.colliderect(self.rect):         
+        if self.game.player.rect.colliderect(self.Colliderect):         
             return True
+        return False
+
+    def collisionDecor(self):
+        for sprite in self.game.all_sprites:
+            if type(sprite) is DecorElement and sprite.collider and sprite.Colliderect.colliderect(self.Colliderect):
+                return True
         return False
 
     def update(self):
@@ -76,6 +82,15 @@ class DecorElement(pygame.sprite.Sprite):
             self.game.player.multiplicateurVitesse = 1
             self.game.player.multiplicateurSaut = 1
             self.game.playground.multiplicateurVitesseCamera = 1
+
+        if self.name == 'money':
+
+            if self.collisionDecor():
+                self.pos_y += 100
+
+            if self.collisionPlayer():
+                self.game.player.argent +=1
+                self.kill()
 
         self.Colliderect.topleft = (self.pos_x + self.hitBoxX, self.pos_y + self.hitBoxY)
 

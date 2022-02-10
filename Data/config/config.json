@@ -350,6 +350,11 @@
             "img": "Data/sprites/items/bibliotheque.png",
             "HEIGHT": 384,
             "WIDTH": 512
+        },
+        "Money": {
+            "img": "Data/sprites/items/money.png",
+            "HEIGHT": 50,
+            "WIDTH": 60
         }
     },
     "Sounds": {

@@ -49,6 +49,15 @@ class Playground:
         self.imgIngredients = {}
         self.nbJour = 1
 
+        # Creation hud money
+        self.moneyHUD = pygame.image.load(self.data['Items']['Money']['img']).convert_alpha()
+        self.moneyHUD = pygame.transform.scale(self.moneyHUD, (70,60))
+        self.moneyRect = self.moneyHUD.get_rect()
+        self.moneyRect.topleft = (1000,10)
+        self.fonts = pygame.font.Font(self.data["Font"]["base"], 36)
+        self.txt = self.fonts.render(str(self.game.player.argent), True, (255,255,255))
+        
+
     # Affiche les elements du menu
         
     def afficher(self, group_menu=None):
@@ -154,21 +163,21 @@ class Playground:
 
             if randint(0, 5) == 0:
                 self.decor.spawnDecor(
-                    'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True, 50, 10 ,5, 150)
+                    'souche', x+randwidth/2, randy-100, 100, 150, speed, 'x', True, 50, 10 ,20, 150)
 
             if randint(0, 10) == 0:
                 self.decor.spawnDecor(
-                    'ground_1',x+randwidth/5,  randy-100, randint(50, 300), 1000, speed, 'x', True)
+                    'ground_1',x+randwidth/5,  randy-100, randint(200, 300), 500, speed, 'x', True,0,10)
                 self.decor.spawnDecor(
-                    'bus', x+randwidth/2, randy-200, 500, 250, speed, 'x', True, 20,0)
+                    'bus', x+randwidth/2+100, randy-200, 500, 250, speed, 'x', True, 20,10)
 
             if randint(0, 1) == 0:
                 self.decor.spawnDecor(
-                    'rocher', x+randwidth/2, randy, 250, 60, speed, 'x', True)
+                    'rocher', x+randwidth/2, randy, 250, 60, speed, 'x', True,0,10)
 
             if randy >= 500:
                 self.decor.spawnDecor(
-                    'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, speed, 'x', True)
+                    'ground_1', x+randwidth, randint(650, 750), randint(50, 300), 1000, speed, 'x', True,0,10)
 
             x += randint(10, 1024)
 
@@ -203,9 +212,29 @@ class Playground:
             if randint(0,self.data['Ingredients']['Caviar']['rare']) == 0 or (night and randint(0,int(self.data['Ingredients']['Caviar']['rare']/2)) == 0): #Caviar
                 self.decor.spawnIngredient(
                 "Caviar", x+randint(-1000,1000), 300, 50, 50, speed, "x", False)
+
+            #dollars
+            if randint(0,10) == 0:
+                dx = x
+                for posd in range(0,5):
+                    self.decor.spawnDecor(
+                        'money', dx, randint(400,500), 50, 60, speed, 'x', False)
+                    dx += 100
+
                 
 
-        self.decor.spawnDecor('house', x+100, 200, 600, 400, speed, 'x', False)
+        self.decor.spawnDecor('house', x+100, -200, 600, 900, speed, 'x', False,200,0)
+
+
+    def updateMoney(self,screen):
+
+        screen.blit(self.moneyHUD, (10,10))
+        self.txt = self.fonts.render(str(self.game.player.argent), True, (255,255,255))
+        screen.blit(self.txt, (80,10))
+
+
+        
+        
         
 
     def quitter(self):
