@@ -121,7 +121,10 @@ class Game():  # Design pattern singleton
         if self.night:
             self.monster.afficher()
         self.playground.generateWorld(self.nbRun,self.night)
+        pause = False
 
+#Main loop
+        
 
     def update_backgrounds(self):
         if self.currentMenu == "mainMenu":

@@ -6,6 +6,7 @@ from DecorElement import DecorElement
 import Sound
 import Game as game
 import time
+import Bouton
 import InventoryItem
 
 class Player(pygame.sprite.Sprite):
@@ -15,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.game = game
         self.lastUpdatedFrame = time.time()
         self.updateJson()
-
+        self.fonts = pygame.font.Font(self.data["Font"]["base"], 60)
         self.coordinates = coordinates
         self.hp = self.data['Player']['hp']
         self.image = pygame.Surface([1, 1])
@@ -156,6 +157,8 @@ class Player(pygame.sprite.Sprite):
     def action(self,event):
 
         if self.jeu.currentMenu == "gameMenu":
+            if self.jeu.key_pressed[self.data['Bindings']['pause']] == True:
+                    self.pause()
 
             if self.jeu.key_pressed[self.data['Bindings']['left']] == True and not self.isFallingHard:
                 if (time.time() >= self.lastUpdatedFrame + 0.6): 
@@ -254,6 +257,29 @@ class Player(pygame.sprite.Sprite):
         self.game.currentMenu = "gameOver"
         self.rect.topleft = (0,-500)
         
+    def pause(self):
+        loop = 1
+        size = (1024,768)
+        BLACK = (0, 0, 0)
+        red_image = pygame.Surface(size)
+        red_image.set_alpha(80)
+        pygame.draw.rect(red_image, BLACK, red_image.get_rect(), 10)
+        text1 = self.fonts.render("PAUSED", 450, 150)
+        text2 = self.fonts.render("Press escape to continue", 400, 250)
+        self.game.screen.blit(red_image, (0, 0))
+        self.game.screen.blit(text1, (445, 150))
+        self.game.screen.blit(text2, (280, 250))
+        while loop:
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        loop = 0
+                        
+            pygame.display.update()
+            
 
     def update(self):
         if self.jeu.currentMenu == "gameMenu":
@@ -263,7 +289,7 @@ class Player(pygame.sprite.Sprite):
             nouvPos = list(self.coordinates)
 
             if self.jeu.isInRun:
-            
+
                 ############################## EN RUN ######################################
 
                 if self.tpRun == True:
