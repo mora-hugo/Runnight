@@ -3,6 +3,7 @@ import pygame
 import json
 from random import randint
 import InventoryItem
+from Sound import Sound
 class armoire(pygame.sprite.Sprite):
     def __init__(self, game, planque):
         pygame.sprite.Sprite.__init__(self)
@@ -120,7 +121,7 @@ class ArmoireButton(pygame.sprite.Sprite):
         self.rect.y = y
         self.armoire = armoire
         self.collider = False
-
+        self.sound = Sound()
  
         self.statsHUD = pygame.image.load(self.armoire.data['Items']['Stats_planche']['img']).convert_alpha()
         self.statsHUD = pygame.transform.scale(self.statsHUD, (100,60))
@@ -159,6 +160,7 @@ class ArmoireButton(pygame.sprite.Sprite):
     def update(self):
 
         if self.isClicked():
+            self.sound.playSound("eating",0.5)
             print (self.nom)
             if self.obj is None:
                 self.armoire.game.player.inventory['Ingredients'][self.nom] -= 1

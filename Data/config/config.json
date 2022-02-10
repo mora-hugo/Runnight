@@ -253,7 +253,8 @@
         "crouch": 1073742049,
         "right": 100,
         "left": 97,
-        "roll": 1073742049
+        "roll": 1073742049,
+        "pause": 27
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background/MenuBg.png",
@@ -372,6 +373,7 @@
         "groar": "Data/sounds/groar.mp3",
         "wolf": "Data/sounds/wolf.mp3",
         "death": "Data/sounds/death.mp3",
+        "eating": "Data/sounds/eating.mp3",
         "crash": "Data/sounds/crash.mp3"
     },
     "Music": {

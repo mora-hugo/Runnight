@@ -15,8 +15,7 @@ class Playground:
         self.music = Sound.Sound()
         # Tableaux contenant tous les boutons du menu
         self.echapMenuButtons = pygame.sprite.Group()
-
-        # Ajout des boutons pour le menu principal
+        # Ajout des boutons pour le me nu principal
         # self.text = fonction associe au bouton
         self.echapMenuButtons.add(
             bouton.Bouton(10, 10, "Reprendre", self.test))
@@ -375,7 +374,7 @@ class Monster(pygame.sprite.Sprite):
 
             nouvPos = list(self.coordinates)
 
-            if self.jeu.isInRun and self.jeu.night:
+            if self.jeu.isInRun and self.jeu.night:          
                 if (time.time() >= self.lastSoundPlay + 18): 
                     self.lastSoundPlay = time.time()
                     self.sound.MonsterGroar(.06)
