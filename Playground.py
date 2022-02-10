@@ -115,11 +115,14 @@ class Playground:
             else :
                 if not night:
                     self.decor.spawnDecor(
-                        'ville_jour', x, -400, 1200, 1000, speed/5, 'x', False)
+                        'ville_jour', x, -300, 1200, 1000, speed/5, 'x', False)
                 else:
                     
                     self.decor.spawnDecor(
-                        'ville_nuit', x, -200, 1200, 1000, speed/5, 'x', False)
+                        'ville_nuit', x, -290, 1200, 1000, speed/5, 'x', False)
+                #grue 
+                if randint(0, 30) == 0:
+                    self.decor.spawnDecor('grue', treesx, 100, 652 , 500, speed/2, 'x', False)
             x += 1199
 
             #arbres
