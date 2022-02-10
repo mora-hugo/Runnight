@@ -588,7 +588,7 @@
             "height": 50,
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.5
+                "value": 0.05
             }
         },
         "Saumon": {
@@ -610,7 +610,7 @@
             "height": 50,
             "bonus": {
                 "type": "saut",
-                "value": 0.5
+                "value": 0.05
             }
         },
         "Caviar": {
@@ -632,7 +632,7 @@
             "height": 50,
             "bonus": {
                 "type": "speed",
-                "value": 0.8
+                "value": 0.08
             }
         }
     },
