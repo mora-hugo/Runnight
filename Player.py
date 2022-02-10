@@ -131,6 +131,7 @@ class Player(pygame.sprite.Sprite):
                     nouvPos[1] -= 5+self.bonusRiding
                 else:
                     nouvPos[1] -= 1
+                    nouvPos[0] += 1
 
     def collisionXup(self, direction):
         for sprite in game.Game.get_instance().all_sprites:

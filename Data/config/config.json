@@ -355,6 +355,11 @@
             "img": "Data/sprites/items/money.png",
             "HEIGHT": 50,
             "WIDTH": 60
+        },
+        "Stats_planche": {
+            "img": "Data/sprites/items/stats_planche.png",
+            "HEIGHT": 50,
+            "WIDTH": 60
         }
     },
     "Sounds": {

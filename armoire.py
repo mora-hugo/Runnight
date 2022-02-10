@@ -122,8 +122,9 @@ class ArmoireButton(pygame.sprite.Sprite):
         self.collider = False
 
  
-        self.statsHUD = pygame.image.load(self.data['Items']['Money']['img']).convert_alpha()
-        self.statsHUD = pygame.transform.scale(self.statsHUD, (70,60))
+        self.statsHUD = pygame.image.load(self.armoire.data['Items']['Stats_planche']['img']).convert_alpha()
+        self.statsHUD = pygame.transform.scale(self.statsHUD, (100,60))
+        self.fonts = pygame.font.Font(self.armoire.data["Font"]["base"], 36)
 
 
     def isClicked(self):  # Si la souris clique sur le bouton
@@ -141,12 +142,19 @@ class ArmoireButton(pygame.sprite.Sprite):
             return False
 
     def afficherStats(self,screen):
-        screen.blit(self.statsHUD, (10,2))
-        self.txt = self.fonts.render(str(self.game.player.argent), True, (255,255,255))
+        screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
+
+        if self.obj.type == "speed":
+            txt = self.fonts.render("Vitesse : +"+str(self.obj.stats)+"%", True, (255,255,255))
+
+        elif self.obj.type == "saut":
+            txt = self.fonts.render("Saut : +"+str(self.obj.stats)+"%", True, (255,255,255))
+        elif self.obj.type == "ralentissement":
+            txt = self.fonts.render("Ralentissement : -"+str(self.obj.stats)+"%", True, (255,255,255))
+
         
-        screen.blit(self.txt, (80,10))
-        screen.blit(self.txtScore, (10,60))
-        screen.blit(self.txtRun, (10,110))
+        
+        screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
 
     def update(self):
 
