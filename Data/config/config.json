@@ -238,7 +238,7 @@
         "jump": 32,
         "crouch": 121,
         "right": 100,
-        "left": 97,
+        "left": 113,
         "roll": 1073742049
     },
     "Background_images": {
@@ -394,16 +394,16 @@
         "Tomate": {
             "img": "Data/sprites/items/Ingredients/tomate.png",
             "coef": {
-                "Tomate": 1,
-                "Salade": 2,
-                "Pain": 1.6,
-                "Comcombre": 1.8,
-                "Viande": 0.9,
-                "Patate": 0.7,
-                "Champignon": 0.9,
-                "Sucre": 2,
-                "Saumon": 2.5,
-                "Caviar": 4
+                "Tomate": 2,
+                "Salade": 4,
+                "Pain": 3,
+                "Comcombre": 4,
+                "Viande": 2,
+                "Patate": 1.3,
+                "Champignon": 1.4,
+                "Sucre": 5,
+                "Saumon": 5,
+                "Caviar": 9
             },
             "width": 50,
             "height": 50,
@@ -415,16 +415,16 @@
         "Salade": {
             "img": "Data/sprites/items/Ingredients/salade.png",
             "coef": {
-                "Tomate": 2,
-                "Salade": 1,
-                "Pain": 1.2,
-                "Comcombre": 1.7,
-                "Viande": 0.9,
-                "Patate": 0.9,
-                "Champignon": 0.9,
-                "Sucre": 1.5,
-                "Saumon": 2,
-                "Caviar": 5
+                "Tomate": 4,
+                "Salade": 3,
+                "Pain": 2,
+                "Comcombre": 4,
+                "Viande": 2,
+                "Patate": 1.6,
+                "Champignon": 2.5,
+                "Sucre": 5,
+                "Saumon": 5,
+                "Caviar": 12
             },
             "width": 50,
             "height": 50,
@@ -436,16 +436,16 @@
         "Pain": {
             "img": "Data/sprites/items/Ingredients/pain.png",
             "coef": {
-                "Tomate": 1.6,
-                "Salade": 1.2,
-                "Pain": 1,
-                "Comcombre": 1.1,
-                "Viande": 2.3,
-                "Patate": 0.7,
-                "Champignon": 0.9,
-                "Sucre": 1.2,
-                "Saumon": 3.5,
-                "Caviar": 6
+                "Tomate": 3,
+                "Salade": 2,
+                "Pain": 1.8,
+                "Comcombre": 1.4,
+                "Viande": 6,
+                "Patate": 1.4,
+                "Champignon": 1.6,
+                "Sucre": 5,
+                "Saumon": 8,
+                "Caviar": 13
             },
             "width": 50,
             "height": 50,
@@ -457,16 +457,16 @@
         "Comcombre": {
             "img": "Data/sprites/items/Ingredients/comcombre.png",
             "coef": {
-                "Tomate": 1.8,
-                "Salade": 1.7,
-                "Pain": 1.1,
-                "Comcombre": 1,
-                "Viande": 0.8,
-                "Patate": 0.9,
-                "Champignon": 0.9,
-                "Sucre": 3,
-                "Saumon": 2,
-                "Caviar": 1.5
+                "Tomate": 4,
+                "Salade": 4,
+                "Pain": 1.4,
+                "Comcombre": 2,
+                "Viande": 2,
+                "Patate": 1.6,
+                "Champignon": 2,
+                "Sucre": 5,
+                "Saumon": 6,
+                "Caviar": 12
             },
             "width": 50,
             "height": 50,
@@ -478,16 +478,16 @@
         "Viande": {
             "img": "Data/sprites/items/Ingredients/viande.png",
             "coef": {
-                "Tomate": 0.9,
-                "Salade": 0.9,
-                "Pain": 2.3,
-                "Comcombre": 0.8,
-                "Viande": 1.5,
-                "Patate": 1.7,
-                "Champignon": 1.7,
-                "Sucre": 4,
+                "Tomate": 2,
+                "Salade": 2,
+                "Pain": 6,
+                "Comcombre": 2,
+                "Viande": 4,
+                "Patate": 6,
+                "Champignon": 4,
+                "Sucre": 5,
                 "Saumon": 5,
-                "Caviar": 2
+                "Caviar": 12
             },
             "width": 50,
             "height": 50,
@@ -499,16 +499,16 @@
         "Patate": {
             "img": "Data/sprites/items/Ingredients/patate.png",
             "coef": {
-                "Tomate": 0.7,
-                "Salade": 0.9,
-                "Pain": 0.7,
-                "Comcombre": 0.9,
-                "Viande": 1.7,
-                "Patate": 1.1,
-                "Champignon": 1.7,
-                "Sucre": 2,
-                "Saumon": 2,
-                "Caviar": 2
+                "Tomate": 1.3,
+                "Salade": 1.6,
+                "Pain": 1.4,
+                "Comcombre": 1.6,
+                "Viande": 6,
+                "Patate": 1.5,
+                "Champignon": 4,
+                "Sucre": 5,
+                "Saumon": 9,
+                "Caviar": 14
             },
             "width": 50,
             "height": 50,
@@ -520,16 +520,16 @@
         "Champignon": {
             "img": "Data/sprites/items/Ingredients/champignon.png",
             "coef": {
-                "Tomate": 0.9,
-                "Salade": 0.9,
-                "Pain": 0.9,
-                "Comcombre": 0.9,
-                "Viande": 1.7,
-                "Patate": 1.7,
-                "Champignon": 1.1,
-                "Sucre": 1.5,
-                "Saumon": 2,
-                "Caviar": 3
+                "Tomate": 1.4,
+                "Salade": 2.5,
+                "Pain": 1.6,
+                "Comcombre": 2,
+                "Viande": 4,
+                "Patate": 4,
+                "Champignon": 1.8,
+                "Sucre": 5,
+                "Saumon": 10,
+                "Caviar": 15
             },
             "width": 50,
             "height": 50,
@@ -541,16 +541,16 @@
         "Sucre": {
             "img": "Data/sprites/items/Ingredients/sucre.png",
             "coef": {
-                "Tomate": 4,
-                "Salade": 4,
-                "Pain": 4,
-                "Comcombre": 4,
-                "Viande": 4,
-                "Patate": 4,
-                "Champignon": 4,
-                "Sucre": 10,
-                "Saumon": 4,
-                "Caviar": 4
+                "Tomate": 5,
+                "Salade": 5,
+                "Pain": 8,
+                "Comcombre": 5,
+                "Viande": 5,
+                "Patate": 5,
+                "Champignon": 5,
+                "Sucre": 15,
+                "Saumon": 10,
+                "Caviar": 20
             },
             "width": 50,
             "height": 50,
@@ -562,16 +562,16 @@
         "Saumon": {
             "img": "Data/sprites/items/Ingredients/saumon.png",
             "coef": {
-                "Tomate": 4.5,
-                "Salade": 4.5,
-                "Pain": 4.5,
-                "Comcombre": 4.5,
-                "Viande": 4.5,
-                "Patate": 4.5,
-                "Champignon": 4.5,
-                "Sucre": 6,
+                "Tomate": 5,
+                "Salade": 5,
+                "Pain": 8,
+                "Comcombre": 6,
+                "Viande": 6,
+                "Patate": 5,
+                "Champignon": 9,
+                "Sucre": 10,
                 "Saumon": 4,
-                "Caviar": 10
+                "Caviar": 20
             },
             "width": 50,
             "height": 50,
@@ -583,15 +583,15 @@
         "Caviar": {
             "img": "Data/sprites/items/Ingredients/caviar.png",
             "coef": {
-                "Tomate": 10,
-                "Salade": 10,
-                "Pain": 10,
-                "Comcombre": 10,
-                "Viande": 10,
-                "Patate": 10,
-                "Champignon": 10,
-                "Sucre": 10,
-                "Saumon": 10,
+                "Tomate": 9,
+                "Salade": 12,
+                "Pain": 13,
+                "Comcombre": 12,
+                "Viande": 12,
+                "Patate": 14,
+                "Champignon": 15,
+                "Sucre": 20,
+                "Saumon": 20,
                 "Caviar": 20
             },
             "width": 50,
@@ -609,7 +609,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "speed",
-                "value": 0.1
+                "value": 0.2
             }
         },
         "Salade Compose": {
@@ -618,7 +618,7 @@
             "3": "Comcombre",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.1
+                "value": 0.2
             }
         },
         "Tacos": {
@@ -627,7 +627,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.1
+                "value": 0.2
             }
         },
         "Pizza": {
@@ -636,7 +636,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.1
+                "value": 0.2
             }
         },
         "Hachis parmentier": {
@@ -645,7 +645,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.1
+                "value": 0.2
             }
         }
     },
