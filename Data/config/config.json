@@ -199,6 +199,13 @@
             "animation": "None"
         },
         {
+            "name": "grue",
+            "height": 449,
+            "width": 854,
+            "img": "Data/sprites/decors/grue.png",
+            "animation": "None"
+        },
+        {
             "name": "house",
             "height": 1080,
             "width": 767,
@@ -236,7 +243,7 @@
     ],
     "Bindings": {
         "jump": 32,
-        "crouch": 121,
+        "crouch": 1073742049,
         "right": 100,
         "left": 113,
         "roll": 1073742049

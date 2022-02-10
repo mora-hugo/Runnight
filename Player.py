@@ -531,6 +531,7 @@ class Player(pygame.sprite.Sprite):
                     
             if self.gameOverDelay != None:
                 if time.time() >= self.gameOverDelay + 0.1:
+                    self.sound.playMusic("menu",None,0.03)
                     self.jeu.currentMenu = "mainMenu"
                     self.gameOverWait = False
                     self.gameOverDelay = None
