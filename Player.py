@@ -1,4 +1,5 @@
 from random import randint
+from select import select
 import pygame
 import json
 from DecorElement import DecorElement
@@ -521,6 +522,7 @@ class Player(pygame.sprite.Sprite):
             if nouvPos[0] <= -200 or nouvPos[1] >= 1000:
                 self.GameOver()
                 self.sound.playSound("death",0.09)
+                self.sound.StopGroar()
                 pygame.mixer.music.stop()
         elif self.jeu.currentMenu == "gameOver":   
             self.update_background()
