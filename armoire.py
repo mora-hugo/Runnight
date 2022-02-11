@@ -180,7 +180,8 @@ class ArmoireButton(pygame.sprite.Sprite):
                     self.armoire.game.player.multiplicateurSaut += bonus["value"]
                     print("Saut : " + str(self.armoire.game.player.multiplicateurSaut))
                 elif bonus["type"] == "ralentissement":
-                    self.armoire.game.playground.multiplicateurVitesseCamera -= bonus["value"]
+                    if(self.armoire.game.playground.multiplicateurVitesseCamera - bonus["value"] > 0.05):
+                        self.armoire.game.playground.multiplicateurVitesseCamera -= bonus["value"]
                     print("VitesseCamera : " + str(self.armoire.game.playground.multiplicateurVitesseCamera))
 
                 ###### A COMPLETER : apllique les effets ####
@@ -192,7 +193,8 @@ class ArmoireButton(pygame.sprite.Sprite):
                 elif self.obj.type == "saut":
                     self.armoire.game.player.multiplicateurSaut += self.obj.stats
                 elif self.obj.type == "ralentissement":
-                    self.armoire.game.playground.multiplicateurVitesseCamera -= self.obj.stats
+                    if(self.armoire.game.playground.multiplicateurVitesseCamera - self.obj.stats > 0.05):
+                        self.armoire.game.playground.multiplicateurVitesseCamera -= self.obj.stats
                 self.armoire.game.player.inventory['Plats'][self.nom].remove(self.obj) 
 
             self.armoire.updateAfficher()

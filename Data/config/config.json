@@ -251,7 +251,7 @@
     "Bindings": {
         "jump": 32,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "roll": 1073742049,
         "pause": 27
     },
@@ -697,7 +697,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "speed",
-                "value": 0.3
+                "value": 0.1
             }
         },
         "Salade Compose": {
@@ -706,7 +706,7 @@
             "3": "Comcombre",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.3
+                "value": 0.12
             }
         },
         "Tacos": {
@@ -715,7 +715,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "saut",
-                "value": 0.3
+                "value": 0.14
             }
         },
         "Pizza": {
@@ -724,7 +724,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "speed",
-                "value": 0.35
+                "value": 0.13
             }
         },
         "Hachis parmentier": {
@@ -733,7 +733,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.4
+                "value": 0.2
             }
         }
     },
