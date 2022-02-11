@@ -697,7 +697,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "speed",
-                "value": 0.2
+                "value": 0.3
             }
         },
         "Salade Compose": {
@@ -706,7 +706,7 @@
             "3": "Comcombre",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.2
+                "value": 0.3
             }
         },
         "Tacos": {
@@ -715,7 +715,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "saut",
-                "value": 0.2
+                "value": 0.3
             }
         },
         "Pizza": {
@@ -724,7 +724,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "speed",
-                "value": 0.25
+                "value": 0.35
             }
         },
         "Hachis parmentier": {
@@ -733,7 +733,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.3
+                "value": 0.4
             }
         }
     },
