@@ -251,8 +251,9 @@
     "Bindings": {
         "jump": 32,
         "right": 100,
-        "left": 113,
-        "roll": 1073742049
+        "left": 97,
+        "roll": 1073742049,
+        "pause": 27
     },
     "Background_images": {
         "mainMenu": "Data/sprites/background/MenuBg.png",
@@ -371,34 +372,34 @@
             "WIDTH": 60
         },
         "Recette_Tomate": {
-            "img" : "Data/sprites/recette/Tomate.png"
+            "img": "Data/sprites/recette/Tomate.png"
         },
         "Recette_Salade": {
-            "img" : "Data/sprites/recette/Salade.png"
+            "img": "Data/sprites/recette/Salade.png"
         },
         "Recette_Pain": {
-            "img" : "Data/sprites/recette/Pain.png"
+            "img": "Data/sprites/recette/Pain.png"
         },
         "Recette_Patate": {
-            "img" : "Data/sprites/recette/Patate.png"
+            "img": "Data/sprites/recette/Patate.png"
         },
         "Recette_Champignon": {
-            "img" : "Data/sprites/recette/Champignon.png"
+            "img": "Data/sprites/recette/Champignon.png"
         },
         "Recette_Viande": {
-            "img" : "Data/sprites/recette/Viande.png"
+            "img": "Data/sprites/recette/Viande.png"
         },
         "Recette_Comcombre": {
-            "img" : "Data/sprites/recette/Comcombre.png"
+            "img": "Data/sprites/recette/Comcombre.png"
         },
         "Recette_Sucre": {
-            "img" : "Data/sprites/recette/Sucre.png"
+            "img": "Data/sprites/recette/Sucre.png"
         },
         "Recette_Saumon": {
-            "img" : "Data/sprites/recette/Saumon.png"
+            "img": "Data/sprites/recette/Saumon.png"
         },
         "Recette_Caviar": {
-            "img" : "Data/sprites/recette/Caviar.png"
+            "img": "Data/sprites/recette/Caviar.png"
         }
     },
     "Sounds": {
@@ -696,7 +697,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "speed",
-                "value": 0.2
+                "value": 0.3
             }
         },
         "Salade Compose": {
@@ -705,7 +706,7 @@
             "3": "Comcombre",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.2
+                "value": 0.3
             }
         },
         "Tacos": {
@@ -714,7 +715,7 @@
             "3": "Viande",
             "bonus": {
                 "type": "saut",
-                "value": 0.2
+                "value": 0.3
             }
         },
         "Pizza": {
@@ -723,7 +724,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "speed",
-                "value": 0.25
+                "value": 0.35
             }
         },
         "Hachis parmentier": {
@@ -732,7 +733,7 @@
             "3": "Champignon",
             "bonus": {
                 "type": "ralentissement",
-                "value": 0.3
+                "value": 0.4
             }
         }
     },
