@@ -276,6 +276,11 @@
         "logo": "Data/sprites/logoWC.png"
     },
     "Items": {
+        "credits": {
+            "img": "Data/sprites/Menu/credits.png",
+            "HEIGHT": 1024,
+            "WIDTH": 768
+        },
         "regle": {
             "img": "Data/sprites/Menu/regle.png",
             "HEIGHT": 1024,

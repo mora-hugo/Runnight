@@ -9,6 +9,7 @@ import Parchemin
 from random import randint
 import Sound
 import Regle
+import Credits
 
 class Menu:
     def __init__(self, jeu):
@@ -27,6 +28,8 @@ class Menu:
             465, 430, "Touches", self.menuTouches, 5))
         self.mainMenuButtons.add(bouton.BoutonMenu(
             10, 440, "Quitter", self.quitter, -5))
+        self.mainMenuButtons.add(boutonN.Bouton(
+            900, 10, "Credits", self.credits, (255, 0, 0)))
 
         self.lastClickedButton = None
         self.currentMenu = self.mainMenuButtons
@@ -68,6 +71,14 @@ class Menu:
         self.menuRegle.add(Regle.Regle(self))
         self.menuRegle.add(boutonN.Bouton(
             900, 710, "Retour", self.mainMenu, (0, 0, 0)))
+
+        #credits
+        self.menuCredits = pygame.sprite.Group()
+        self.menuCredits.add(Credits.Credits(self))
+        self.menuCredits.add(boutonN.Bouton(
+            900, 710, "Retour", self.mainMenu, (0, 0, 0)))
+
+        
         
         
         
@@ -116,8 +127,16 @@ class Menu:
         quit()
 
     def regles(self):
+        
         self.afficher(self.menuRegle)
         self.currentMenu = self.menuRegle
+
+
+    def credits(self):
+        
+        self.afficher(self.menuCredits)
+        self.currentMenu = self.menuCredits
+
 
     def commencer(self):
         self.cacher()
