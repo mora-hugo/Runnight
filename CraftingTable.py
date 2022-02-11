@@ -223,7 +223,7 @@ def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None,isPoop=False):
             if "1" in recetteT and "2" in recetteT and "3" in recetteT:
                     if recette in joueur.inventory["Plats"].keys():
                         
-                        joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"],joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
+                        joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"]*10,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
                         
                         
                         #else:
@@ -232,7 +232,7 @@ def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None,isPoop=False):
                     else:
                         
                         joueur.inventory["Plats"][recette] = []
-                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"],joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
+                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"]*10,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
                     print(joueur.inventory["Plats"])
             
                 

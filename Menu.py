@@ -8,9 +8,9 @@ import Classement
 import Parchemin
 from random import randint
 import Sound
-import Lit
-import Baignoire
-import Bibliotheque
+import Regle
+import Credits
+
 class Menu:
     def __init__(self, jeu):
         # Tableaux contenant tous les boutons du menu
@@ -21,13 +21,15 @@ class Menu:
         # Ajout des boutons pour le menu principal
         # self.text = fonction associe au bouton
         self.mainMenuButtons.add(bouton.BoutonMenu(
-            720, 430, "Commencer", self.commencer, -5))
+            740, 460, "Commencer", self.commencer, -5))
         self.mainMenuButtons.add(bouton.BoutonMenu(
             250, 480, "Regles", self.regles, -5))
         self.mainMenuButtons.add(bouton.BoutonMenu(
-            465, 410, "Touches", self.menuTouches, 5))
+            465, 430, "Touches", self.menuTouches, 5))
         self.mainMenuButtons.add(bouton.BoutonMenu(
             10, 440, "Quitter", self.quitter, -5))
+        self.mainMenuButtons.add(boutonN.Bouton(
+            900, 10, "Credits", self.credits, (255, 0, 0)))
 
         self.lastClickedButton = None
         self.currentMenu = self.mainMenuButtons
@@ -67,6 +69,19 @@ class Menu:
         self.music = Sound.Sound()
         self.music.playMusic("menu", None, 0.03)
 
+        #regles
+        self.menuRegle = pygame.sprite.Group()
+        self.menuRegle.add(Regle.Regle(self))
+        self.menuRegle.add(boutonN.Bouton(
+            900, 710, "Retour", self.mainMenu, (0, 0, 0)))
+
+        #credits
+        self.menuCredits = pygame.sprite.Group()
+        self.menuCredits.add(Credits.Credits(self))
+        self.menuCredits.add(boutonN.Bouton(
+            900, 710, "Retour", self.mainMenu, (0, 0, 0)))
+
+        
         
         
     # Affiche les elements du menu
@@ -86,14 +101,13 @@ class Menu:
 
     def mainMenu(self):
         self.cacher(self.currentMenu)
-
+        self.cacher(self.menuRegle)
         self.afficher(self.mainMenuButtons)
         self.currentMenu = self.mainMenuButtons
         self.update_background()
 
     def menuTouches(self):
 
-        self.cacher(self.currentMenu)
         game.Game.get_instance().screen.blit(self.papier, (self.data["Settings"]["WIDTH"]/2 - self.data["Items"]
                                                            ["papier"]["WIDTH"]/2*1.8, self.data["Settings"]["HEIGHT"]/2 - self.data["Items"]["papier"]["HEIGHT"]/2*1.8))
         self.afficher(self.menuBidingButtons)
@@ -115,13 +129,16 @@ class Menu:
         quit()
 
     def regles(self):
-        if not self.jeu.planque.isVisible:
-            self.cacher()
-            self.jeu.planque.afficher()
+        
+        self.afficher(self.menuRegle)
+        self.currentMenu = self.menuRegle
 
-        else:
-            self.jeu.planque.cacher()
-            self.afficher()
+
+    def credits(self):
+        
+        self.afficher(self.menuCredits)
+        self.currentMenu = self.menuCredits
+
 
     def commencer(self):
         self.cacher()

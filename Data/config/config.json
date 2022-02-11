@@ -250,7 +250,6 @@
     ],
     "Bindings": {
         "jump": 32,
-        "crouch": 1073742049,
         "right": 100,
         "left": 113,
         "roll": 1073742049
@@ -276,6 +275,16 @@
         "logo": "Data/sprites/logoWC.png"
     },
     "Items": {
+        "credits": {
+            "img": "Data/sprites/Menu/credits.png",
+            "HEIGHT": 1024,
+            "WIDTH": 768
+        },
+        "regle": {
+            "img": "Data/sprites/Menu/regle.png",
+            "HEIGHT": 1024,
+            "WIDTH": 768
+        },
         "papier": {
             "img": "Data/sprites/items/paper.png",
             "HEIGHT": 392,
@@ -402,6 +411,7 @@
         "groar": "Data/sounds/groar.mp3",
         "wolf": "Data/sounds/wolf.mp3",
         "death": "Data/sounds/death.mp3",
+        "eating": "Data/sounds/eating.mp3",
         "crash": "Data/sounds/crash.mp3"
     },
     "Music": {

@@ -7,6 +7,7 @@ from DecorElement import DecorElement
 import Sound
 import Game as game
 import time
+import Bouton
 import InventoryItem
 import os
 import Classement
@@ -17,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.game = game
         self.lastUpdatedFrame = time.time()
         self.updateJson()
-
+        self.fonts = pygame.font.Font(self.data["Font"]["base"], 60)
         self.coordinates = coordinates
         self.hp = self.data['Player']['hp']
         self.image = pygame.Surface([1, 1])
@@ -158,6 +159,8 @@ class Player(pygame.sprite.Sprite):
     def action(self,event):
 
         if self.jeu.currentMenu == "gameMenu":
+            if self.jeu.key_pressed[self.data['Bindings']['pause']] == True:
+                    self.pause()
 
             if self.jeu.key_pressed[self.data['Bindings']['left']] == True and not self.isFallingHard:
                 if (time.time() >= self.lastUpdatedFrame + 0.6): 
@@ -201,7 +204,7 @@ class Player(pygame.sprite.Sprite):
                 
                 if (time.time() >= self.lastUpdatedFrame): 
                     self.lastUpdatedFrame = time.time()
-                    if (randint(1,40) == 5):
+                    if (randint(1,1000) == 5):
                         self.sound.playSound("jumpProot",0.1)
                     else:
                         self.sound.playSound("jump",0.1)
@@ -252,11 +255,36 @@ class Player(pygame.sprite.Sprite):
         if  self.game.menu.classement.bddScore is not False:
             self.game.menu.classement.bddScore.addScore(os.environ.get('USERNAME'),self.score,self.game.nbRun)
 
+        self.sound.playSound("death",0.09)
+        self.sound.StopGroar()
+        pygame.mixer.music.stop()
         self.game.playground.update_background()
         self.game.currentMenu = "gameOver"
+        self.rect.topleft = (0,-500)
         
-          
-
+    def pause(self):
+        loop = 1
+        size = (1024,768)
+        BLACK = (0, 0, 0)
+        red_image = pygame.Surface(size)
+        red_image.set_alpha(80)
+        pygame.draw.rect(red_image, BLACK, red_image.get_rect(), 10)
+        text1 = self.fonts.render("PAUSED", 450, 150)
+        text2 = self.fonts.render("Press escape to continue", 400, 250)
+        self.game.screen.blit(red_image, (0, 0))
+        self.game.screen.blit(text1, (445, 150))
+        self.game.screen.blit(text2, (280, 250))
+        while loop:
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        loop = 0
+                        
+            pygame.display.update()
+            
 
     def update(self):
         if self.jeu.currentMenu == "gameMenu":
@@ -266,11 +294,11 @@ class Player(pygame.sprite.Sprite):
             nouvPos = list(self.coordinates)
 
             if self.jeu.isInRun:
-            
+
                 ############################## EN RUN ######################################
 
                 if self.tpRun == True:
-                    nouvPos[0] = 100
+                    nouvPos[0] = 500
                     nouvPos[1] = 350
                     self.direction = 'right'
                     self.tpRun = False
@@ -279,8 +307,9 @@ class Player(pygame.sprite.Sprite):
 
                     if self.isFlying == True:
                         if not self.isFallingHard:
-                            self.isLanding = True
-                            self.playAnimation('runtostop',0.9)
+                            if not self.isRunning:
+                                self.isLanding = True
+                                self.playAnimation('runtostop',0.9)
                         elif not self.isFallingSlow:
                             pass
                         else:
@@ -315,30 +344,30 @@ class Player(pygame.sprite.Sprite):
                         if self.runtostop == True:
                             if self.isRunning == False:
                                 self.playAnimation('idle',0.4)
-                            self.runtostop = False
+                        self.runtostop = False
                         if self.stoptorun == True:
                             self.playAnimation('fastrun',0.9)
-                            self.stoptorun = False
+                        self.stoptorun = False
                         if self.isLanding == True:
                             self.playAnimation('idle',0.4)
-                            self.isLanding = False
+                        self.isLanding = False
                         if self.isTurning == True:
                             self.playAnimation('idle',0.4)
-                            self.isTurning = False
-                        if self.isTurningRun == True:                       
-                            self.isTurningRun = False
+                        self.isTurning = False
+                        #if self.isTurningRun == True:                       
+                        self.isTurningRun = False
 
                         if self.isFallingHard == True:
                             self.playAnimation('idle',0.4)
-                            self.isFallingHard = False
+                        self.isFallingHard = False
                         if self.isRiding == True:
                             self.playAnimation('idle',0.4)
-                            self.isRiding = False
-                        if self.isPicking == True:
-                            self.isPicking = False
+                        self.isRiding = False
+                        #if self.isPicking == True:
+                        self.isPicking = False
                         if self.isRolling == True:
                             self.score += 5000
-                            self.isRolling = False
+                        self.isRolling = False
                         self.currentSprite = 0
                         
                     
@@ -448,10 +477,8 @@ class Player(pygame.sprite.Sprite):
                 self.collisionY()
 
                 if not self.game.monster.isStarting:
-                    if self.game.night:
-                        nouvPos[0] -= (self.game.nbRun + 1)*1.5
-                    else:
-                        nouvPos[0] -= self.game.nbRun + 1
+                    nouvPos[0] -= self.game.playground.speed
+                    
 
                 #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
                 #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+120, self.rect.y+20 ,self.data['Player']['width']/2,self.data['Player']['height']/2.5))
@@ -534,9 +561,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.topleft = self.coordinates   
             if nouvPos[0] <= -200 or nouvPos[1] >= 1000:
                 self.GameOver()
-                self.sound.playSound("death",0.09)
-                self.sound.StopGroar()
-                pygame.mixer.music.stop()
         elif self.jeu.currentMenu == "gameOver":   
             self.update_background()
             if pygame.mouse.get_pressed()[0]:

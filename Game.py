@@ -122,7 +122,10 @@ class Game():  # Design pattern singleton
         if self.night:
             self.monster.afficher()
         self.playground.generateWorld(self.nbRun,self.night)
+        pause = False
 
+#Main loop
+        
 
     def update_backgrounds(self):
         if self.currentMenu == "mainMenu":
@@ -141,6 +144,7 @@ class Game():  # Design pattern singleton
             self.player.isRunning = False
             self.player.speed_y = 0
             self.player.argent = 0
+            self.player.score = 0
 
             self.playground.multiplicateurVitesseCamera = 1
             self.playground.multiplicateurVitesseCameraDefinitif = 1

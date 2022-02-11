@@ -3,6 +3,7 @@ import pygame
 import json
 from random import randint
 import InventoryItem
+from Sound import Sound
 class armoire(pygame.sprite.Sprite):
     def __init__(self, game, planque):
         pygame.sprite.Sprite.__init__(self)
@@ -18,10 +19,10 @@ class armoire(pygame.sprite.Sprite):
         self.backgroundArmoire = pygame.image.load(
             self.data["Background_images"]["armoire"]).convert_alpha()
         self.image = self.backgroundArmoire
-        self.image = pygame.transform.scale(self.image,(700,700))
+        self.image = pygame.transform.scale(self.image,(800,800))
 
         self.rect = self.image.get_rect()
-        self.rect.topleft = (150,50)  
+        self.rect.topleft = (100,10)  
 
         # Chargement sprite ingredients
         self.ingredientsImg = {}
@@ -50,19 +51,18 @@ class armoire(pygame.sprite.Sprite):
 
     def updateAfficher(self):
         
-        x = 250
-        y = 120
+        x = 200
+        y = 90
         y_offset = y
         for ingredient in self.game.player.inventory['Ingredients']:
             if self.game.player.inventory['Ingredients'][ingredient] > 0:
                 for i in range(0,self.game.player.inventory['Ingredients'][ingredient]):
-                    print("Creation :",ingredient," avec ",self.game.player.inventory['Ingredients'][ingredient], " de quantité")
                     self.ingredientsGroup.add(ArmoireButton(
                         ingredient, self.game.player.inventory['Ingredients'][ingredient], self.ingredientsImg[ingredient], x, y,  self.data["Ingredients"][ingredient]["width"],  self.data["Ingredients"][ingredient]["height"], self, 'ingredient'))
-                    x+=15
+                    x+=30
                     y = randint(y_offset-5,y_offset+5)
 
-                x = 250
+                x = 200
                 y_offset += 60
                 y = y_offset
         
@@ -72,10 +72,10 @@ class armoire(pygame.sprite.Sprite):
                     
                     self.ingredientsGroup.add(ArmoireButton(
                         i.name, self.game.player.inventory['Plats'][plats], self.platsImg[plats], x, y,  self.data["Plats"][plats]["width"],  self.data["Plats"][plats]["height"], self, 'plat',i))
-                    x+=15
+                    x+=50
                     y = randint(y_offset-5,y_offset+5)
 
-                x = 250
+                x = 200
                 y_offset += 60
                 y = y_offset
 
@@ -120,7 +120,8 @@ class ArmoireButton(pygame.sprite.Sprite):
         self.rect.y = y
         self.armoire = armoire
         self.collider = False
-
+        
+        self.sound = self.armoire.game.sons
  
         self.statsHUD = pygame.image.load(self.armoire.data['Items']['Stats_planche']['img']).convert_alpha()
         self.fonts = pygame.font.Font(self.armoire.data["Font"]["base"], 36)
@@ -146,17 +147,17 @@ class ArmoireButton(pygame.sprite.Sprite):
         if self.obj.type == "speed":     
             self.statsHUD = pygame.transform.scale(self.statsHUD, (200,60))   
             screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
-            txt = self.fonts.render("Vitesse : +"+str(round(self.obj.stats,2)*10)+"%", True, (255,255,255))
+            txt = self.fonts.render("Vitesse : +"+str(round(self.obj.stats*100,2))+"%", True, (255,255,255))
             screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
         elif self.obj.type == "saut":
             self.statsHUD = pygame.transform.scale(self.statsHUD, (200,60))   
             screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
-            txt = self.fonts.render("Saut : +"+str(round(self.obj.stats,2)*10)+"%", True, (255,255,255))
+            txt = self.fonts.render("Saut : +"+str(round(self.obj.stats*100,2))+"%", True, (255,255,255))
             screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
         elif self.obj.type == "ralentissement":
             self.statsHUD = pygame.transform.scale(self.statsHUD, (300,60))   
             screen.blit(self.statsHUD, (self.rect.x +10 ,self.rect.y -45))
-            txt = self.fonts.render("Ralentissement : -"+str(round(self.obj.stats,2)*10)+"%", True, (255,255,255))
+            txt = self.fonts.render("Ralentissement : -"+str(round(self.obj.stats*100,2))+"%", True, (255,255,255))
             screen.blit(txt, (self.rect.x +10+5 ,self.rect.y -40))
 
         
@@ -166,7 +167,9 @@ class ArmoireButton(pygame.sprite.Sprite):
     def update(self):
 
         if self.isClicked():
-            if self.obj == None :
+            self.sound.playSound("eating",0.5)
+            print (self.nom)
+            if self.obj is None:
                 self.armoire.game.player.inventory['Ingredients'][self.nom] -= 1
                 bonus = self.armoire.game.player.data["Ingredients"][self.nom]["bonus"]
                 if bonus["type"] == "speed":
