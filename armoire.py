@@ -75,7 +75,7 @@ class armoire(pygame.sprite.Sprite):
                     x+=50
                     y = randint(y_offset-5,y_offset+5)
 
-                x = 250
+                x = 200
                 y_offset += 60
                 y = y_offset
 

@@ -251,7 +251,7 @@
     "Bindings": {
         "jump": 32,
         "right": 100,
-        "left": 113,
+        "left": 97,
         "roll": 1073741905,
         "pause": 27
     },
@@ -276,6 +276,11 @@
         "logo": "Data/sprites/logoWC.png"
     },
     "Items": {
+        "regle": {
+            "img": "Data/sprites/Menu/regle.png",
+            "HEIGHT": 1024,
+            "WIDTH": 768
+        },
         "papier": {
             "img": "Data/sprites/items/paper.png",
             "HEIGHT": 392,
