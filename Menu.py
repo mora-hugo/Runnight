@@ -123,24 +123,28 @@ class Menu:
             jeu.isMapping = True
 
     def update_background(self):
-        i = 1
-        offset = 0
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
-        scores = self.classement.bddScore.afficherScore()
-        game.Game.get_instance().screen.blit(self.fonts.render("Rang", True, (255, 0, 0)),(10, offset))
-        game.Game.get_instance().screen.blit(self.fonts.render("Pseudo", True, (255, 0, 0)),(100, offset))
-        game.Game.get_instance().screen.blit(self.fonts.render("Score", True, (255, 0, 0)),(100+self.text_width*20+20, offset))
-        game.Game.get_instance().screen.blit(self.fonts.render("Runs", True, (255, 0, 0)),(160+self.text_width*20+150, offset))
+        if self.classement.bddScore is not False:
+            i = 1
+            offset = 0
+            
+            scores = self.classement.bddScore.afficherScore()
+            game.Game.get_instance().screen.blit(self.fonts.render("Rang", True, (255, 0, 0)),(10, offset))
+            game.Game.get_instance().screen.blit(self.fonts.render("Pseudo", True, (255, 0, 0)),(100, offset))
+            game.Game.get_instance().screen.blit(self.fonts.render("Score", True, (255, 0, 0)),(100+self.text_width*20+20, offset))
+            game.Game.get_instance().screen.blit(self.fonts.render("Runs", True, (255, 0, 0)),(160+self.text_width*20+150, offset))
 
-        offset+=80
-        
-        for y in scores:
-            game.Game.get_instance().screen.blit(self.fonts.render(str(i), True, (255, 0, 0)),(10, offset))
-            game.Game.get_instance().screen.blit(self.fonts.render(str(y), True, (255, 0, 0)),(100, offset))
-            game.Game.get_instance().screen.blit(self.fonts.render(str(scores[y]["score"]), True, (255, 0, 0)),(100+self.text_width*20+20, offset))
-            game.Game.get_instance().screen.blit(self.fonts.render(str(scores[y]["run"]), True, (255, 0, 0)),(160+self.text_width*20+150, offset))
-            i+=1
-            offset+=40
+            offset+=80
+            
+            for y in scores:
+                game.Game.get_instance().screen.blit(self.fonts.render(str(i), True, (255, 0, 0)),(10, offset))
+                game.Game.get_instance().screen.blit(self.fonts.render(str(y), True, (255, 0, 0)),(100, offset))
+                game.Game.get_instance().screen.blit(self.fonts.render(str(scores[y]["score"]), True, (255, 0, 0)),(100+self.text_width*20+20, offset))
+                game.Game.get_instance().screen.blit(self.fonts.render(str(scores[y]["run"]), True, (255, 0, 0)),(160+self.text_width*20+150, offset))
+                i+=1
+                offset+=40
+        else:  
+            game.Game.get_instance().screen.blit(self.fonts.render("Pas d'acces a internet", True, (255, 0, 0)),(10, 10))
     def quitter(self):
         self.cacher()
         quit()

@@ -6,7 +6,7 @@ class Classement():
     def __init__(self, jeu):
         try:
             self.bddScore = bdd.BDDSCORE()
-        except ValueError:
+        except Exception:
             self.bddScore = False
 
         if self.bddScore is not False:
@@ -15,7 +15,7 @@ class Classement():
             self.jeu = jeu
             
         else:
-            raise Exception("Pas d'acces a la bdd")
+            print("Pas d'acces a la bdd")
 
     def initSprites(self):
         """
