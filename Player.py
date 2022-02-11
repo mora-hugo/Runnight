@@ -1,3 +1,4 @@
+from msilib.schema import Class
 from random import randint
 from select import select
 import pygame
@@ -7,7 +8,8 @@ import Sound
 import Game as game
 import time
 import InventoryItem
-
+import os
+import Classement
 class Player(pygame.sprite.Sprite):
     def __init__(self, coordinates, game):
         super().__init__()
@@ -247,9 +249,14 @@ class Player(pygame.sprite.Sprite):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
 
     def GameOver(self):
+        if  self.game.menu.classement.bddScore is not False:
+            self.game.menu.classement.bddScore.addScore(os.environ.get('USERNAME'),self.score,self.game.nbRun)
+
         self.game.playground.update_background()
         self.game.currentMenu = "gameOver"
         
+          
+
 
     def update(self):
         if self.jeu.currentMenu == "gameMenu":

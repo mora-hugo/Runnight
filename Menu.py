@@ -10,6 +10,7 @@ from random import randint
 import Sound
 import Lit
 import Baignoire
+import Bibliotheque
 class Menu:
     def __init__(self, jeu):
         # Tableaux contenant tous les boutons du menu
@@ -50,9 +51,12 @@ class Menu:
         self.background_image = pygame.image.load(
             self.data["Background_images"]["mainMenu"]).convert()  # Chargement background
         jeu.barre.update(10, "Connexion...")
-        classement = Classement.Classement(jeu)
-        classement.initSprites()
-        self.mainMenuButtons.add(classement.getScores())
+        self.classement = Classement.Classement(jeu)
+        if self.classement.bddScore is not False:
+            self.classement.initSprites()
+            self.classementScore = pygame.sprite.Group()
+            self.classementScore.add(self.classement.getScores())
+            self.mainMenuButtons.add(self.classementScore)
 
         # Load le parchemin
         self.papier = pygame.image.load(
@@ -63,7 +67,6 @@ class Menu:
         self.music = Sound.Sound()
         self.music.playMusic("menu", None, 0.03)
 
-        
         
         
     # Affiche les elements du menu

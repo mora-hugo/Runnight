@@ -6,6 +6,7 @@ import armoire
 import CraftingTable
 import Lit
 import Baignoire
+import Bibliotheque
 class Planque(pygame.sprite.Sprite):
     def __init__(self, game):
         pygame.sprite.Sprite.__init__(self)
@@ -56,7 +57,12 @@ class Planque(pygame.sprite.Sprite):
         #chargement crafting
         self.crafting_table = CraftingTable.CraftingTable(game,self.game.decor,self)
 
+        #Chargement baignoire
         self.baignoire = Baignoire.Baignoire(self.game)
+
+        #Chargement biblio
+        self.bib = Bibliotheque.Biblioteque(self.game,self.game.playground)
+        
 
     def afficher(self):
         self.music.playMusic("house", None, 0.03)
@@ -119,4 +125,5 @@ class PlanqueButton(pygame.sprite.Sprite):
                 self.planque.lit.afficher()
             if self.nom == "douche":
                 self.planque.baignoire.afficher()
-            print("cliquer")
+            if self.nom == "biblioteque":
+                self.planque.bib.afficher()

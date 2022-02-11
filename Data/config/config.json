@@ -348,8 +348,8 @@
         },
         "BibliotequeHUD": {
             "img": "Data/sprites/items/bibliotheque.png",
-            "HEIGHT": 384,
-            "WIDTH": 512
+            "HEIGHT": 768,
+            "WIDTH": 1024
         },
         "Money": {
             "img": "Data/sprites/items/money.png",
@@ -360,6 +360,36 @@
             "img": "Data/sprites/items/stats_planche.png",
             "HEIGHT": 50,
             "WIDTH": 60
+        },
+        "Recette_Tomate": {
+            "img" : "Data/sprites/recette/Tomate.png"
+        },
+        "Recette_Salade": {
+            "img" : "Data/sprites/recette/Salade.png"
+        },
+        "Recette_Pain": {
+            "img" : "Data/sprites/recette/Pain.png"
+        },
+        "Recette_Patate": {
+            "img" : "Data/sprites/recette/Patate.png"
+        },
+        "Recette_Champignon": {
+            "img" : "Data/sprites/recette/Champignon.png"
+        },
+        "Recette_Viande": {
+            "img" : "Data/sprites/recette/Viande.png"
+        },
+        "Recette_Comcombre": {
+            "img" : "Data/sprites/recette/Comcombre.png"
+        },
+        "Recette_Sucre": {
+            "img" : "Data/sprites/recette/Sucre.png"
+        },
+        "Recette_Saumon": {
+            "img" : "Data/sprites/recette/Saumon.png"
+        },
+        "Recette_Caviar": {
+            "img" : "Data/sprites/recette/Caviar.png"
         }
     },
     "Sounds": {
@@ -408,13 +438,6 @@
             "y": 410,
             "height": 145,
             "width": 81
-        },
-        "canape": {
-            "img": "Data/sprites/planque/canape.png",
-            "x": 437,
-            "y": 653,
-            "height": 85,
-            "width": 165
         },
         "biblioteque": {
             "img": "Data/sprites/planque/biblioteque.png",

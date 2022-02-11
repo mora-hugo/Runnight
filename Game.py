@@ -8,7 +8,7 @@ import Chargement
 import Decor
 import Sound
 import Planque
-
+import Bibliotheque
 
 class Game():  # Design pattern singleton
     instance = None
@@ -83,6 +83,7 @@ class Game():  # Design pattern singleton
             self.monster = Playground.Monster((0,200),self)
             self.characters.add(self.monster)
 
+            
     def load_keys(self):
         for i in self.data['Bindings']:
             self.key_pressed[self.data['Bindings'][i]] = False

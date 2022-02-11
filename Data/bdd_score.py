@@ -13,7 +13,9 @@ class BDDSCORE():
             database="dehn8kd20v1u1v",
             user="axkjwbjpaqmqzn",
             password="aaf8ebb7f3941b151a5cc6a5096346f673d8e8ac8c2eae9cf5ca6da04c683f9e",
-            port="5432")
+            port="5432",
+            connect_timeout=10
+            )
 
     def createTable(self): #Creer les tables si elles n'existent pas
         tables = (
@@ -47,19 +49,30 @@ class BDDSCORE():
             self.cursor.execute(add,(name,score,run))
             self.conn.commit()
         else: #Si il existe, changer son score
-            update = (
-            """
-            UPDATE SCORE SET score= (%s), run = (%s)
-            WHERE name = (%s)
-            """
-            )
-            self.cursor.execute(update,(score,run,name,))
-            self.conn.commit()
+            if score > self.getScore(name):
+                update = (
+                """
+                UPDATE SCORE SET score= (%s), run = (%s)
+                WHERE name = (%s)
+                """
+                )
+                self.cursor.execute(update,(score,run,name,))
+                self.conn.commit()
+
+
+    def getScore(self,nom):
+        select = ( #Test si le joueur existe dÃ©ja
+        """
+        SELECT * from score
+        WHERE name=%s;
+        """
+        )
+        self.cursor.execute(select,(nom,))
+        result = self.cursor.fetchone()
+        return result[1]
 
     def afficherScore(self): #renvoi un dictionnaire des scores
-        self.addScore("Hugo le PGM",100,3)
-        self.addScore("Ilyas",1,1)
-        self.addScore("Lori",100000,30)
+
 
         self.cursor.execute("select * from SCORE ORDER BY score DESC limit 6")
         scores = self.cursor.fetchall()
