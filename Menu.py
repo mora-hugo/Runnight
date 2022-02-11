@@ -123,7 +123,15 @@ class Menu:
 
     def update_background(self):
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
-
+        scores = self.classement.bddScore.afficherScore()
+        self.fonts = pygame.font.SysFont('comicsansms', 36)
+        i = 1
+        offset = 0
+        for y in scores:
+            self.img = self.fonts.render((str(i)) + "   " + str(y) + "  :  " + str(scores[y]["score"]) + "   " +str(scores[y]["run"]), True, (255, 0, 0))
+            game.Game.get_instance().screen.blit(self.img, (10, offset))
+            i+=1
+            offset+=40
     def quitter(self):
         self.cacher()
         quit()

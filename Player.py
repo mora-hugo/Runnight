@@ -254,7 +254,8 @@ class Player(pygame.sprite.Sprite):
     def GameOver(self):
         if  self.game.menu.classement.bddScore is not False:
             self.game.menu.classement.bddScore.addScore(os.environ.get('USERNAME'),self.score,self.game.nbRun)
-
+            self.game.all_sprites.remove(self.game.menu.classement.scores)
+            self.game.menu.update_background()
         self.sound.playSound("death",0.09)
         self.sound.StopGroar()
         pygame.mixer.music.stop()

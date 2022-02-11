@@ -18,6 +18,7 @@ class BDDSCORE():
             )
 
     def createTable(self): #Creer les tables si elles n'existent pas
+        
         tables = (
         """
         CREATE TABLE IF NOT EXISTS SCORE (
