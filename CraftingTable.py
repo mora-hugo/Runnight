@@ -33,10 +33,8 @@ class CraftingTable(pygame.sprite.Sprite):
         data = self.decor.ingredients        
 
         for i in data:
-            try:
-                data[i]["quantite"]
-            except:
-                data[i]["quantite"] = 0
+            data[i]["quantite"] = 0
+
 
         
         for i in inventoryIngredient:
@@ -237,7 +235,7 @@ def creerPlat(joueur, ingredient1, ingredient2, ingredient3=None,isPoop=False):
                     else:
                         
                         joueur.inventory["Plats"][recette] = []
-                    joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"]*100,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
+                        joueur.inventory["Plats"][recette].append(InventoryItem.InventoryItem(recette,random.uniform(0.6,1.4)*joueur.game.data["Recettes"][recette]["bonus"]["value"]*100,joueur.game.data["Recettes"][recette]["bonus"]["type"],joueur))
                     print(joueur.inventory["Plats"])
             
                 
