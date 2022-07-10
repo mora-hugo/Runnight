@@ -92,37 +92,7 @@ class Menu:
         jeu = game.Game.get_instance()
         jeu.all_sprites.add(group_menu)
 
-    # Cache les elements du menu
-    def cacher(self, group_menu=None):
-        if group_menu == None:  # si pas de menu rentré, alors mettre le menu de base
-            group_menu = self.mainMenuButtons
-        jeu = game.Game.get_instance()
-        jeu.all_sprites.remove(group_menu)
-        self.update_background()
-
-    def mainMenu(self):
-        self.cacher(self.currentMenu)
-        self.cacher(self.menuRegle)
-        self.afficher(self.mainMenuButtons)
-        self.currentMenu = self.mainMenuButtons
-        self.update_background()
-
-    def menuTouches(self):
-
-        game.Game.get_instance().screen.blit(self.papier, (self.data["Settings"]["WIDTH"]/2 - self.data["Items"]
-                                                           ["papier"]["WIDTH"]/2*1.8, self.data["Settings"]["HEIGHT"]/2 - self.data["Items"]["papier"]["HEIGHT"]/2*1.8))
-        self.afficher(self.menuBidingButtons)
-        self.currentMenu = self.menuBidingButtons
-
-    def changerTouches(self):
-        jeu = game.Game.get_instance()
-        if jeu.isMapping == False:
-            # Pour montrer que le changement est en cours
-            self.lastClickedButton.updateText(
-                self.lastClickedButton.touche + " : ...")
-            jeu.isMapping = True
-
-    def update_background(self):
+        # met a jour l'affichage de la bdd
         game.Game.get_instance().screen.blit(self.background_image, (0, 0))
         if self.classement.bddScore is not False:
             i = 1
@@ -144,7 +114,36 @@ class Menu:
                 i+=1
                 offset+=40
         else:  
-            game.Game.get_instance().screen.blit(self.fonts.render("Pas d'acces a internet", True, (255, 0, 0)),(10, 10))
+            game.Game.get_instance().screen.blit(self.fonts.render("Pas d'acces a internet ou base de donnees deconectee", True, (255, 0, 0)),(10, 10))
+
+    # Cache les elements du menu
+    def cacher(self, group_menu=None):
+        if group_menu == None:  # si pas de menu rentré, alors mettre le menu de base
+            group_menu = self.mainMenuButtons
+        jeu = game.Game.get_instance()
+        jeu.all_sprites.remove(group_menu)
+
+    def mainMenu(self):
+        self.cacher(self.currentMenu)
+        self.cacher(self.menuRegle)
+        self.afficher(self.mainMenuButtons)
+        self.currentMenu = self.mainMenuButtons
+
+    def menuTouches(self):
+
+        game.Game.get_instance().screen.blit(self.papier, (self.data["Settings"]["WIDTH"]/2 - self.data["Items"]
+                                                           ["papier"]["WIDTH"]/2*1.8, self.data["Settings"]["HEIGHT"]/2 - self.data["Items"]["papier"]["HEIGHT"]/2*1.8))
+        self.afficher(self.menuBidingButtons)
+        self.currentMenu = self.menuBidingButtons
+
+    def changerTouches(self):
+        jeu = game.Game.get_instance()
+        if jeu.isMapping == False:
+            # Pour montrer que le changement est en cours
+            self.lastClickedButton.updateText(
+                self.lastClickedButton.touche + " : ...")
+            jeu.isMapping = True
+
     def quitter(self):
         self.cacher()
         quit()

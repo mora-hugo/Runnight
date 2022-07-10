@@ -149,7 +149,6 @@ class Game():  # Design pattern singleton
             self.playground.multiplicateurVitesseCamera = 1
             self.playground.multiplicateurVitesseCameraDefinitif = 1
 
-            self.menu.update_background()
             self.menu.afficher()
             self.planque.cacher()
             self.monster.cacher()
