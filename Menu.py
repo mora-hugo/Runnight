@@ -114,7 +114,7 @@ class Menu:
                 i+=1
                 offset+=40
         else:  
-            game.Game.get_instance().screen.blit(self.fonts.render("Pas d'acces a internet ou base de donnees deconectee", True, (255, 0, 0)),(10, 10))
+            game.Game.get_instance().screen.blit(self.fonts.render("Pas d'acces a internet ou bdd deconectee", True, (255, 0, 0)),(10, 10))
 
     # Cache les elements du menu
     def cacher(self, group_menu=None):

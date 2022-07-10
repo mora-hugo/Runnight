@@ -29,30 +29,35 @@ class CraftingTable(pygame.sprite.Sprite):
     def createCollisionBox(self):
 
         inventoryIngredient = self.game.player.inventory["Ingredients"]
+
+        data = self.decor.ingredients        
+
+        for i in data:
+            try:
+                data[i]["quantite"]
+            except:
+                data[i]["quantite"] = 0
+
         
-        data = self.decor.ingredients
         for i in inventoryIngredient:
             for y in data:
                 if i == y:
                     data[y]["quantite"] = inventoryIngredient[i]
-        for y in data:
-            if not "quantite" in data[y].keys():
-                data[y]["quantite"] = 0
 
         
 
         #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+47,self.rect.bottom-135,80,50))
         i = 0
 
-        for rect in data:
+        for ingredient in data:
             
             #pygame.draw.rect(self.game.screen,(255,0,0),(self.rect.left+47+110*rect,self.rect.bottom-65,80,50))
             if i==0:
-                ItemShowcase.ItemShowcase(data[rect], self.rect.left+55, self.rect.bottom-135,self,i,rect)
+                ItemShowcase.ItemShowcase(data[ingredient], self.rect.left+55, self.rect.bottom-135,self,i,ingredient)
             elif i== len(data)-1 and len(data) == 10:
-                ItemShowcase.ItemShowcase(data[rect], self.rect.left+55+110*7, self.rect.bottom-145,self,i,rect)
+                ItemShowcase.ItemShowcase(data[ingredient], self.rect.left+55+110*7, self.rect.bottom-145,self,i,ingredient)
             elif i < 9:
-                ItemShowcase.ItemShowcase(data[rect], self.rect.left-43+110*i, self.rect.bottom-65,self,i,rect)
+                ItemShowcase.ItemShowcase(data[ingredient], self.rect.left-43+110*i, self.rect.bottom-65,self,i,ingredient)
             i+=1
 
 

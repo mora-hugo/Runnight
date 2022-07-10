@@ -25,6 +25,7 @@ class ItemShowcase(pygame.sprite.Sprite):
             self.afficher()
         else:
             self.kill()
+
     def afficherCraftResult(self):
         self.afficher()
         self.craftingTable.game.all_sprites.add(self)
