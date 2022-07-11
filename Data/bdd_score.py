@@ -9,10 +9,10 @@ class BDDSCORE():
 
     def connect(self):
         return psycopg2.connect(
-            host="ec2-52-31-201-170.eu-west-1.compute.amazonaws.com",
-            database="dehn8kd20v1u1v",
-            user="axkjwbjpaqmqzn",
-            password="aaf8ebb7f3941b151a5cc6a5096346f673d8e8ac8c2eae9cf5ca6da04c683f9e",
+            host="ec2-52-214-125-106.eu-west-1.compute.amazonaws.com",
+            database="d1fe8un71f8f8d",
+            user="vhyselefcxxbbo",
+            password="b31c7d1a4832ca2da847f31c0f69e9f18ab13ad935fa8854a021665fc7d77b33",
             port="5432",
             connect_timeout=10
             )
