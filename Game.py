@@ -149,6 +149,8 @@ class Game():  # Design pattern singleton
             self.playground.multiplicateurVitesseCamera = 1
             self.playground.multiplicateurVitesseCameraDefinitif = 1
 
+            self.player.bonusRiding = 0;
+            self.player.hardLandingBonus = 0;
             self.menu.afficher()
             self.planque.cacher()
             self.monster.cacher()
